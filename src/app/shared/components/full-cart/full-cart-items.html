@@ -9,7 +9,7 @@
     <p>{{ errorMessage }}</p>
     <button class="retry-btn" (click)="loadCart()">Try Again</button>
   </div>
-} @else if (!cartItems || cartItems.length<=0) { 
+} @else if ((serverCart?.items?.length ?? 0) === 0) {
   <div class="empty-cart-items-container">
     <img src="./assets/Cart-Items.png" alt="Empty Cart Items" class="cart-items-image">
     <h1 class="cart-items-title">Your shopping cart looks empty</h1>
@@ -17,40 +17,36 @@
     <button class="start-shopping-items-btn" (click)="startShopping()">Start shopping now</button>
   </div>
 } @else {
-  <!-- shared/full-cart/full-cart.component.html -->
   <div class="cart-container">
     <div class="cart-content">
       <!-- Cart Header -->
       <div class="cart-header">
         <h1 class="cart-title">CART</h1>
-        <button class="download-btn" (click)="downloadCart()">
+        <!-- <button class="download-btn" (click)="downloadCart()">
           Download Cart
-        </button>
+        </button> -->
       </div>
 
       <!-- Cart Items -->
-      @if (cartItems.length > 0) {
+      @if ((serverCart?.items?.length ?? 0) > 0) {
         <div class="cart-items">
-          @for (item of cartItems; track item.id; let i = $index) {
+          @for (item of serverCart?.items; track item.cartItemId; let i = $index) {
             <div class="cart-item">
               <div class="item-image">
-                <img [src]="item.imageUrl" [alt]="item.name" />
-                <!-- Discount Badge -->
-                @if (i === 0 || i === 3) {
-                  <div class="discount-badge">
-                    {{ i === 0 ? '25% Off' : '20% Off' }}
-                  </div>
+                <img [src]="item.imageUrls.at(0)" [alt]="item.productName" />
+                @if (item.discount > 0) {
+                  <div class="discount-badge">{{ item.discount }}% Off</div>
                 }
               </div>
 
               <div class="item-details">
-                <h3 class="item-name">{{ item.name }}</h3>
+                <h3 class="item-name">{{ item.productName }}</h3>
 
-                <div class="item-status" [class.ready-to-ship]="item.readyToShip" [class.made-to-order]="!item.readyToShip">
+                <!-- <div class="item-status" [class.ready-to-ship]="item.readyToShip" [class.made-to-order]="!item.readyToShip">
                   <span class="status-text">{{ item.readyToShip ? 'Ready to Ship' : 'Made to Order' }}</span>
-                </div>
+                </div> -->
 
-                <p class="item-dimensions">{{ getItemDimensions(i) }}</p>
+                <p class="item-dimensions">{{ item.dimensionsOrSize }}</p>
 
                 <div class="item-controls">
                   <div class="quantity-section">
@@ -59,12 +55,10 @@
                       <select 
                         id="quantity"
                         class="custom-select"
-                        [(ngModel)]="item.quantity"
+                        [ngModel]="item.quantity"
                         (ngModelChange)="updateQuantity(item, $event)">
                         @for (qty of quantities; track qty) {
-                          <option [value]="qty">
-                            {{ qty }}
-                          </option>
+                          <option [value]="qty">{{ qty }}</option>
                         }
                       </select>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down ms-2 size-4 shrink-0 opacity-50" aria-hidden="true">
@@ -76,14 +70,11 @@
 
                   <div class="price-section">
                     <div class="price-container">
-                      @if (i === 0 || i === 3) {
-                        <span class="original-price">{{ getOriginalPrice(i) }} EGP</span>
-                      }
                       <span class="current-price">{{ item.price * item.quantity | number:'1.0-0' }} EGP</span>
                     </div>
                   </div>
 
-                  <button class="remove-btn" (click)="removeItem(item.id)">
+                  <button class="remove-btn" (click)="removeItem(item)">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <polyline points="3,6 5,6 21,6"></polyline>
                       <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
@@ -98,13 +89,6 @@
           }
         </div>
       }
-
-      <!-- Empty Cart Message -->
-      @if (cartItems.length === 0) {
-        <div class="empty-cart">
-          <p>Your cart is empty</p>
-        </div>
-      }
     </div>
 
     <!-- Cart Summary Sidebar -->
@@ -112,9 +96,9 @@
       <div class="summary-box">
         <h2 class="summary-title">Cart Summary</h2>
 
-        @for (item of cartItems; track item.id) {
+        @for (item of serverCart?.items; track item.cartItemId) {
           <div class="summary-item">
-            <span class="summary-item-name">{{ item.name }}</span>
+            <span class="summary-item-name">{{ item.productName }}</span>
             <span class="summary-item-price">{{ item.price * item.quantity | number:'1.0-0' }} EGP</span>
           </div>
         }
@@ -144,8 +128,7 @@
         <button class="checkout-btn" (click)="proceedToCheckout()">
           Proceed To Checkout
         </button>
-        
-        <!-- Split Delivery Section -->
+
         <div class="split-delivery">
           <p class="split-delivery-text">Want to split your delivery? See more in the next step.</p>
         </div>
