@@ -59,17 +59,54 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.currentUser$.subscribe({
-      next: (user) => {
-        this.currentUser = user;
-        this.isLoaded = true;
-        this.isAuthenticated = this.authService.isAuthenticated();
-        this.cdr.detectChanges();
-      }
+        next: (user) => {
+            this.currentUser = user;
+            this.isLoaded = true;
+            this.isAuthenticated = this.authService.isAuthenticated();
+            this.cdr.detectChanges();
+        }
     });
-
-    this.cartService.refreshCartCount();
+ this.cartService.refreshCartCount();
     this.loadMainCategories();
-  }
+    
+    // إضافة event listeners للعناصر الجديدة
+    setTimeout(() => {
+        const overlay = document.getElementById('overlay');
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                this.hideMobileSidebar();
+            });
+        }
+    }, 0);
+}
+
+  showMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    if (sidebar && overlay) {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+hideMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    if (sidebar && overlay) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+toggleMobileSearch() {
+    const mobileSearch = document.querySelector('.mobile-search-container');
+    if (mobileSearch) {
+        mobileSearch.classList.toggle('active');
+    }
+}
+
 
   loadMainCategories() {
     this.categoryService.getMainCategories().subscribe({
@@ -191,4 +228,6 @@ export class HeaderComponent implements OnInit {
       this.hideTimeout = null;
     }
   }
+
+  
 }
