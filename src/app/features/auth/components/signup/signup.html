@@ -1,0 +1,161 @@
+<div class="signup-container">
+
+
+  <!-- Left Side -->
+  <div class="left-side">
+    <img src="./assets/Background.png" alt="Living Room">
+  </div>
+
+  <!-- Right Side -->
+  <div class="right-side">
+    <h2 class="form-title">Sign up</h2>
+    <p class="signin-text">
+      Already have account? <a routerLink="/login" class="signin-link">Sign in</a>
+    </p>
+
+    <!-- Social Buttons -->
+    <div class="social-buttons">
+      <button class="social-btn google-btn"  (click)="signInWithGoogle()">
+        <img src="./assets/Google.png" alt="Google">
+        <span class="label-text">Continue with Google</span>
+      </button>
+      <button class="social-btn facebook-btn" (click)="signInWithFacebook()">
+        <img src="./assets/Facebook.png" alt="Facebook">
+        <span class="label-text">Continue with Facebook</span>
+      </button>
+    </div>
+
+    <div class="divider">or</div>
+
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+      <div class="input-row">
+        <div>
+          <label class="label-text" for="firstName">First name<span style="color: red;">*</span></label>
+          <input 
+            type="text" 
+            id="firstName" 
+            placeholder="Enter your first name" 
+            formControlName="firstName"
+            [class.error]="firstName.invalid && (firstName.dirty || firstName.touched)"
+          >
+          <div class="error-text" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+            <span *ngIf="firstName.errors?.['required']">First name is required</span>
+            <span *ngIf="firstName.errors?.['maxlength']">First name must not exceed 50 characters</span>
+          </div>
+        </div>
+        <div>
+          <label class="label-text" for="lastName">Last name<span style="color: red;">*</span></label>
+          <input 
+            type="text" 
+            id="lastName" 
+            placeholder="Enter your last name" 
+            formControlName="lastName"
+            [class.error]="lastName.invalid && (lastName.dirty || lastName.touched)"
+          >
+          <div class="error-text" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+            <span *ngIf="lastName.errors?.['required']">Last name is required</span>
+            <span *ngIf="lastName.errors?.['maxlength']">Last name must not exceed 50 characters</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <div>
+          <label class="label-text" for="email">Email address<span style="color: red;">*</span></label>
+          <input 
+            type="email" 
+            id="email" 
+            placeholder="Enter your email address" 
+            formControlName="email"
+            [class.error]="email.invalid && (email.dirty || email.touched)"
+          >
+          <div class="error-text" *ngIf="email.invalid && (email.dirty || email.touched)">
+            <span *ngIf="email.errors?.['required']">Email is required</span>
+            <span *ngIf="email.errors?.['email']">Invalid email format</span>
+          </div>
+        </div>
+        <div>
+          <label class="label-text" for="phoneNumber">Phone number<span style="color: red;">*</span></label>
+          <div class="phone-input">
+            <img src="./assets/Flag.png" alt="Flag">
+            <input 
+              type="tel" 
+              id="phoneNumber" 
+              placeholder="EX: 01001234567" 
+              formControlName="phoneNumber"
+              [class.error]="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
+            >
+          </div>
+          <div class="error-text" *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+            <span *ngIf="phoneNumber.errors?.['required']">Phone number is required</span>
+            <span *ngIf="phoneNumber.errors?.['pattern']">Invalid phone number format</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <div style="position: relative;">
+          <label class="label-text" for="password">Password<span style="color: red;">*</span></label>
+          <input 
+            [type]="showPassword ? 'text' : 'password'" 
+            id="password" 
+            placeholder="Enter your password" 
+            formControlName="password"
+            [class.error]="password.invalid && (password.dirty || password.touched)"
+          >
+          <img 
+            src="./assets/Eye.png" 
+            alt="Toggle Password" 
+            (click)="togglePassword('password')" 
+            style="position: absolute; right: 10px; top: 35px; cursor: pointer;"
+          >
+          <div class="error-text" *ngIf="password.invalid && (password.dirty || password.touched)">
+            <span *ngIf="password.errors?.['required']">Password is required</span>
+            <span *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</span>
+          </div>
+        </div>
+        <div style="position: relative;">
+          <label class="label-text" for="confirmPassword">Confirm password<span style="color: red;">*</span></label>
+          <input 
+            [type]="showConfirmPassword ? 'text' : 'password'" 
+            id="confirmPassword" 
+            placeholder="Confirm password" 
+            formControlName="confirmPassword"
+            [class.error]="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+          >
+          <img 
+            src="./assets/Eye.png" 
+            alt="Toggle Password" 
+            (click)="togglePassword('confirmPassword')" 
+            style="position: absolute; right: 10px; top: 35px; cursor: pointer;"
+          >
+          <div class="error-text" *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+            <span *ngIf="confirmPassword.errors?.['required']">Please confirm your password</span>
+            <span *ngIf="confirmPassword.errors?.['passwordMismatch']">Passwords do not match</span>
+          </div>
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="signup-btn" 
+        [disabled]="signupForm.invalid || isLoading()"
+      >
+        {{ isLoading() ? 'Creating account...' : 'Sign up' }}
+      </button>
+
+      <div class="server-error" *ngIf="errorMessage()">
+        {{ errorMessage() }}
+      </div>
+       <div class="success-message" *ngIf="successMessage()">
+        {{ successMessage() }}
+      </div>
+
+      <div class="server-error" *ngIf="errorMessage()">
+        {{ errorMessage() }}
+      </div>
+    </form>
+        <div id="google-login-button" style="display: none;"></div>
+
+  </div>
+</div>

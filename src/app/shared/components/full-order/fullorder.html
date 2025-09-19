@@ -1,0 +1,186 @@
+<div class="profile-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- User Info -->
+    <div class="user-info">
+      <div class="avatar">
+        <span class="avatar-initial">O</span>
+      </div>
+      <div class="user-details">
+        <h3>Omnya Ahmed</h3>
+        <button class="sign-out-btn" (click)="signOut()">Sign out</button>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+      <a href="#" class="nav-item profile">
+        <span class="icon icon-profile"></span>
+        Profile
+      </a>
+      <a href="#" class="nav-item orders">
+        <span class="icon icon-orders"></span>
+        Orders
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon icon-addresses"></span>
+        Addresses
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon icon-transactions"></span>
+        Projects transactions
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon icon-refer"></span>
+        Refer a friend
+      </a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content-wrapper">
+      <!-- Order History Section -->
+      <div class="orders-section">
+        <h2 class="section-title">Orders </h2>
+        
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+          <button class="tab-button active" (click)="setActiveTab('all')">All </button>
+          <button class="tab-button" (click)="setActiveTab('pending')">Pending </button>
+          <button class="tab-button" (click)="setActiveTab('delivered')">Delivered </button>
+        </div>
+
+        <!-- Orders List -->
+        <div class="orders-list">
+          <!-- Order 1 - Delivered -->
+          <div class="order-card">
+            <div class="order-header">
+              <span class="order-number">Order #1</span>
+              <span class="order-status delivered">Delivered</span>
+            </div>
+            
+            <div class="order-products">
+              <div class="product-item" *ngFor="let product of deliveredOrder.items">
+                <img [src]="product.productImageUrl" [alt]="product.productName" class="product-image">
+                <div class="product-info">
+                  <div class="product-name">{{product.productName}}</div>
+                  <div class="product-quantity">Quantity: {{product.quantity}}</div>
+                  <div class="product-price">Unit Price: {{product.unitPrice | currency:'EGP'}}</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="order-footer">
+              <div class="order-total">
+                Total: {{deliveredOrder.totalAmount | currency:'EGP'}} ({{deliveredOrder.itemCount}} items)
+              </div>
+              <button class="details-button">Details</button>
+            </div>
+          </div>
+
+          <!-- Order 2 - Pending -->
+          <div class="order-card">
+            <div class="order-header">
+              <span class="order-number">Order #2</span>
+              <span class="order-status pending">Pending</span>
+            </div>
+            
+            <div class="order-products">
+              <div class="product-item" *ngFor="let product of pendingOrder.items">
+                <img [src]="product.productImageUrl" [alt]="product.productName" class="product-image">
+                <div class="product-info">
+                  <div class="product-name">{{product.productName}}</div>
+                  <div class="product-quantity">Quantity: {{product.quantity}}</div>
+                  <div class="product-price">Unit Price: {{product.unitPrice | currency:'EGP'}}</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="order-footer">
+              <div class="order-total">
+                Total: {{pendingOrder.totalAmount | currency:'EGP'}} ({{pendingOrder.itemCount}} items)
+              </div>
+              <button class="details-button">Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="order-details-panel" *ngIf="selectedOrder">
+        <h3>Order Details</h3>
+        <div class="details-content">
+          <div class="detail-item">
+            <label>Order Id:</label>
+            <span>{{selectedOrder.id}}</span>
+          </div>
+          <div class="detail-item">
+            <label>Order Date:</label>
+            <span>{{selectedOrder.orderDate | date:'medium'}}</span>
+          </div>
+          <div class="detail-item">
+            <label>Order Status:</label>
+            <span [class]="selectedOrder.status.toLowerCase()">{{selectedOrder.status}}</span>
+          </div>
+          <div class="detail-item">
+            <label>Payment Method:</label>
+            <span>{{selectedOrder.paymentMethod}}</span>
+          </div>
+          <div class="detail-item">
+            <label>Number of Products:</label>
+            <span>{{selectedOrder.itemCount}}</span>
+          </div>
+          <div class="detail-item total">
+            <label>Total Amount:</label>
+            <span>{{selectedOrder.totalAmount | currency:'EGP'}}</span>
+          </div>
+        </div>
+
+        <!-- Product Customization Details -->
+        <div class="product-details" *ngIf="selectedOrder">
+          <h4>Product Customization</h4>
+          
+          <!-- Fabric Options -->
+          <div class="fabric-options">
+            <h5>Fabric:</h5>
+            <div class="options-list">
+              <div class="option-item" 
+                   *ngFor="let fabric of availableFabrics" 
+                   [class.active]="selectedFabric === fabric.id"
+                   (click)="selectFabric(fabric.id)">
+                {{fabric.name}}
+              </div>
+            </div>
+          </div>
+
+          <!-- Wood Options -->
+          <div class="wood-options">
+            <h5>Wood:</h5>
+            <div class="options-list">
+              <div class="option-item" 
+                   *ngFor="let wood of availableWoods" 
+                   [class.active]="selectedWood === wood.id"
+                   (click)="selectWood(wood.id)">
+                {{wood.name}}
+              </div>
+            </div>
+          </div>
+
+          <!-- Color Options -->
+          <div class="color-options">
+            <h5>Color:</h5>
+            <div class="options-list">
+              <div class="color-item" 
+                   *ngFor="let color of availableColors" 
+                   [style.background-color]="color.value"
+                   [class.active]="selectedColor === color.id"
+                   (click)="selectColor(color.id)"
+                   [title]="color.name">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

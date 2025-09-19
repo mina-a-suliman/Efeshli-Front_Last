@@ -1,0 +1,21 @@
+<div class="category-page">
+  <div class="category-header">
+    <h4>{{ categoryName }}</h4>
+    <p class="route-path">{{ currentRoute }}</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <p>جاري تحميل المحتوى...</p>
+  </div>
+
+  <div *ngIf="!isLoading" class="category-grid">
+    <div 
+      class="category-card" 
+      *ngFor="let item of categoryItems"
+      (click)="navigateToSubCategory(item)"
+    >
+      <img [src]="item.imageUrl || 'assets/images/placeholder.jpg'" alt="{{ item.name }}" />
+      <p>{{ item.name }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+  <div class="confirmation-container">
+      <div class="confirmation-card">
+        <div class="confirmation-content">
+          @if (isLoading()) {
+            <div class="loading">
+              <div class="spinner"></div>
+              <p>Confirming your email...</p>
+            </div>
+          }
+
+          @if (!isLoading()) {
+            <div class="result">
+              @if (isSuccess()) {
+                <div class="success">
+                  <div class="icon">✅</div>
+                  <h2>Email Confirmed Successfully!</h2>
+                  <p>{{ message() }}</p>
+                  <button class="btn-primary" (click)="navigateToLogin()">
+                    Continue to Login
+                  </button>
+                </div>
+              } @else {
+                <div class="error">
+                  <div class="icon">❌</div>
+                  <h2>Email Confirmation Failed</h2>
+                  <p>{{ message() }}</p>
+                  
+                  @if (showDebugInfo()) {
+                    <div class="debug-info">
+                      <h3>Debug Information:</h3>
+                      <p><strong>Email:</strong> {{ debugEmail() || 'Not found' }}</p>
+                      <p><strong>Token Present:</strong> {{ debugToken() ? 'Yes' : 'No' }}</p>
+                      <p><strong>Raw URL:</strong> {{ currentUrl() }}</p>
+                      <p><strong>Raw Params:</strong> {{ debugRawParams() }}</p>
+                      <p><strong>Extracted Email:</strong> {{ extractedEmail() }}</p>
+                      <p><strong>Extracted Token:</strong> {{ extractedToken() ? 'Present' : 'Not found' }}</p>
+                    </div>
+                  }
+
+                  <div class="actions">
+                    @if (extractedEmail()) {
+                      <button class="btn-warn" (click)="resendConfirmation()">
+                        Resend Confirmation Email
+                      </button>
+                    }
+                    <button class="btn-secondary" (click)="navigateToLogin()">
+                      Back to Login
+                    </button>
+                    <button class="btn-debug" (click)="toggleDebug()">
+                      {{ showDebugInfo() ? 'Hide' : 'Show' }} Debug Info
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>

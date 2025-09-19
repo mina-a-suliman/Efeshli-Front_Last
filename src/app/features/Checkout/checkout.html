@@ -1,0 +1,175 @@
+<div class="checkout-container">
+  <div class="checkout-form">
+    <h2>Checkout</h2>
+
+    <!-- Contact Information -->
+    <div class="section">
+      <h3>Contact Information</h3>
+      <input type="email" placeholder="ahmedalisaied22@gmail.com" class="input-field" readonly disabled>
+    </div>
+
+    <!-- Delivery -->
+    <div class="section">
+      <h3>Delivery</h3>
+      <div *ngIf="!showEditAddress" class="radio-group">
+        <div class="text">
+          <input type="radio" id="existing-address" name="delivery" checked>
+          <label for="existing-address">{{ selectedGovernorate }}, {{ selectedArea }}, qena</label>
+        </div>
+        <p href="#" class="edit-link" (click)="toggleEditAddress()">Edit</p>
+      </div>
+      <div *ngIf="showEditAddress" class="add-address-form">
+        <input type="text" placeholder="Enter your street address" [(ngModel)]="streetAddress" class="input-field">
+        <select [(ngModel)]="selectedGovernorate" (change)="onGovernorateChange($event)" class="select-field">
+          <option *ngFor="let gov of governorates" [value]="gov">{{ gov }}</option>
+        </select>
+        <select [(ngModel)]="selectedArea" class="select-field">
+          <option *ngFor="let area of areas[selectedGovernorate]" [value]="area">{{ area }}</option>
+        </select>
+        <select [(ngModel)]="floorNumber" class="select-field">
+          <option *ngFor="let floor of floorNumbers" [value]="floor">{{ floor }}</option>
+        </select>
+        <input type="text" placeholder="EX: 01001234567" [(ngModel)]="phoneNumber" class="input-field">
+        <div class="button-group">
+          <button class="save-btn" (click)="saveAddress()">Save Changes</button>
+          <button class="cancel-btn" (click)="cancelAddress()">Cancel</button>
+        </div>
+      </div>
+      <button *ngIf="!showEditAddress" class="add-address-btn" (click)="addNewAddress()">+ Add New Address</button>
+    </div>
+
+    <!-- Other -->
+    <div class="section">
+      <h3>Other</h3>
+      <div class="checkbox-group">
+        <input type="checkbox" id="checkout-company" (change)="toggleCompanyCheckout()">
+        <label for="checkout-company"> Checkout as a Company</label>
+        <input *ngIf="checkoutAsCompany" type="text" placeholder="Enter your tax number" class="input-field">
+      </div>
+      <div class="split-order">
+        <p>Would you like our team to contact you about splitting your order for faster delivery?</p>
+        <div class="radio-group">
+          <input type="radio" id="split-yes" name="split-order">
+          <label for="split-yes">Yes, contact me about order splitting.</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="section">
+      <h3>Payment Method</h3>
+      <div class="radio-group">
+        <div class="text">
+          <input type="radio" id="credit-card" name="payment" [(ngModel)]="paymentMethod" value="credit-card" checked>
+          <label for="credit-card">Credit Card</label>
+        </div>
+        <img src="https://efreshli.com/separator/images/payment-methods/credit.avif" alt="">
+      </div>
+      <div class="radio-group">
+        <div class="text">
+          <input type="radio" id="bank-transfer" name="payment" [(ngModel)]="paymentMethod" value="bank-transfer">
+          <label for="bank-transfer">Bank Transfer</label>
+        </div>
+        <img src="https://efreshli.com/separator/images/payment-methods/bank-transfer.avif" alt="">
+      </div>
+      <div class="radio-group">
+        <div class="text dis-input">
+          <input type="radio" id="cash-delivery" name="payment" [(ngModel)]="paymentMethod" value="cash-delivery"
+            disabled>
+          <label for="cash-delivery">Cash on Delivery (up to 10,000 EGP)</label>
+        </div>
+        <span>Max 10,000 <sup>EGP</sup></span>
+      </div>
+      <div class="radio-group">
+        <div class="text">
+          <input type="radio" id="installments-valu" name="payment" [(ngModel)]="paymentMethod"
+            value="installments-valu">
+          <label for="installments-valu">Pay in installments with ValU</label>
+        </div>
+        <img src="https://efreshli.com/separator/images/payment-methods/valu.avif" alt="">
+      </div>
+      <div class="radio-group">
+        <div class="text">
+          <input type="radio" id="installments-souhoola" name="payment" [(ngModel)]="paymentMethod"
+            value="installments-souhoola">
+          <label for="installments-souhoola">Pay in installments with Souhoola</label>
+        </div>
+        <img src="https://efreshli.com/separator/images/payment-methods/souhoola.avif" alt="">
+      </div>
+      <div class="payment-installment">
+        <input type="radio" id="bank-installments" name="payment" [(ngModel)]="paymentMethod" value="bank-installments">
+        <label for="bank-installments" class="installment-trigger" (click)="toggleInstallmentDropdown()">Bank
+          Installments</label>
+        <div class="installment-dropdown" *ngIf="showInstallmentDropdown">
+          <div class="dropdown-item" *ngFor="let plan of bankInstallmentPlans" (click)="selectInstallmentPlan(plan)">
+            {{ plan }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leave Comment -->
+    <div class="section">
+      <a href="#" class="comment-link" (click)="openCommentPopup($event)">Leave comment on your order</a>
+    </div>
+
+    <!-- Comment Popup -->
+    <div *ngIf="showCommentPopup" class="comment-popup">
+      <h3>Leave comment on your order</h3>
+      <textarea [(ngModel)]="comment" placeholder="Leave comment on your order" class="textarea-field"></textarea>
+      <div class="button-group-comment">
+        <button class="save-btn" (click)="saveComment()">Save</button>
+        <button class="cancel-btn" (click)="cancelComment()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Summary -->
+  <div class="order-summary">
+    <div class="cart-item" *ngFor="let item of cartItems">
+      <img [src]="item.productImageUrl" alt="{{ item.productName }}" class="product-image">
+      <div class="item-details">
+        <p>{{ item.productName }}</p>
+        <h6>{{ item.price }} <sup>EGP</sup></h6>
+      </div>
+      <span *ngIf="item.dimensionsOrSize" class="item-size">{{ item.dimensionsOrSize }}</span>
+    </div>
+    <div class="promo-section">
+      <input type="text" placeholder="Add Promo code / gift card" class="input-field promo-input">
+      <button class="apply-btn">Apply</button>
+    </div>
+    <div class="summary-line">
+      <p>Subtotal</p>
+      <p>{{ orderCheckoutPreview.subTotalPrice }} <sup>EGP</sup></p>
+    </div>
+    <div class="summary-line">
+      <p>Tax 14%</p>
+      <p>{{ tax }}</p>
+    </div>
+    <div class="colored">
+      <!-- <div class="summary-line shipping-info">
+        <p>Shipping Info</p>
+      </div> -->
+      <!-- <div class="summary-line">
+        <p>(2 item) Furniture</p>
+        <p>{{ shippingFurniture }} <sup>EGP</sup></p>
+      </div>
+      <div class="summary-line">
+        <p>(1 item) Appliance</p>
+        <p>{{ shippingAppliance }} <sup>EGP</sup></p>
+      </div> -->
+      <div class="summary-line">
+        <p class="price">Shipping</p>
+        <p>{{ orderCheckoutPreview.shippingPrice }} <sup>EGP</sup></p>
+      </div>
+    </div>
+    <div class="summary-line delivery-estimate">
+      <p><span class="delivery-estimate-text"> Estimated delivery: </span>{{ orderCheckoutPreview.estimatedDeliveryDate | date: 'EEEE, MMM d, y' }}</p>
+    </div>
+    <div class="summary-line">
+      <p class="total-line">Total</p>
+      <p class="total-line">{{ orderCheckoutPreview.totalPrice }} <sup>EGP</sup></p>
+    </div>
+    <button class="confirm-btn" (click)="confirmOrder()">Confirm your order</button>
+  </div>
+</div>

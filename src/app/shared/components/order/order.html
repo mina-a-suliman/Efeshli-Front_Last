@@ -1,0 +1,65 @@
+<div class="profile-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- User Info -->
+    <div class="user-info">
+      <div class="avatar">
+        <span class="avatar-initial">O</span>
+      </div>
+      <div class="user-details">
+        <h3>Omnya Ahmed</h3>
+        <button class="sign-out-btn" (click)="signOut()">Sign out</button>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+     <nav class="nav-menu">       
+      <a routerLink="/profile" class="nav-item active">         
+        <i class="icon icon-profile"></i>         
+        <span>Profile</span>       
+      </a>       
+      <a routerLink="/orders" class="nav-item">         
+        <i class="icon icon-orders"></i>         
+        <span>Orders</span>       
+      </a>       
+      <a routerLink="/address" class="nav-item">         
+        <i class="icon icon-addresses"></i>         
+        <span>Addresses</span>       
+      </a>       
+      <a  class="nav-item">         
+        <i class="icon icon-transactions"></i>         
+        <span>Projects transactions</span>       
+      </a>       
+      <a  class="nav-item">         
+        <i class="icon icon-refer"></i>         
+        <span>Refer a friend</span>       
+      </a>     
+    </nav> 
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="orders-content">
+      <h1 class="page-title">Orders</h1>
+      
+      <!-- Empty State -->
+      <div class="empty-state">
+        <!-- Empty Orders Image -->
+        <div class="empty-orders-image">
+          <img src="./assets/Cart-Items.png" alt="No Orders" />
+        </div>
+
+        <!-- Text Content -->
+        <div class="empty-text">
+          <h2 class="main-text">You Don't Have Any Orders Yet</h2>
+          <p class="sub-text">What Are You Waiting For?</p>
+        </div>
+
+        <!-- Start Shopping Button -->
+        <button class="start-shopping-btn" (click)="startShopping()">
+          Start Shopping Now
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
