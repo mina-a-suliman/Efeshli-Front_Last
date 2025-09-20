@@ -2,10 +2,16 @@
 export const environment = {
   production: false,
 
+
+  // apiUrl: 'https://efreshliapi.runasp.net/api',
+  // apiUrl: 'https://localhost:5104/api',
+//   apiUrl: 'http://efreshli.runasp.net/api',
+
  apiUrl: 'http://efreshli.runasp.net/api',  // Mina Host
 
   // apiUrl: 'http://localhost:5104/api',      // Localhost
   // apiUrl: 'https://efreshliapi.runasp.net/api', // Aya Host
+
 
 
   stripePublicKey: 'pk_test_51S7COpIZOEb85oX1aEwyJ52ZI393EuHmtfquCDPJlGb6CZb5qvEFJfRVzAfDnyAYiWia23ClO0kutpKuVczFNBSt00HXzvOPjp',
