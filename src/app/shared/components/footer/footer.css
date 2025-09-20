@@ -110,7 +110,7 @@
   width: 100%;
 }
 
-@media (max-width: 992px) {
+/* @media (max-width: 992px) {
   .footer-container {
     flex-direction: column;
   }
@@ -126,6 +126,72 @@
 
   .footer-description {
     max-width: 100%;
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .footer-container {
+    max-width: 960px;
+  }
+} */
+
+
+@media (max-width: 992px) {
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* اللوجو */
+  .footer-logo {
+    margin-bottom: 1rem;
+  }
+
+  /* الوصف */
+  .footer-description {
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  /* طرق الدفع */
+  .payment-methods {
+    justify-content: center;
+    margin: 1rem 0;
+  }
+
+  /* القوائم → اتنين فوق والتالتة تحت */
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+    margin: 1.5rem 0;
+  }
+
+  .footer-links .footer-col {
+    width: 100%;
+  }
+
+  .footer-links .footer-col:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  /* السوشيال ميديا */
+  .social-icons {
+    justify-content: center;
+    margin: 1rem 0;
+  }
+
+  /* اللغة */
+  .language-selector {
+    justify-content: center;
+    margin: 1rem 0;
+  }
+
+  /* الحقوق */
+  .copyright {
+    margin-top: 1rem;
+    font-size: 0.9rem;
   }
 }
 

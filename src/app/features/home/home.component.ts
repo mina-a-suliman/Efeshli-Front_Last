@@ -70,28 +70,34 @@ isAdLoading: boolean = true;
     this.loadOutdoorProducts();
     this.loadRugsProducts();
     this.loadRoomProducts(); // تحميل منتجات الغرف
-    this.loadAdData();
+    // this.loadAdData();
   }
+
+  // ngAfterViewInit() {
+  //   // سيتم استدعاء setupCarousel بعد تحميل البيانات
+  // }
 
   ngAfterViewInit() {
-    // سيتم استدعاء setupCarousel بعد تحميل البيانات
+    this.slideWidth = this.carouselSlides.nativeElement.clientWidth / 5; // 5 slides visible
+    this.totalSlides = this.carouselSlides.nativeElement.children.length;
+    this.updateSlidePosition();
+    this.updateButtonVisibility();
   }
 
-
-  loadAdData(): void {
-  this.adService.getAdData(119).subscribe({
-    next: (response) => {
-      if (response.succeeded && response.data.items.length > 0) {
-        this.adProduct = response.data.items[0];
-      }
-      this.isAdLoading = false;
-    },
-    error: (err) => {
-      console.error('Error fetching ad data:', err);
-      this.isAdLoading = false;
-    }
-  });
-}
+//   loadAdData(): void {
+//   this.adService.getAdData(119).subscribe({
+//     next: (response) => {
+//       if (response.succeeded && response.data.items.length > 0) {
+//         this.adProduct = response.data.items[0];
+//       }
+//       this.isAdLoading = false;
+//     },
+//     error: (err) => {
+//       console.error('Error fetching ad data:', err);
+//       this.isAdLoading = false;
+//     }
+//   });
+// }
 
   loadBrands(): void {
     this.brandService.getAllBrands().subscribe({
@@ -239,8 +245,8 @@ isAdLoading: boolean = true;
     }
   }
 
-  getShortDescription(description: string): string {
-    const words = description.split(' ');
-    return words.slice(0, 3).join(' ') + (words.length > 3 ? '...' : '');
-  }
+  // getShortDescription(description: string): string {
+  //   const words = description.split(' ');
+  //   return words.slice(0, 3).join(' ') + (words.length > 3 ? '...' : '');
+  // }
 }
