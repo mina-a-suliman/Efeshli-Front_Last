@@ -1,19 +1,22 @@
 // Updated product-detail-page.component.ts
 
 import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgIf, NgFor, TitleCasePipe, KeyValuePipe, CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, signal, computed, DestroyRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal, computed, DestroyRef, inject, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { switchMap, map, of } from 'rxjs';
+import { switchMap, map, of, Observable } from 'rxjs';
 import { ProductService } from '../../../../core/services/product.service';
 import { Iproduct } from '../../../../core/models/product.model';
+import { ProductHeartButtonComponent } from "../../../product-heart-button/product-heart-button";
+import { WishlistService } from '../../../../core/services/Wishlist.service';
+import { WishlistDropdownComponent } from '../../../wishlist/wishlist-dropdown.component';
 
 @Component({
   selector: 'app-product-detail-page',
   standalone: true,
   templateUrl: './product-details.html',
   styleUrls: ['./product-details.css'],
-  imports: [RouterLink, CurrencyPipe, DatePipe, KeyValuePipe, CommonModule, NgIf, NgFor],
+  imports: [RouterLink, CurrencyPipe, DatePipe, KeyValuePipe,WishlistDropdownComponent, CommonModule, NgIf, NgFor, ProductHeartButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductDetailPageComponent implements OnInit {
@@ -21,6 +24,18 @@ export class ProductDetailPageComponent implements OnInit {
   private router = inject(Router);
   private productService = inject(ProductService);
   private destroyRef = inject(DestroyRef);
+  private wishlistService = inject(WishlistService);
+onWishlistChanged(event: {productId: number, inWishlist: boolean}): void {  // ✅ اسم صحيح
+    console.log('Wishlist status changed:', event);
+    
+    const currentProduct = this.product();
+    if (currentProduct && currentProduct.productId === event.productId) {
+      // ✅ تحديث حالة المنتج محلياً
+      this.product.update(prod => 
+        prod ? { ...prod, isWishlisted: event.inWishlist } : prod
+      );
+    }
+  }
 
   // Reactive signals for state management
   product = signal<Iproduct | undefined>(undefined);
@@ -28,6 +43,9 @@ export class ProductDetailPageComponent implements OnInit {
   error = signal<string | null>(null);
   selectedImageIndex = signal(0);
   quantity = signal(1);
+isInWishlistSignal = signal<boolean>(false);
+  wishlistStatusLoaded = signal<boolean>(false);
+  showWishlistDropdown = signal<boolean>(false);
 
   // Selection state for options (will be populated from API data)
   selectedFabricIndex = signal<number>(0);
@@ -85,7 +103,8 @@ export class ProductDetailPageComponent implements OnInit {
         this.isLoading.set(true);
         this.error.set(null);
         this.product.set(undefined);
-        
+        this.isInWishlistSignal.set(false);
+        this.wishlistStatusLoaded.set(false);
         if (id) {
           // Handle ID-based routing
           return this.productService.getById(Number(id));
@@ -108,6 +127,8 @@ export class ProductDetailPageComponent implements OnInit {
           this.selectedWoodIndex.set(0);
           this.selectedColorIndex.set(0);
           this.quantity.set(1);
+          this.loadWishlistStatus(product.productId);
+
         } else {
           this.error.set('Product not found');
         }
@@ -120,6 +141,29 @@ export class ProductDetailPageComponent implements OnInit {
       }
     });
   }
+private loadWishlistStatus(productId: number) {
+    if (this.wishlistStatusLoaded()) return;
+    
+    this.wishlistService.getWishlistsDropdown(productId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response) => {
+          if (response.succeeded && response.data) {
+            const isInWishlist = response.data.some(w => w.isInWishlist);
+            this.isInWishlistSignal.set(isInWishlist);
+            console.log('Wishlist status loaded:', isInWishlist);
+          }
+          else {
+          this.isInWishlistSignal.set(false);
+        }
+          this.wishlistStatusLoaded.set(true);
+        },
+        error: (error) => {
+          console.error('Error loading wishlist status:', error);
+          this.wishlistStatusLoaded.set(true);
+        }
+      });
+  }
 
   // Image navigation methods
   selectImage(index: number) {
@@ -128,7 +172,26 @@ export class ProductDetailPageComponent implements OnInit {
       this.selectedImageIndex.set(index);
     }
   }
+isInWishlist(): boolean {
+      return this.isInWishlistSignal();
 
+}
+shouldShowHeartButton = computed(() => {
+  return this.product()?.productId && this.wishlistStatusLoaded();
+});
+onWishlistToggled(event: {productId: number, added: boolean}): void {
+    console.log('Wishlist status changed:', event);
+    
+    const currentProduct = this.product();
+    if (currentProduct && currentProduct.productId === event.productId) {
+      this.isInWishlistSignal.set(event.added);
+      
+      // Update product signal if needed
+      this.product.update(prod => 
+        prod ? { ...prod, isWishlisted: event.added } : prod
+      );
+    }
+  }
   nextImage(): void {
     const prod = this.product();
     if (!prod?.images || prod.images.length <= 1) return;
@@ -279,4 +342,56 @@ export class ProductDetailPageComponent implements OnInit {
   goBack() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
+  hasSpecifications(): boolean {
+  const prod = this.product();
+  if (!prod) return false;
+  
+  return !!(
+    (prod.productSpecification && prod.productSpecification.length > 0) ||
+    prod.dimensionsOrSize ||
+    prod.brand ||
+    prod.sku
+  );
+}
+onHeartButtonClick(event: Event): void {
+  event.stopPropagation(); // ✅ منع انتشار الحدث
+  console.log('Heart button clicked');
+  
+  const isCurrentlyVisible = this.showWishlistDropdown();
+  this.showWishlistDropdown.set(!isCurrentlyVisible);
+  
+  // ✅ إذا الـ dropdown مفتوح ومفيش داتا، حمّل الداتا
+  if (!isCurrentlyVisible && this.product()?.productId) {
+    this.loadWishlistData();
+  }
+}
+private loadWishlistData(): void {
+  const productId = this.product()?.productId;
+  if (!productId) return;
+  
+  console.log('Loading wishlist data for product:', productId);
+  // This will trigger the dropdown component to load its data
+}
+  // ✅ Add method to close dropdown
+  onDropdownClose(): void {
+    console.log('Dropdown closed');
+    this.showWishlistDropdown.set(false);
+  }
+
+@HostListener('document:click', ['$event'])
+onDocumentClick(event: Event): void {
+  if (this.showWishlistDropdown()) {
+    const target = event.target as HTMLElement;
+    
+    // ✅ تحقق إن الضغطة مش جوا الـ heart container
+    const heartContainer = target.closest('.heart-button-container');
+    const dropdown = target.closest('.wishlist-dropdown');
+    
+    // إذا الضغطة خارج الـ container والـ dropdown، أقفل
+    if (!heartContainer && !dropdown) {
+      console.log('Click outside - closing dropdown');
+      this.showWishlistDropdown.set(false);
+    }
+  }
+}
 }

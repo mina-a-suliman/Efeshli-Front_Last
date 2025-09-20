@@ -229,5 +229,5 @@ toggleMobileSearch() {
     }
   }
 
-  
+
 }

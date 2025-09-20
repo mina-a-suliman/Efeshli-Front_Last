@@ -956,3 +956,36 @@
     padding: 0.2rem 0.3rem;
   }
 }
+/* Add this to your product-details.css */
+
+.wishlist-heart-btn {
+  /* Position it within the quantity controls */
+  margin-left: 8px;
+}
+
+/* If you need to override the heart button styles for this context */
+.quantity-controls .wishlist-heart-btn .heart-button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-controls .wishlist-heart-btn .heart-button:hover {
+  border-color: #ed1c23;
+  background: #fef7f7;
+}
+
+.quantity-controls .wishlist-heart-btn .heart-button.active {
+  background: #ed1c23;
+  border-color: #ed1c23;
+}
+
+.quantity-controls .wishlist-heart-btn .heart-button.active svg path {
+  fill: white !important;
+  stroke: white !important;
+}

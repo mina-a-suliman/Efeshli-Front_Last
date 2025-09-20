@@ -1,5 +1,15 @@
-
-.body{
+/* .body{
       font-family: var(--font-averta);
     font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+} */
+
+@import url(https://db.onlinewebfonts.com/c/f036e81e6040acc6b43aabc036862d21?family=Averta);
+@font-face {
+    font-family: "Averta";
+    src: url("https://db.onlinewebfonts.com/t/f036e81e6040acc6b43aabc036862d21.eot");
+    src: url("https://db.onlinewebfonts.com/t/f036e81e6040acc6b43aabc036862d21.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/f036e81e6040acc6b43aabc036862d21.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/f036e81e6040acc6b43aabc036862d21.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/f036e81e6040acc6b43aabc036862d21.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/f036e81e6040acc6b43aabc036862d21.svg#Averta")format("svg");
 }

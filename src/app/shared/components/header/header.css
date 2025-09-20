@@ -432,6 +432,314 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* تحسينات للاستجابة على الهواتف */
+@media (max-width: 768px) {
+    .header-container .top-bar {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .mobile-search-toggle {
+        display: block;
+    }
+    
+    .header-container .search-container {
+        display: none;
+    }
+    
+    .header-container .navigation {
+        display: none;
+    }
+    
+    .header-container .header-content {
+        flex-wrap: nowrap;
+    }
+    
+    .header-container .logo {
+        flex: 1;
+        justify-content: center;
+    }
+    
+    .header-container .header-actions {
+        gap: 12px;
+    }
+    
+    .header-container .action-button span {
+        display: none;
+    }
+    
+    .header-container .btn-group .dropdown-toggle span {
+        display: none;
+    }
+    
+    .mobile-search-container.active {
+        display: block;
+    }
+}
+
+/* ضبط خاص للموبايلات بعرض 412px زي Samsung Galaxy S20 Ultra */
+@media (max-width: 430px) {
+    .header-container {
+        width: 100%;
+    }
+
+    .header-container .main-header {
+        padding: 12px 16px;
+    }
+
+    .header-container .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header-container .logo {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .header-container .header-actions {
+        gap: 12px;
+        display: flex;
+        align-items: center;
+    }
+
+    .header-container .action-button {
+        padding: 6px;
+    }
+
+    .mobile-search-toggle {
+        display: block;
+        font-size: 20px;
+    }
+
+    .mobile-sidebar {
+        width: 100%; /* يغطي الشاشة كلها */
+        right: -100%;
+    }
+
+    .mobile-sidebar.active {
+        right: 0;
+    }
+
+    .mobile-search-row .search-box {
+        height: 50px;
+        padding: 0 12px;
+    }
+
+    .mobile-search-row .search-input {
+        font-size: 15px;
+    }
+
+    .mobile-tabs-row {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .mobile-tab-button {
+        font-size: 15px;
+        padding: 10px 0;
+    }
+}
+
+.header-container .category-card a:hover {
+  color: #dc2626;
+
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Top Bar Styles */
+
+/* Mobile Top Row */
+.mobile-top-row {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mobile-menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+  height: 2px;
+  width: 100%;
+  background-color: #000;
+  border-radius: 2px;
+}
+
+.mobile-cart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile Search Row */
+.mobile-search-row {
+  display: none;
+  padding: 12px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mobile-search-row .search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  padding: 0 16px;
+  height: 45px;
+}
+
+.mobile-search-row .search-icon {
+  color: #000;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.mobile-search-row .search-input {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 16px;
+  color: #374151;
+  width: 100%;
+}
+
+.mobile-search-row .search-input::placeholder {
+  color: #9ca3af;
+}
+
+.mobile-search-row .search-box:hover {
+  border: 1px solid #dc2626;
+}
+
+/* Mobile Tabs Row */
+.mobile-tabs-row {
+  display: none;
+  background-color: #F4F4F4;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mobile-tab-button {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+}
+
+.mobile-tab-button.active {
+  color: rgb(197, 4, 2);
+  font-weight: 600;
+  border-bottom: 2px solid rgb(197, 4, 2);
+}
+
+/* إخفاء العناصر الخاصة بالشاشات الكبيرة على الهواتف */
+@media (max-width: 768px) {
+  .top-bar,
+  .main-header,
+  .navigation {
+    display: none;
+  }
+  
+  .mobile-top-row,
+  .mobile-search-row,
+  .mobile-tabs-row {
+    display: flex;
+  }
+}
+
+/* Mobile Sidebar */
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 1001;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  transition: right 0.3s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.mobile-sidebar.active {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.close-sidebar {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.mobile-nav-item {
+  display: block;
+  padding: 12px 0;
+  font-size: 18px;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #f4f4f4;
+  cursor: pointer;
+}
+
+.mobile-nav-item.special {
+  color: #dc2626;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.overlay.active {
+  display: block;
+}
+
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -529,3 +837,4 @@
 
 
 /* إضافة أنماط للهواتف */
+
