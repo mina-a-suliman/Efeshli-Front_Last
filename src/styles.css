@@ -7,8 +7,10 @@
     box-sizing: border-box;
 }
 
-body{
-    padding: 0 20px;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  padding: 0 20px;
 }
 @font-face {
     font-family: "Averta-Bold";

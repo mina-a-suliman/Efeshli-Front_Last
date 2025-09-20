@@ -13,6 +13,7 @@ import { LoginComponent } from './features/auth/components/login/login';
 import { authGuard } from './core/guards/auth-guard';
 import { reverseAuthGuard } from './core/guards/reverse-auth-guard';
 import { CheckoutComponent } from './features/Checkout/checkout';
+import { ProductListComponent } from './features/products/components/product-list/product-list';
 
 export const routes: Routes = [
   // 🔹 Auth
@@ -84,6 +85,7 @@ export const routes: Routes = [
   // 🔹 Products
   { path: 'product-details/:id', component: ProductDetailPageComponent },
   { path: 'product-details', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'products', component: ProductListComponent },
   { path: 'category/:category', component: CategoryComponent },
 
   // 🔹 Wishlist

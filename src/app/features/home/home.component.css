@@ -96,6 +96,11 @@
   font-weight: 600;
   margin: 0;
   color: white;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* يخليه سطر واحد */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* يحط ... لو في زيادة */
 }
 
 .carousel-subtitle {
@@ -217,9 +222,10 @@
 
 /* Product Grid Styles */
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 3rem;
   padding: 0 2rem;
 }
 
@@ -228,6 +234,39 @@
   overflow: hidden;
   cursor: pointer;
   margin-left: -30px;
+}
+
+.product-card.outdoor,
+.product-card.rugs {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  overflow: hidden;
+  cursor: pointer;
+  width: 250px;
+  margin-left: -30px;
+}
+
+.product-card.outdoor img,
+.product-card.rugs img {
+  width: 100%;
+  height: 0px;
+  object-fit: cover;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.product-card.outdoor .product-title,
+.product-card.rugs .product-title {
+  font-size: 1.1rem;
+  color: #000;
+  line-height: 1.4;
+  margin: 0 1rem 0.5rem 1rem;
+   display: -webkit-box;
+  -webkit-line-clamp: 1; /* يخليه سطر واحد */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* يحط ... لو في زيادة */
 }
 
 .product-card img {
@@ -585,7 +624,7 @@ sup {
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
+/* @media (max-width: 1200px) {
   .uplift-content,
   .room-content,
   .collections-content {
@@ -693,6 +732,216 @@ sup {
   .carousel-title {
     font-size: 1rem;
   }
+} */
+
+
+/* Large Screens */
+@media (max-width: 1200px) {
+  .uplift-content,
+  .room-content,
+  .collections-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .uplift-text,
+  .room-text,
+  .collections-text {
+    padding-right: 0;
+  }
+  
+  .uplift-cards,
+  .room-cards,
+  .collections-cards {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: left;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  .ads-title {
+    font-size: 2rem;
+  }
+  
+  .ads-subtitle {
+    font-size: 1rem;
+  }
+  
+  .subscribe-form {
+    flex-direction: column;
+  }
+  
+  .designer-title {
+    font-size: 2rem;
+  }
+  
+  .uplift-title,
+  .room-title,
+  .collections-title {
+    font-size: 2rem;
+  }
+  
+  .carousel-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobiles (Samsung Galaxy S20 Ultra and similar, max 430px) */
+@media (max-width: 430px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .ads-title {
+    font-size: 1.5rem;
+  }
+
+  .ads-subtitle {
+    font-size: 1rem;
+    width: 100%;
+    margin: 10px auto;
+  }
+
+  .ads-button {
+    padding: 0.75rem 6rem;
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    
+  }
+  
+  .designer-title {
+    font-size: 1.75rem;
+  }
+
+  .designer-button {
+    padding: 0.6rem 6rem;
+    font-size: 1rem;
+  }
+  
+  .uplift-title,
+  .room-title,
+  .collections-title {
+    font-size: 1.75rem;
+  }
+
+  /* تحويل الأقسام (النص فوق والصور تحت) */
+  .uplift-content,
+  .room-content,
+  .collections-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .uplift-text,
+  .room-text,
+  .collections-text {
+    margin-bottom: 1rem;
+    padding: 0;
+  }
+
+  /* أي grid يتحول لسكرول أفقي بعنصرين */
+  .product-grid,
+  .summer-grid,
+  .style-grid,
+  .color-grid,
+  .brand-grid,
+  .uplift-cards,
+  .room-cards,
+  .collections-cards {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .product-card,
+  .summer-card,
+  .style-card,
+  .color-card,
+  .brand-card,
+  .uplift-card,
+  .room-card,
+  .collection-card {
+    flex: 0 0 calc(50% - 0.5rem);
+    scroll-snap-align: start;
+  }
+
+  /* الصور تبقى مربعات */
+  .product-card img,
+  .summer-card img,
+  .style-card img,
+  .color-card img,
+  .brand-card img,
+  .uplift-card img,
+  .room-card img,
+  .collection-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  /* الكاروسيل يظهر عنصرين بس */
+  .carousel-slides {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .carousel-slide {
+    flex: 0 0 calc(50% - 0.5rem);
+    scroll-snap-align: start;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  /* اخفاء شريط السكرول */
+  .product-grid::-webkit-scrollbar,
+  .summer-grid::-webkit-scrollbar,
+  .style-grid::-webkit-scrollbar,
+  .color-grid::-webkit-scrollbar,
+  .brand-grid::-webkit-scrollbar,
+  .uplift-cards::-webkit-scrollbar,
+  .room-cards::-webkit-scrollbar,
+  .collections-cards::-webkit-scrollbar,
+  .carousel-slides::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-title {
+    font-size: 1rem;
+  }
+
+  .subscribe-text {
+    font-size: 1rem;
+    min-width: 100%;
+  }
 }
 
 /* Animation for smooth entrance */
@@ -759,7 +1008,7 @@ sup {
   color: #666;
 }
 
-.product-grid {
+/* .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
@@ -797,4 +1046,4 @@ sup {
   padding: 0 10px 10px;
   color: #000;
   font-weight: bold;
-}
+} */
