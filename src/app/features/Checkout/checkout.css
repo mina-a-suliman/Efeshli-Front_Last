@@ -269,8 +269,15 @@ h3 {
   width: 32%;
   margin: 0 60px;
   position: relative;
-}
+    
 
+
+}
+.productDisplay{
+  height: 300px;
+  overflow-y: scroll;
+   overflow-x: hidden; /* يخفي التمرير الأفقي */
+}
 .cart-item {
   width: 100%;
   display: flex;
@@ -437,3 +444,12 @@ h3 {
   padding: 0;
 }
 
+
+
+
+.ellipsis {
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;    /* Hide the overflowed text */
+  text-overflow: ellipsis; /* Show ellipsis for overflow */
+  width: 75%; /* Set the desired width */
+}

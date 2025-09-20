@@ -17,7 +17,7 @@ import { WishlistComponent } from './features/wishlist/wishlist.component';
 // 🔹 Shared Components
 import { FullCartItemsComponent } from './shared/components/full-cart/full-cart-items';
 import { ProfileComponent } from './shared/components/profile/profile';
-import { AddressesComponent } from './shared/components/addresses/addresses';
+// import { AddressesComponent } from './shared/components/addresses/addresses';
 import { HeaderComponent } from "./shared/components/header/header";
 import { FooterComponent } from "./shared/components/footer/footer";
 
@@ -42,7 +42,7 @@ import { FooterComponent } from "./shared/components/footer/footer";
     // Shared
     FullCartItemsComponent,
     ProfileComponent,
-    AddressesComponent,
+    // AddressesComponent,
     HeaderComponent,
     FooterComponent,
   ],

@@ -49,7 +49,7 @@ export interface ProfileData {
 
 export interface Address {
   addressId: number;
-  applicationUserId: string;
+  // applicationUserId: string;
   location: string;
   area: string;
   fullAddress: string;
