@@ -59,7 +59,9 @@
 }
 
 .cart-container {
+  border-top: 1px solid #e9ecef;
   display: flex;
+  /* margin-top: ; */
   min-height: 100vh;
   background-color: #ffffff;
   font-family: 'Arial', sans-serif;
@@ -67,7 +69,9 @@
 
 .cart-content {
   flex: 1;
-  padding: 2rem;
+  margin-top: 20px;
+  align-items: center;
+  /* padding: 2rem; */
   max-width: calc(100% - 420px); /* تعديل العرض ليتوافق مع زيادة عرض cart-summary */
   background-color: white;
 }
@@ -76,13 +80,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   padding-bottom: 1rem;
   border-bottom: 1px solid #e9ecef;
 }
 
 .cart-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: #212529;
   margin: 0;
@@ -90,41 +94,54 @@
 
 .download-btn {
   background-color: transparent;
-  border: 2px solid #dc3545;
-  color: #dc3545;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 500;
+  border: 1px solid #c40101;
+  color: #c40101;
+  padding: 0.5rem 1.3rem;
+  border-radius: 12px;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .download-btn:hover {
-  background-color: #dc3545;
-  color: white;
-}
-
-.cart-items {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  background-color: #f5cace;
 }
 
 .cart-item {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: white;
-  border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   gap: 2rem;
   margin-bottom: 1.5rem;
-  border: 1px solid #e5e7eb;
+  border-bottom: 1px solid #bcbfc136;
+}
+
+.left{
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 1rem;
+}
+
+.info{
+  margin-left: 12px;
+
+}
+
+.center{
+  width: 33.33%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .item-image {
   flex-shrink: 0;
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   position: relative;
 }
 
@@ -160,8 +177,8 @@
   font-size: 1rem;
   font-weight: 600;
   color: #212529;
-  margin: 0;
   line-height: 1.4;
+
 }
 
 .item-status {
@@ -185,8 +202,8 @@
 }
 
 .item-dimensions {
-  font-size: 0.9rem;
-  color: #6c757d;
+  font-size: 0.7rem;
+  color: #333;
   margin: 0;
 }
 
@@ -246,24 +263,25 @@
 }
 
 .quantity-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
+  font-size: 12px;
+  /* font-weight: 500; */
+  color: #000;
   margin: 0;
 }
 
 .quantity-input {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 
 .custom-select {
-  width: 80px;
+  width: 100px;
   height: 40px;
   padding: 8px 32px 8px 12px;
   font-size: 16px;
   font-weight: 500;
-  border: 2px solid #000;
+  border: 1px solid #ced4da;
   border-radius: 8px;
   background-color: white;
   appearance: none;
@@ -271,7 +289,17 @@
   -moz-appearance: none;
   cursor: pointer;
   outline: none;
+  padding-right: 2rem;
   transition: border-color 0.2s ease;
+}
+
+.quantity-input svg {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* علشان الكليك يفضل على الـ select */
+  color: #666;
 }
 
 .custom-select:focus {
@@ -310,63 +338,11 @@
   background-color: #f3f4f6;
 }
 
-
-/* end mu changes */
-
-
-/* .quantity-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.5rem;
-}
-
-.quantity-label {
-  font-size: 0.9rem;
-  color: #000000;
-  font-weight: 500;
-}
-
-.quantity-input {
-  display: flex;
-  border: 1px solid #dee2e6;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.quantity-input .qty-btn {
-  background-color: #f8f9fa;
-  border: none;
-  padding: 0.5rem 0.75rem;
-  cursor: pointer;
-  color: #495057;
-  font-size: 1.2rem;
-  transition: background-color 0.2s;
-}
-
-.quantity-input .qty-btn:hover {
-  background-color: #e9ecef;
-}
-
-.quantity-input .qty-value {
-  border: none;
-  padding: 0.5rem;
-  width: 60px;
-  text-align: center;
-  font-size: 1rem;
-}
-
-.quantity-input .qty-value:focus {
-  outline: none;
-  background-color: #f8f9fa;
-} */
-
 .price-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 0.25rem;
-  margin-bottom: 1rem;
 }
 
 .price-container {
@@ -383,8 +359,14 @@
 }
 
 .current-price {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: bold;
+  color: #212529;
+}
+
+sup{
+  font-size: 0.6rem;
+  margin-left: 2px;
   color: #212529;
 }
 
@@ -392,14 +374,8 @@
   background: none;
   border: none;
   color: #000;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   cursor: pointer;
-  text-decoration: none;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 0.5rem;
 }
 
 .remove-btn:hover {
@@ -407,8 +383,9 @@
 }
 
 .remove-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
+  color: #bcbfc1;
 }
 
 .empty-cart {
@@ -420,8 +397,8 @@
 
 /* ملخص السلة - زيادة العرض بمقدار 20px ليصبح 420px */
 .cart-summary {
-  width: 480px; /* زيادة العرض من 400px إلى 420px */
-  padding: 2rem;
+  width: 500px; /* زيادة العرض من 400px إلى 420px */
+  padding: 1rem 0 1rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -436,7 +413,7 @@
 }
 
 .summary-title {
-  font-size: 1.2rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #212529;
   margin: 0 0 1rem 0;
@@ -454,16 +431,15 @@
 }
 
 .summary-item .summary-item-name {
-  font-size: 0.85rem;
-  color: #495057;
+  font-size: 0.75rem;
+  color: #000;
   line-height: 1.4;
   font-weight:600;
-
 }
 
  .summary-item-price {
   
-  color: #212529;
+  color: #000;
   white-space: nowrap;
   font-size: 0.85rem;
 }
@@ -488,16 +464,22 @@
 }
 
 .summary-row .label {
-  color: #495057;
+  color: #000;
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight:600;
 }
 
 .summary-row .value {
-  color: #212529;
+  color: #000;
 
   font-size: 0.85rem;
+}
+
+.total-row .totalPrice{
+  color: #000;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .summary-row .value.included {
@@ -507,25 +489,25 @@
 }
 
 .summary-row.vat-row .label {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
 }
 
 .summary-row.total-row .label,
 .summary-row.total-row .value {
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: bold;
 }
 
 .checkout-btn {
   width: 100%;
   /* background-color: #dc3545; */
-  background-color: rgb(196 1, 1,1);
+  background-color: rgb(197 3 2);
   color: white;
   border: none;
   padding:0.41rem 2rem;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
-  font-weight: 600;
+  /* font-weight: 600; */
   cursor: pointer;
   transition: background-color 0.2s;
   margin-top: 1rem;
@@ -536,16 +518,21 @@
 }
 
 .split-delivery {
-  border: 2px solid #dc2626;
+  border: 1px solid #c40101;
   border-radius: 8px;
   padding: 1rem;
   margin-top: 1rem;
-  text-align: center;
+  /* text-align: center; */
+
+}
+
+.split-delivery span{
+  color: #c40101;
 }
 
 .split-delivery-text {
   font-size: 0.9rem;
-  color: #374151;
+  color: #000;
   margin: 0;
   font-weight: 500;
 }
@@ -555,12 +542,12 @@
   background-color: #ffffff;
   border: 1px solid #dee2e6;
   border-radius: 8px;
-  padding: 1.5rem 2rem;
+  padding: 0.8rem 2rem;
 }
 
 .help-text {
-  font-size: 0.9rem;
-  color: #495057;
+  font-size: 0.7rem;
+  color: #000;
   font-weight: bold;
   margin: 0 0 1rem 0;
 }
@@ -568,6 +555,8 @@
 .contact-options {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   gap: 1.5rem;
   flex-wrap: wrap;
 }
@@ -575,8 +564,8 @@
 .contact-btn {
   background: none;
   border: none;
-  color: #495057;
-  font-size: 0.8rem;
+  color: #333;
+  font-size: 0.7rem;
   cursor: pointer;
   text-align: left;
   padding: 0;
