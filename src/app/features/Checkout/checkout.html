@@ -67,22 +67,22 @@
       </div>
       <div class="radio-group">
         <div class="text">
-          <input type="radio" id="bank-transfer" name="payment" [(ngModel)]="paymentMethod" value="bank-transfer">
+          <input disabled type="radio" id="bank-transfer" name="payment" [(ngModel)]="paymentMethod" value="bank-transfer">
           <label for="bank-transfer">Bank Transfer</label>
         </div>
         <img src="https://efreshli.com/separator/images/payment-methods/bank-transfer.avif" alt="">
       </div>
       <div class="radio-group">
         <div class="text dis-input">
-          <input type="radio" id="cash-delivery" name="payment" [(ngModel)]="paymentMethod" value="cash-delivery"
-            disabled>
+          <input disabled type="radio" id="cash-delivery" name="payment" [(ngModel)]="paymentMethod" value="cash-delivery"
+            >
           <label for="cash-delivery">Cash on Delivery (up to 10,000 EGP)</label>
         </div>
         <span>Max 10,000 <sup>EGP</sup></span>
       </div>
       <div class="radio-group">
         <div class="text">
-          <input type="radio" id="installments-valu" name="payment" [(ngModel)]="paymentMethod"
+          <input disabled type="radio" id="installments-valu" name="payment" [(ngModel)]="paymentMethod"
             value="installments-valu">
           <label for="installments-valu">Pay in installments with ValU</label>
         </div>
@@ -90,7 +90,7 @@
       </div>
       <div class="radio-group">
         <div class="text">
-          <input type="radio" id="installments-souhoola" name="payment" [(ngModel)]="paymentMethod"
+          <input disabled type="radio" id="installments-souhoola" name="payment" [(ngModel)]="paymentMethod"
             value="installments-souhoola">
           <label for="installments-souhoola">Pay in installments with Souhoola</label>
         </div>
@@ -127,7 +127,7 @@
   <!-- Order Summary -->
   <div class="order-summary">
     <div class="cart-item" *ngFor="let item of cartItems">
-      <img [src]="item.productImageUrl" alt="{{ item.productName }}" class="product-image">
+      <img [src]="item.imageUrls.at(0)" alt="{{ item.productName }}" class="product-image">
       <div class="item-details">
         <p>{{ item.productName }}</p>
         <h6>{{ item.price }} <sup>EGP</sup></h6>

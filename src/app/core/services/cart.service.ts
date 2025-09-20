@@ -12,16 +12,33 @@ export interface ApiResponse<T> {
   data: T | null;
 }
 
+
 export interface CartItemDto {
   cartItemId: number;
   productItemId: number;
   productName: string;
-  productImageUrl: string;
-  dimensionsOrSize: string;
   price: number;
   quantity: number;
+  discount:number;
   totalPrice: number;
+  dimensionsOrSize: string;
+
+  sku: string;
+  categoryId: number;
+  categoryName: string;
+  brandId: number;
+  brandName: string;
+  imageUrls: string[];
+
+  fabricColorId: number;
+  fabricColorName: string;
+  fabricColorImageUrl: string;
+
+  woodColorId: number;
+  woodColorName: string;
+  woodColorImageUrl: string;
 }
+
 
 export interface CartDto {
   cartId: number;

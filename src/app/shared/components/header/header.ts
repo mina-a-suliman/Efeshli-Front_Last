@@ -229,5 +229,7 @@ toggleMobileSearch() {
     }
   }
 
-  
+
+}
+
 }

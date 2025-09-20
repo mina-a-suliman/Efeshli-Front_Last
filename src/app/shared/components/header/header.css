@@ -546,6 +546,16 @@
     }
 }
 
+.header-container .category-card a:hover {
+  color: #dc2626;
+
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 /* Top Bar Styles */
 
@@ -731,4 +741,100 @@
 }
 
 
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .header-container .header-content {
+    padding: 0 16px;
+  }
+  
+  .header-container .search-container {
+    margin: 0 20px;
+  }
+  
+  .header-container .header-actions {
+    gap: 16px;
+  }
+  
+  .header-container .nav-content {
+    gap: 24px;
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container .top-bar {
+    padding: 8px 16px;
+  }
+  
+  .header-container .main-header {
+    padding: 12px 16px;
+  }
+  
+  .header-container .header-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .header-container .search-container {
+    width: 100%;
+    margin: 0;
+  }
+  
+  .header-container .header-actions {
+    gap: 12px;
+  }
+  
+  .header-container .action-button span {
+    display: none;
+  }
+  
+  .header-container .nav-content {
+    gap: 16px;
+    justify-content: flex-start;
+  }
+  
+  .header-container .nav-item {
+    font-size: 14px;
+    padding: 12px 0;
+  }
+
+  .header-container .mega-menu {
+    position: static;
+    display: none !important;
+  }
+  
+  .header-container .categories-row {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container .top-bar-right {
+    font-size: 12px;
+  }
+  
+  .header-container .search-box {
+    height: 44px;
+    padding: 0 12px;
+  }
+  
+  .header-container .search-input {
+    font-size: 14px;
+  }
+  
+  .header-container .nav-content {
+    gap: 12px;
+  }
+  
+  .header-container .category-card {
+    width: 140px;
+  }
+  
+  .header-container .category-card img {
+    height: 140px;
+  }
+}
+
+
+/* إضافة أنماط للهواتف */
 

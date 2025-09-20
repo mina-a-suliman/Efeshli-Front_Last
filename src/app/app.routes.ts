@@ -49,13 +49,13 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
   // 🔹 Cart & Checkout
+  // {
+  //   path: 'cart',
+  //   component: CartItemsComponent,
+  //   canActivate: [authGuard],
+  // },
   {
     path: 'cart',
-    component: CartItemsComponent,
-    canActivate: [authGuard],
-  },
-  {
-    path: 'full-cart',
     component: FullCartItemsComponent,
     canActivate: [authGuard],
   },
