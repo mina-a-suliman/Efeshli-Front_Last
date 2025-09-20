@@ -1,309 +1,320 @@
 <div class="header-container">
 
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <button class="tab-button active">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
-          <path
-            d="M2.5 1.16016L0.75 3.49349V11.6602C0.75 11.9696 0.872916 12.2663 1.09171 12.4851C1.3105 12.7039 1.60725 12.8268 1.91667 12.8268H10.0833C10.3928 12.8268 10.6895 12.7039 10.9083 12.4851C11.1271 12.2663 11.25 11.9696 11.25 11.6602V3.49349L9.5 1.16016H2.5Z"
-            stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path d="M0.75 3.49121H11.25" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"
-            stroke-linejoin="round"></path>
-          <path
-            d="M8.33317 5.8291C8.33317 6.44794 8.08734 7.04143 7.64975 7.47902C7.21217 7.9166 6.61868 8.16244 5.99984 8.16244C5.381 8.16244 4.78751 7.9166 4.34992 7.47902C3.91234 7.04143 3.6665 6.44794 3.6665 5.8291"
-            stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>
-        Shop
-      </button>
-      <button class="tab-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-          class="lucide lucide-presentation" aria-hidden="true">
-          <path d="M2 3h20"></path>
-          <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"></path>
-          <path d="m7 21 5-5 5 5"></path>
-        </svg>
-        Design
-      </button>
-    </div>
-    <div class="top-bar-right">
-      <a href="#" class="top-link">Gift Registry</a>
-      <span class="separator">|</span>
-      <a href="#" class="top-link">Efreshli Pro</a>
+  <div class="mobile-top-row">
+    <button class="mobile-menu-toggle" (click)="showMobileSidebar()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <a href="/home" class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="115.112" height="27.443" viewBox="0 0 131.112 27.443"><g><path style="fill:#e4001b;transition:0.3s ease fill" d="M0 0h23.284v2.995H0z" transform="translate(107.828 24.195)"></path></g><g><path style="fill:#e4001b;transition:0.3s ease fill" d="M0 0h23.284v2.995H0z" transform="translate(107.828 24.195)"></path></g><g><path d="M12.842 286.945H22.6v3.155h-5.764v7.892h4.456v3.151h-4.456v9.035h5.921v3.152h-9.915z" transform="translate(-12.842 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M57.124 286.945h10.067v3.155h-6.073v7.892h4.764v3.151h-4.764v12.186h-3.994z" transform="translate(-44.325 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M101.19 286.945h4.333q.74 0 1.626.061a9.329 9.329 0 0 1 1.773.3 7.093 7.093 0 0 1 1.711.719 5.041 5.041 0 0 1 1.465 1.312 6.572 6.572 0 0 1 1.026 2.093 10.515 10.515 0 0 1 .385 3.05v.664a11.893 11.893 0 0 1-.864 4.9 5.427 5.427 0 0 1-2.544 2.726l4.225 10.549H110.1l-3.5-9.871h-1.5v9.869h-3.91zm4.518 13.623a5.885 5.885 0 0 0 1.773-.233 2.421 2.421 0 0 0 1.172-.779 3.444 3.444 0 0 0 .648-1.452 10.529 10.529 0 0 0 .2-2.231v-2.086a7.375 7.375 0 0 0-.182-1.761 2.764 2.764 0 0 0-.624-1.22 2.632 2.632 0 0 0-1.164-.71 6.042 6.042 0 0 0-1.822-.233h-.6v10.7z" transform="translate(-75.655 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M157.1 286.945h9.761v3.155h-5.767v7.892h4.456v3.151h-4.456v9.035h5.921v3.152H157.1z" transform="translate(-115.406 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M197.175 307.411a11.45 11.45 0 0 1 .1-1.568q.1-.717.3-1.552h3.1v1.282a12.032 12.032 0 0 0 .131 1.883 4.42 4.42 0 0 0 .432 1.383 2.07 2.07 0 0 0 .8.85 2.437 2.437 0 0 0 1.226.285 2.308 2.308 0 0 0 1.742-.625 2.543 2.543 0 0 0 .6-1.83 7.073 7.073 0 0 0-.084-1.136 4.779 4.779 0 0 0-.293-1.026 7 7 0 0 0-.563-1.074 14.121 14.121 0 0 0-.911-1.258l-4.163-4.958a12.42 12.42 0 0 1-1.712-2.865 7.93 7.93 0 0 1-.6-3.081 6.851 6.851 0 0 1 .409-2.41 5.388 5.388 0 0 1 1.18-1.892 5.259 5.259 0 0 1 1.9-1.235 7.033 7.033 0 0 1 2.567-.44 7.463 7.463 0 0 1 2.907.494 4.967 4.967 0 0 1 1.858 1.3 4.7 4.7 0 0 1 .979 1.8 7.22 7.22 0 0 1 .285 2 8.715 8.715 0 0 1-.131 1.568q-.131.719-.3 1.583h-3.083v-1.251a6.941 6.941 0 0 0-.6-3.219 2.057 2.057 0 0 0-1.951-1.119 2.131 2.131 0 0 0-1.681.626 2.434 2.434 0 0 0-.555 1.676 5.44 5.44 0 0 0 .084 1 4.006 4.006 0 0 0 .247.827 4.841 4.841 0 0 0 .394.734c.155.237.329.486.524.741l4.641 5.622a16.068 16.068 0 0 1 1.946 3.174 7.817 7.817 0 0 1 .678 3.219 6.933 6.933 0 0 1-.439 2.532 5.293 5.293 0 0 1-1.257 1.916 5.574 5.574 0 0 1-1.974 1.215 7.534 7.534 0 0 1-2.606.425 7.954 7.954 0 0 1-2.968-.479 4.972 4.972 0 0 1-1.883-1.267 4.517 4.517 0 0 1-.986-1.792 7.462 7.462 0 0 1-.29-2.058z" transform="translate(-143.898 -285.565)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M251.7 286.945h3.994v11.043h4.734v-11.043h3.994v26.38h-3.994v-12.186h-4.734v12.186H251.7z" transform="translate(-182.663 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M311.4 286.945h3.994v23.229h5.443v3.152H311.4z" transform="translate(-225.108 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M352.8 286.945h3.994v26.38H352.8z" transform="translate(-254.542 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path></g><g><g><g><path d="M414.124 290.879h-1.154V285.3h-14.224v5.578h-1.154v-6.734h16.534z" transform="translate(-286.387 -284.145)" style="fill:#000;transition:0.3s ease fill"></path></g><g><path d="M410.626 336.7H389.3v-6.774h1.154v5.618h19.010v-5.618h1.154z" transform="translate(-280.495 -316.698)" style="fill:#000;transition:0.3s ease fill"></path></g><g><path d="M395.252 312.784H394.1v-5.814h-3.633v5.815h-1.154v-6.970h5.945z" transform="translate(-280.5 -299.551)" style="fill:#000;transition:0.3s ease fill"></path></g><g><path style="fill:#000;transition:0.3s ease fill" d="M0 0h1.156v3.198H0z" transform="translate(127.415 19.629)"></path></g><g><path d="M448.459 313.083h-1.154v-6.113h-3.632v6.038h-1.154v-7.193h5.940z" transform="translate(-318.328 -299.551)" style="fill:#000;transition:0.3s ease fill"></path></g><g><path style="fill:#000;transition:0.3s ease fill" d="M0 0h1.156v3.198H0z" transform="translate(110.724 19.629)"></path></g></g><g><path style="fill:#000;transition:0.3s ease fill" d="M0 0h20.167v.578H0z" transform="translate(109.386 13.161)"></path></g></g></svg> 
+    </a>
+    
+    <button class="mobile-cart-button" (click)="onActionClick('cart')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="8" cy="21" r="1"></circle>
+        <circle cx="19" cy="21" r="1"></circle>
+        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Search Row -->
+  <div class="mobile-search-row">
+    <div class="search-box">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input 
+        type="text" 
+        placeholder="Search for awesome furniture" 
+        class="search-input"
+        (input)="onSearch($event)"
+      />
     </div>
   </div>
 
-  <!-- Main Header -->
-  <div class="main-header">
-    <div class="header-content">
-      <!-- Logo -->
-      <a href="/home">
-        <div class="logo">
-          <svg xmlns="http://www.w3.org/2000/svg" width="115.112" height="27.443" viewBox="0 0 131.112 27.443">
-            <g>
-              <path style="fill:#e4001b;transition:0.3s ease fill" d="M0 0h23.284v2.995H0z"
-                transform="translate(107.828 24.195)"></path>
-            </g>
-            <g>
-              <path style="fill:#e4001b;transition:0.3s ease fill" d="M0 0h23.284v2.995H0z"
-                transform="translate(107.828 24.195)"></path>
-            </g>
-            <g>
-              <path d="M12.842 286.945H22.6v3.155h-5.764v7.892h4.456v3.151h-4.456v9.035h5.921v3.152h-9.915z"
-                transform="translate(-12.842 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path>
-              <path d="M57.124 286.945h10.067v3.155h-6.073v7.892h4.764v3.151h-4.764v12.186h-3.994z"
-                transform="translate(-44.325 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path>
-              <path
-                d="M101.19 286.945h4.333q.74 0 1.626.061a9.329 9.329 0 0 1 1.773.3 7.093 7.093 0 0 1 1.711.719 5.041 5.041 0 0 1 1.465 1.312 6.572 6.572 0 0 1 1.026 2.093 10.515 10.515 0 0 1 .385 3.05v.664a11.893 11.893 0 0 1-.864 4.9 5.427 5.427 0 0 1-2.544 2.726l4.225 10.549H110.1l-3.5-9.871h-1.5v9.869h-3.91zm4.518 13.623a5.885 5.885 0 0 0 1.773-.233 2.421 2.421 0 0 0 1.172-.779 3.444 3.444 0 0 0 .648-1.452 10.529 10.529 0 0 0 .2-2.231v-2.086a7.375 7.375 0 0 0-.182-1.761 2.764 2.764 0 0 0-.624-1.22 2.632 2.632 0 0 0-1.164-.71 6.042 6.042 0 0 0-1.822-.233h-.6v10.7z"
-                transform="translate(-75.655 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path>
-              <path d="M157.1 286.945h9.761v3.155h-5.767v7.892h4.456v3.151h-4.456v9.035h5.921v3.152H157.1z"
-                transform="translate(-115.406 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path>
-              <path
-                d="M197.175 307.411a11.45 11.45 0 0 1 .1-1.568q.1-.717.3-1.552h3.1v1.282a12.032 12.032 0 0 0 .131 1.883 4.42 4.42 0 0 0 .432 1.383 2.07 2.07 0 0 0 .8.85 2.437 2.437 0 0 0 1.226.285 2.308 2.308 0 0 0 1.742-.625 2.543 2.543 0 0 0 .6-1.83 7.073 7.073 0 0 0-.084-1.136 4.779 4.779 0 0 0-.293-1.026 7 7 0 0 0-.563-1.074 14.121 14.121 0 0 0-.911-1.258l-4.163-4.958a12.42 12.42 0 0 1-1.712-2.865 7.93 7.93 0 0 1-.6-3.081 6.851 6.851 0 0 1 .409-2.41 5.388 5.388 极 0 1 1.18-1.892 5.259 5.259 0 0 1 1.9-1.235 7.033 7.033 0 0 1 2.567-.44 7.463 7.463 0 0 1 2.907.494 4.967 4.967 0 0 极 1.858 1.3 4.7 4.7 0 0 1 .979 1.8 7.22 7.22 0 0 1 .285 2 8.715 8.715 0 0 1-.131 1.568q-.131.719-.3 1.583h-3.083v-1.251a6.941 6.941 0 0 0-.6-3.219 2.057 2.057 0 0 0-1.951-1.119 2.131 2.131 0 0 0-1.681.626 2.434 2.434 0 0 0-.555 1.676 5.44 5.44 0 0 0 .084 1 4.006 4.006 0 0 0 .247.827 4.841 4.841 0 0 0 .394.734c.155.237.329.486.524.741l4.641 5.622a16.068 16.068 0 0 1 1.946 3.174 7.817 7.817 0 0 1 .678 3.219 极 6.933 6.933 0 0 1-.439 2.532 5.293 5.293 0 0 1-1.257 1.916 5.574 5.574 0 0 1-1.974 1.215 7.534 7.534 0 0 1-2.606.425 7.954 7.954 0 0 1-2.968-.479 4.972 4.972 0 0 1-1.883-1.267 4.517 4.517 0 0 1-.986-1.792 7.462 7.462 0 0 1-.29-2.058z"
-                transform="translate(-143.898 -285.565)" style="fill:#e4001b;transition:0.3s ease fill"></path>
-              <path d="M251.7 286.945h3.994v11.043h4.734v-11.043h3.994v26.38h-3.994v-12.186h-4.734v12.186H251.7z"
-                transform="translate(-182.663 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path>
-              <path d="M311.4 286.945h3.994v23.229极 5.443v3.152H311.4z" transform="translate(-225.108 -286.135)"
-                style="fill:#e4001b;transition:0.3s ease fill"></path>
-              <path d="M352.8 286.945h3.994v26.38H352.8z" transform="translate(-254.542 -286.135)"
-                style="fill:#e4001b;transition:0.3s ease fill"></path>
-            </g>
-            <g>
-              <g>
-                <g>
-                  <path d="M414.124 290.879h-1.154V285.3h-14.224v5.578h-1.154v-6.734h16.534z"
-                    transform="translate(-286.387 -284.145)" style="fill:#000;transition:0.3s ease fill"></path>
-                </g>
-                <g>
-                  <path d="M410.626 336.7H389.3v-极.774h1.154v5.618h19.01v-5.618h1.154z"
-                    transform="translate(-280.495 -316.698)" style="fill:#000;transition:0.3s ease fill"></path>
-                </g>
-                <g>
-                  <path d="M395.252 312.784H394.1v-5.814h-3.633v5.815h-1.154v-6.97h5.945z"
-                    transform="translate(-280.5 -299.551)" style="fill:#000;transition:0.3s ease fill"></path>
-                </g>
-                <g>
-                  <path style="fill:#000;transition:0.3s ease fill" d="M0 0h1.156v3.198H0z"
-                    transform="translate(127.415 19.629)"></path>
-                </g>
-                <g>
-                  <path d="M448.459 313.083h-1.154v-6.113h-3.632v6.038h-1.154v-7.193h5.94z"
-                    transform="translate(-318.328 -299.551)" style="fill:#000;transition:0.3s ease fill"></path>
-                </g>
-                <g>
-                  <path style="fill:#000;transition:0.3s ease fill" d="M0 极h1.156v3.198H0z"
-                    transform="translate(110.724 19.629)"></path>
-                </g>
-              </g>
-              <g>
-                <path style="fill:#000;transition:0.3s ease fill" d="M0 0h20.167v.578H0z"
-                  transform="translate(109.386 13.161)"></path>
-              </g>
-            </g>
-          </svg>
-        </div>
-      </a>
+  <!-- Mobile Tabs Row -->
+  <div class="mobile-tabs-row">
+    <button class="mobile-tab-button active">Shop</button>
+    <button class="mobile-tab-button">Design</button>
+  </div>
 
-      <!-- Search Bar -->
-      <div class="search-container">
-        <div class="search-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            class="search-icon">
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.35-4.35" />
-          </svg>
-          <input type="text" placeholder="Search for awesome furniture" class="search-input"
-            (input)="onSearch($event)" />
-        </div>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="tab-button active">
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M2.5 1.16016L0.75 3.49349V11.6602C0.75 11.9696 0.872916 12.2663 1.09171 12.4851C1.3105 12.7039 1.60725 12.8268 1.91667 12.8268H10.0833C10.3928 12.8268 10.6895 12.7039 10.9083 12.4851C11.1271 12.2663 11.25 11.9696 11.25 11.6602V3.49349L9.5 1.16016H2.5Z" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"></path><path d="M0.75 3.49121H11.25" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.33317 5.8291C8.33317 6.44794 8.08734 7.04143 7.64975 7.47902C7.21217 7.9166 6.61868 8.16244 5.99984 8.16244C5.381 8.16244 4.78751 7.9166 4.34992 7.47902C3.91234 7.04143 3.6665 6.44794 3.6665 5.8291" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      Shop
+    </button>
+    <button class="tab-button">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-presentation" aria-hidden="true"><path d="M2 3h20"></path><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"></path><path d="m7 21 5-5 5 5"></path></svg>
+      Design
+    </button>
+  </div>
+  <div class="top-bar-right">
+    <a href="#" class="top-link">Gift Registry</a>
+    <span class="separator">|</span>
+    <a href="#" class="top-link">Efreshli Pro</a>
+  </div>
+</div>
+
+<!-- Main Header -->
+<div class="main-header">
+  <div class="header-content">
+
+    <!-- Logo -->
+     <a href="/home">
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="115.112" height="27.443" viewBox="0 0 131.112 27.443"><g><path style="fill:#e4001b;transition:0.3s ease fill" d="M0 0h23.284v2.995H0z" transform="translate(107.828 24.195)"></path></g><g><path style="fill:#e4001b;transition:0.3s ease fill" d="M0 0h23.284v2.995H0z" transform="translate(107.828 24.195)"></path></g><g><path d="M12.842 286.945H22.6v3.155h-5.764v7.892h4.456v3.151h-4.456v9.035h5.921v3.152h-9.915z" transform="translate(-12.842 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M57.124 286.945h10.067v3.155h-6.073v7.892h4.764v3.151h-4.764v12.186h-3.994z" transform="translate(-44.325 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M101.19 286.945h4.333q.74 0 1.626.061a9.329 9.329 0 0 1 1.773.3 7.093 7.093 0 0 1 1.711.719 5.041 5.041 0 0 1 1.465 1.312 6.572 6.572 0 0 1 1.026 2.093 10.515 10.515 0 0 1 .385 3.05v.664a11.893 11.893 0 0 1-.864 4.9 5.427 5.427 0 0 1-2.544 2.726l4.225 10.549H110.1l-3.5-9.871h-1.5v9.869h-3.91zm4.518 13.623a5.885 5.885 0 0 0 1.773-.233 2.421 2.421 0 0 0 1.172-.779 3.444 3.444 0 0 0 .648-1.452 10.529 10.529 0 0 0 .2-2.231v-2.086a7.375 7.375 0 0 0-.182-1.761 2.764 2.764 0 0 0-.624-1.22 2.632 2.632 0 0 0-1.164-.71 6.042 6.042 0 0 0-1.822-.233h-.6v10.7z" transform="translate(-75.655 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M157.1 286.945h9.761v3.155h-5.767v7.892h4.456v3.151h-4.456v9.035h5.921v3.152H157.1z" transform="translate(-115.406 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M197.175 307.411a11.45 11.45 0 0 1 .1-1.568q.1-.717.3-1.552h3.1v1.282a12.032 12.032 0 0 0 .131 1.883 4.42 4.42 0 0 0 .432 1.383 2.07 2.07 0 0 0 .8.85 2.437 2.437 0 0 0 1.226.285 2.308 2.308 0 0 0 1.742-.625 2.543 2.543 0 0 0 .6-1.83 7.073 7.073 0 0 0-.084-1.136 4.779 4.779 0 0 0-.293-1.026 7 7 0 0 0-.563-1.074 14.121 14.121 0 0 0-.911-1.258l-4.163-4.958a12.42 12.42 0 0 1-1.712-2.865 7.93 7.93 0 0 1-.6-3.081 6.851 6.851 0 0 1 .409-2.41 5.388 5.388 0 0 1 1.18-1.892 5.259 5.259 0 0 1 1.9-1.235 7.033 7.033 0 0 1 2.567-.44 7.463 7.463 0 0 1 2.907.494 4.967 4.967 0 0 1 1.858 1.3 4.7 4.7 0 0 1 .979 1.8 7.22 7.22 0 0 1 .285 2 8.715 8.715 0 0 1-.131 1.568q-.131.719-.3 1.583h-3.083v-1.251a6.941 6.941 0 0 0-.6-3.219 2.057 2.057 0 0 0-1.951-1.119 2.131 2.131 0 0 0-1.681.626 2.434 2.434 0 0 0-.555 1.676 5.44 5.44 0 0 0 .084 1 4.006 4.006 0 0 0 .247.827 4.841 4.841 0 0 0 .394.734c.155.237.329.486.524.741l4.641 5.622a16.068 16.068 0 0 1 1.946 3.174 7.817 7.817 0 0 1 .678 3.219 6.933 6.933 0 0 1-.439 2.532 5.293 5.293 0 0 1-1.257 1.916 5.574 5.574 0 0 1-1.974 1.215 7.534 7.534 0 0 1-2.606.425 7.954 7.954 0 0 1-2.968-.479 4.972 4.972 0 0 1-1.883-1.267 4.517 4.517 0 0 1-.986-1.792 7.462 7.462 0 0 1-.29-2.058z" transform="translate(-143.898 -285.565)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M251.7 286.945h3.994v11.043h4.734v-11.043h3.994v26.38h-3.994v-12.186h-4.734v12.186H251.7z" transform="translate(-182.663 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M311.4 286.945h3.994v23.229h5.443v3.152H311.4z" transform="translate(-225.108 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path><path d="M352.8 286.945h3.994v26.38H352.8z" transform="translate(-254.542 -286.135)" style="fill:#e4001b;transition:0.3s ease fill"></path></g><g><g><g><path d="M414.124 290.879h-1.154V285.3h-14.224v5.578h-1.154v-6.734h16.534z" transform="translate(-286.387 -284.145)" style="fill:#000;transition:0.3s ease fill"></path></g><g><path d="M410.626 336.7H389.3v-6.774h1.154v5.618h19.010v-5.618h1.154z" transform="translate(-280.495 -316.698)" style="fill:#000;transition:0.3s ease fill"></path></g><g><path d="M395.252 312.784H394.1v-5.814h-3.633v5.815h-1.154v-6.970h5.945z" transform="translate(-280.5 -299.551)" style="fill:#000;transition:0.3s ease fill"></path></g><g><path style="fill:#000;transition:0.3s ease fill" d="M0 0h1.156v3.198H0z" transform="translate(127.415 19.629)"></path></g><g><path d="M448.459 313.083h-1.154v-6.113h-3.632v6.038h-1.154v-7.193h5.940z" transform="translate(-318.328 -299.551)" style="fill:#000;transition:0.3s ease fill"></path></g><g><path style="fill:#000;transition:0.3s ease fill" d="M0 0h1.156v3.198H0z" transform="translate(110.724 19.629)"></path></g></g><g><path style="fill:#000;transition:0.3s ease fill" d="M0 0h20.167v.578H0z" transform="translate(109.386 13.161)"></path></g></g></svg>
+    </div>
+    </a>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <div class="search-box">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input 
+          type="text" 
+          placeholder="Search for awesome furniture" 
+          class="search-input"
+          (input)="onSearch($event)"
+        />
       </div>
-
+    </div>
       <!-- Right Actions -->
       <div class="header-actions">
-        @if (isLoaded) { @if (isAuthenticated) {
-        <div class="btn-group">
-          <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 极 24 24" fill="none"
-              stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-user-round size-ipx-5 min-w-ipx-5" aria-hidden="true">
-              <circle cx="12" cy="8" r="5"></circle>
-              <path d="M20 21a8 8 0 0 0-16 0"></path>
-            </svg>
-            Profile
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <button (click)="onActionClick('profile')" class="dropdown-item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                  class="lucide lucide-user-round" aria-hidden="true">
-                  <circle cx="12" cy="8" r="5"></circle>
-                  <path d="M20 21a8 8 极 0 0-16 0"></path>
-                </svg>
-                My account
-              </button>
-            </li>
-            <li>
-              <button (click)="onActionClick('')" class="dropdown-item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                  class="lucide lucide-presentation" aria-hidden="true">
-                  <path d="M2 3h20"></path>
-                  <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"></path>
-                  <path d="m7 21 5-5 5 5"></path>
-                </svg>
-                My projects
-              </button>
-            </li>
-            <li>
-              <button (click)="onActionClick('orders')" class="dropdown-item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                  class="lucide lucide-package" aria-hidden="true">
-                  <path
-                    d="M11 极.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z">
-                  </path>
-                  <path d="M12 22V12"></path>
-                  <polyline points="3.29 7 12 12 20.71 7"></polyline>
-                  <path d="m7.5 4.27 9 5.15"></path>
-                </svg>
-                My orders
-              </button>
-            </li>
-            <li>
-              <button (click)="onActionClick('')" class="dropdown-item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                  class="lucide lucide-gift" aria-hidden="true">
-                  <rect x="3" y="8" width="18" height="4" rx="1"></rect>
-                  <path d="M12 8v13"></path>
-                  <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path>
-                  <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path>
-                </svg>
-                My registry
-              </button>
-            </li>
-            <li>
-              <button (click)="onActionClick('logout')" class="dropdown-item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                  style="transform: rotate(180deg);" class="lucide lucide-log-out rotate-180" aria-hidden="true">
-                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                  <polyline points="16 17 21 12 16 7"></polyline>
-                  <line x1="21" x2="9" y1="12" y2="12"></line>
-                </svg>
-                <span>Logout</span>
-              </button>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <button class="dropdown-item highlight">
-                Start a new project
-              </button>
-            </li>
-          </ul>
-        </div>
-        } @else {
-        <button class="action-button" (click)="onActionClick('login')">
+     @if (isLoaded) { @if (isAuthenticated) {
+  <div class="btn-group">
+    <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-user-round size-ipx-5 min-w-ipx-5" aria-hidden="true">
+        <circle cx="12" cy="8" r="5"></circle>
+        <path d="M20 21a8 8 0 0 0-16 0"></path>
+      </svg>
+      Profile
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <button (click)="onActionClick('profile')" class="dropdown-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-log-in" aria-hidden="true">
-            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-            <polyline points="10 17 15 12 10 7"></polyline>
-            <line x1="15" x2="3" y1="12" y2="12"></line>
+            class="lucide lucide-user-round" aria-hidden="true">
+            <circle cx="12" cy="8" r="5"></circle>
+            <path d="M20 21a8 8 0 0 0-16 0"></path>
           </svg>
-          Login
+          My account
         </button>
-        }
-        }
+      </li>
+      <li>
+        <button (click)="onActionClick('')" class="dropdown-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-presentation" aria-hidden="true">
+            <path d="M2 3h20"></path>
+            <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"></path>
+            <path d="m7 21 5-5 5 5"></path>
+          </svg>
+          My projects
+        </button>
+      </li>
+      <li>
+        <button (click)="onActionClick('orders')" class="dropdown-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-package" aria-hidden="true">
+            <path
+              d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z">
+            </path>
+            <path d="M12 22V12"></path>
+            <polyline points="3.29 7 12 12 20.71 7"></polyline>
+            <path d="m7.5 4.27 9 5.15"></path>
+          </svg>
+          My orders
+        </button>
+      </li>
+      <li>
+        <button (click)="onActionClick('')" class="dropdown-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-gift" aria-hidden="true">
+            <rect x="3" y="8" width="18" height="4" rx="1"></rect>
+            <path d="M12 8v13"></path>
+            <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path>
+            <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path>
+          </svg>
+          My registry
+        </button>
+      </li>
+      <li>
+        <button (click)="onActionClick('logout')" class="dropdown-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+            style="transform: rotate(180deg);" class="lucide lucide-log-out rotate-180" aria-hidden="true">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" x2="9" y1="12" y2="12"></line>
+          </svg>
+          <span>Logout</span>
+        </button>
+      </li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li>
+        <button class="dropdown-item highlight">
+          Start a new project
+        </button>
+      </li>
+    </ul>
+  </div>
+} @else {
+  <button class="action-button" (click)="onActionClick('login')">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+      class="lucide lucide-log-in" aria-hidden="true">
+      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+      <polyline points="10 17 15 12 10 7"></polyline>
+      <line x1="15" x2="3" y1="12" y2="12"></line>
+    </svg>
+    Login
+  </button>
+}
+     }
 
         <button class="action-button" (click)="onActionClick('wishlist')">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
             class="lucide lucide-heart" aria-hidden="true">
             <path
-              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c极 2.3 1.5 4.05 3 5.5l7 7Z">
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
             </path>
           </svg>
           Wishlists
         </button>
         <button class="action-button" (click)="onActionClick('cart')">
-
-          <div class="cart-logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-shopping-cart">
-              <circle cx="8" cy="21" r="1"></circle>
-              <circle cx="19" cy="21" r="1"></circle>
-              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
-            </svg>
-            @if (cartService.cartCount$ | async; as cartCount) {
-            @if (cartCount > 0) {
-            <span class="cart-badge">{{ cartCount }}</span>
-            }
-            }
-          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-shopping-cart size-ipx-5" aria-hidden="true">
+            <circle cx="8" cy="21" r="1"></circle>
+            <circle cx="19" cy="21" r="1"></circle>
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+          </svg>
           Cart
-
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Navigation Menu -->
+ <!-- Navigation Menu -->
   <nav class="navigation">
     <div class="nav-content">
       <!-- الفئات الرئيسية من API -->
       @for (category of mainCategories; track category.categoryId) {
-      <a class="nav-item" [routerLink]="['/category', getCategoryRoute(category.name)]"
-        (mouseenter)="showMegaMenu(category.name.toLowerCase())" (mouseleave)="onNavItemLeave()">
-        {{ category.name }}
-      </a>
+        <a class="nav-item" 
+           [routerLink]="['/category', getCategoryRoute(category.name)]"
+           (mouseenter)="showMegaMenu(category.name.toLowerCase())" 
+           (mouseleave)="onNavItemLeave()">
+          {{ category.name }}
+        </a>
       }
 
       <!-- الفئات الثابتة -->
-      <a class="nav-item" routerLink="/category/shop-collection">Shop by collection</a>
-      <a class="nav-item special" routerLink="/category/ready-to-ship">Ready to Ship</a>
-      <a class="nav-item special" routerLink="/category/on-sale">On Sale</a>
+      <a class="nav-item" 
+         routerLink="/category/shop-collection"
+         >Shop by collection</a>
+      <a class="nav-item special" 
+         routerLink="/category/ready-to-ship"
+         
+         >Ready to Ship</a>
+      <a class="nav-item special" 
+         routerLink="/category/on-sale"
+         
+         >On Sale</a>
     </div>
 
     <!-- Mega Menu -->
-    <div class="mega-menu" [class.active]="activeMenu" (mouseenter)="keepMenuOpen()" (mouseleave)="hideMegaMenu()">
-
+    <div class="mega-menu" 
+         [class.active]="activeMenu" 
+         (mouseenter)="keepMenuOpen()" 
+         (mouseleave)="hideMegaMenu()">
+      
       <!-- قائمة Furniture -->
       @if (activeMenu === 'furniture') {
-      <div class="mega-menu-content">
-        @for (room of getFurnitureRooms(); track room) {
-        @if (furnitureData[room] && furnitureData[room].length > 0) {
-        <div class="mega-menu-column">
-          <h6><a (click)="navigateToCategory(room)">{{ room }}</a></h6>
-          <ul class="mega-menu-list">
-            @for (item of furnitureData[room]; track item.categoryId) {
-            <li><a (click)="navigateToCategory(item.name)">{{ item.name }}</a></li>
+        <div class="mega-menu-content">
+          @for (room of getFurnitureRooms(); track room) {
+            @if (furnitureData[room] && furnitureData[room].length > 0) {
+              <div class="mega-menu-column">
+                <h6><a (click)="navigateToCategory(room)">{{ room }}</a></h6>
+                <ul class="mega-menu-list">
+                  @for (item of furnitureData[room]; track item.categoryId) {
+                    <li><a (click)="navigateToCategory(item.name)">{{ item.name }}</a></li>
+                  }
+                </ul>
+                <a (click)="navigateToCategory(room)" class="explore-more">Explore more</a>
+              </div>
             }
-          </ul>
-          <a (click)="navigateToCategory(room)" class="explore-more">Explore more</a>
-        </div>
-        }
-        }
-      </div>
-      }
-
-      <!-- قوائم أخرى -->
-      @if (activeMenu && activeMenu !== 'furniture' && subCategories[activeMenu]) {
-      <div class="mega-menu-content">
-        <div class="categories-row">
-          @for (category of subCategories[activeMenu]; track category.categoryId) {
-          <div class="category-card">
-            <img [src]="category.imageUrl || 'https://via.placeholder.com/150'" [alt]="category.name" />
-            <a (click)="navigateToCategory(category.name)">{{ category.name }}</a>
-          </div>
           }
         </div>
-      </div>
+      }
+      
+      <!-- قوائم أخرى -->
+      @if (activeMenu && activeMenu !== 'furniture' && subCategories[activeMenu]) {
+        <div class="mega-menu-content">
+          <div class="categories-row">
+            @for (category of subCategories[activeMenu]; track category.categoryId) {
+              <div class="category-card">
+                <img [src]="category.imageUrl || 'https://via.placeholder.com/150'" [alt]="category.name" />
+                <a (click)="navigateToCategory(category.name)">{{ category.name }}</a>
+              </div>
+            }
+          </div>
+        </div>
       }
     </div>
   </nav>
+  
+
+   <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Menu</h3>
+      <button class="close-sidebar" (click)="hideMobileSidebar()">×</button>
+    </div>
+    
+    <a class="mobile-nav-item">Shop</a>
+    <a class="mobile-nav-item">Design</a>
+    
+    <!-- الفئات الرئيسية من API -->
+    @for (category of mainCategories; track category.categoryId) {
+      <a class="mobile-nav-item" 
+        [routerLink]="['/category', getCategoryRoute(category.name)]"
+        (click)="hideMobileSidebar()">
+        {{ category.name }}
+      </a>
+    }
+
+    <!-- الفئات الثابتة -->
+    <a class="mobile-nav-item" 
+      routerLink="/category/shop-collection"
+      (click)="hideMobileSidebar()">Shop by collection</a>
+    <a class="mobile-nav-item special" 
+      routerLink="/category/ready-to-ship"
+      (click)="hideMobileSidebar()">Ready to Ship</a>
+    <a class="mobile-nav-item special" 
+      routerLink="/category/on-sale"
+      (click)="hideMobileSidebar()">On Sale</a>
+      
+    <a class="mobile-nav-item">Gift Registry</a>
+    <a class="mobile-nav-item">Efreshli Pro</a>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
 </div>

@@ -1,7 +1,7 @@
 <div class="home-page">
   <!-- Carousel Section -->
   <!-- Carousel Section -->
-<div class="carousel-section">
+<!-- <div class="carousel-section">
   <div class="carousel-container">
     <button class="carousel-prev" (click)="prevSlide()">&lt;</button>
     
@@ -21,8 +21,65 @@
     
     <button class="carousel-next" (click)="nextSlide()">&gt;</button>
   </div>
-</div>
+</div> -->
 
+<div class="carousel-section">
+    <div class="carousel-container">
+      <button class="carousel-prev" (click)="prevSlide()" >&lt;</button>
+      <div class="carousel-slides" #carouselSlides>
+        <div class="carousel-slide">
+          <img src="https://dkq2tfmdsh9ss.cloudfront.net/page-sections/FwSstioczGKZwCcya8Vp5ewVXFtJniXRrudz2KGD.webp" alt="Summer Accessories">
+          <div class="carousel-text">
+            <a class="carousel-title">Decorative Objects</a>
+            <p class="carousel-subtitle">Ready to Style</p>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://dkq2tfmdsh9ss.cloudfront.net/page-sections/g27dsjO6aAvDkSYuYYnVmiL8ocYGN0fuq5Nhv7Gg.webp" alt="Al Fresco Dining">
+          <div class="carousel-text">
+            <a class="carousel-title">Wall-Mounted Decor</a>
+            <p class="carousel-subtitle">Ready to Hang</p>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://dkq2tfmdsh9ss.cloudfront.net/page-sections/sC4U34AjOJTUIlPz2GFPLzn82TlTG6bUz46EU8lP.webp" alt="Beach-house Picks">
+          <div class="carousel-text">
+            <a class="carousel-title">The Table Edit</a>
+            <p class="carousel-subtitle">Ready to Anchor</p>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://dkq2tfmdsh9ss.cloudfront.net/page-sections/cr6gllLSwq8o4vaOCGnhOE0xtyecb1N7qaoPM5Js.webp" alt="Summer Hosting Essentials">
+          <div class="carousel-text">
+            <a class="carousel-title">New Arrivals</a>
+            <p class="carousel-subtitle">Ready to Shine</p>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://dkq2tfmdsh9ss.cloudfront.net/page-sections/g27dsjO6aAvDkSYuYYnVmiL8ocYGN0fuq5Nhv7Gg.webp" alt="Al Fresco Dining">
+          <div class="carousel-text">
+            <a class="carousel-title">The Lighting Edit</a>
+            <p class="carousel-subtitle">Ready to Glow</p>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://dkq2tfmdsh9ss.cloudfront.net/page-sections/sC4U34AjOJTUIlPz2GFPLzn82TlTG6bUz46EU8lP.webp" alt="Beach-house Picks">
+          <div class="carousel-text">
+            <a class="carousel-title">Tableware Essentials</a>
+            <p class="carousel-subtitle">Ready to Set</p>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://dkq2tfmdsh9ss.cloudfront.net/page-sections/cr6gllLSwq8o4vaOCGnhOE0xtyecb1N7qaoPM5Js.webp" alt="Summer Hosting Essentials">
+          <div class="carousel-text">
+            <a class="carousel-title">Best Sellers</a>
+            <p class="carousel-subtitle">Ready to Go</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-next" (click)="nextSlide()">&gt;</button>
+    </div>
+  </div>
   <!-- Ads Section -->
   <!-- Ads Section -->
 <div class="ads-section">
@@ -113,7 +170,7 @@
   </div>
   
   <div class="product-grid" *ngIf="!isOutdoorLoading">
-    <div class="product-card" *ngFor="let product of outdoorProducts">
+    <div class="product-card outdoor" *ngFor="let product of outdoorProducts | slice:0:3">
       <a [routerLink]="['/product', product.productId]">
         <img [src]="product.imageUrl" [alt]="product.name">
       </a>
@@ -135,7 +192,7 @@
   </div>
   
   <div class="product-grid" *ngIf="!isRugsLoading">
-    <div class="product-card" *ngFor="let product of rugsProducts">
+    <div class="product-card rugs" *ngFor="let product of rugsProducts">
       <a [routerLink]="['/product', product.productId]">
         <img [src]="product.imageUrl" [alt]="product.name">
       </a>
