@@ -228,13 +228,14 @@
 
 
 // shared/full-cart/full-cart.component.ts
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { StripeService } from '../../../core/services/Stripe.service';
 import { CartService, CartDto, CartItemDto } from '../../../core/services/cart.service';
+import { Address } from '../../../core/services/Account.service';
 
 @Component({
   selector: 'app-full-cart',
@@ -258,6 +259,8 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
     const parsed = raw ? Number(raw) : undefined;
     return Number.isFinite(parsed as number) ? (parsed as number) : undefined;
   })();
+
+
 
   constructor(
     private stripeService: StripeService,
@@ -369,4 +372,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
       window.location.href = 'mailto:hello@efreshii.com';
     }
   }
+
+
+
 }

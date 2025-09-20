@@ -5,19 +5,33 @@
     <!-- Contact Information -->
     <div class="section">
       <h3>Contact Information</h3>
-      <input type="email" placeholder="ahmedalisaied22@gmail.com" class="input-field" readonly disabled>
+      <input type="email" placeholder="{{email}}" class="input-field" readonly disabled>
     </div>
 
     <!-- Delivery -->
     <div class="section">
       <h3>Delivery</h3>
-      <div *ngIf="!showEditAddress" class="radio-group">
+
+      <div *ngFor="let address of addresses()" class="radio-group">
         <div class="text">
-          <input type="radio" id="existing-address" name="delivery" checked>
-          <label for="existing-address">{{ selectedGovernorate }}, {{ selectedArea }}, qena</label>
+          <input type="radio" [id]="address.addressId" name="delivery" [checked]="address.isDefault"
+            (change)="selectAddress(address.addressId)">
+
+          <label [for]="address.addressId">
+            {{ address.location }}, {{ address.area }}, {{ address.fullAddress }}
+          </label>
         </div>
-        <p href="#" class="edit-link" (click)="toggleEditAddress()">Edit</p>
+
+        <!-- <p class="edit-link" (click)="editCurrentAddress(address)">
+          Edit
+        </p> -->
       </div>
+
+      <!-- Empty state -->
+      <div *ngIf="addresses().length === 0" class="empty-state">
+        <p>No addresses found. Add your first address.</p>
+      </div>
+
       <div *ngIf="showEditAddress" class="add-address-form">
         <input type="text" placeholder="Enter your street address" [(ngModel)]="streetAddress" class="input-field">
         <select [(ngModel)]="selectedGovernorate" (change)="onGovernorateChange($event)" class="select-field">
@@ -35,7 +49,9 @@
           <button class="cancel-btn" (click)="cancelAddress()">Cancel</button>
         </div>
       </div>
-      <button *ngIf="!showEditAddress" class="add-address-btn" (click)="addNewAddress()">+ Add New Address</button>
+      <button *ngIf="!showEditAddress" class="add-address-btn" (click)="openAddressPopup()">+ Add New Address</button>
+
+      <!-- <button *ngIf="!showEditAddress" class="add-address-btn" (click)="addNewAddress()">+ Add New Address</button> -->
     </div>
 
     <!-- Other -->
@@ -67,15 +83,16 @@
       </div>
       <div class="radio-group">
         <div class="text">
-          <input disabled type="radio" id="bank-transfer" name="payment" [(ngModel)]="paymentMethod" value="bank-transfer">
+          <input disabled type="radio" id="bank-transfer" name="payment" [(ngModel)]="paymentMethod"
+            value="bank-transfer">
           <label for="bank-transfer">Bank Transfer</label>
         </div>
         <img src="https://efreshli.com/separator/images/payment-methods/bank-transfer.avif" alt="">
       </div>
       <div class="radio-group">
         <div class="text dis-input">
-          <input disabled type="radio" id="cash-delivery" name="payment" [(ngModel)]="paymentMethod" value="cash-delivery"
-            >
+          <input disabled type="radio" id="cash-delivery" name="payment" [(ngModel)]="paymentMethod"
+            value="cash-delivery">
           <label for="cash-delivery">Cash on Delivery (up to 10,000 EGP)</label>
         </div>
         <span>Max 10,000 <sup>EGP</sup></span>
@@ -126,22 +143,37 @@
 
   <!-- Order Summary -->
   <div class="order-summary">
-    <div class="cart-item" *ngFor="let item of cartItems">
-      <img [src]="item.imageUrls.at(0)" alt="{{ item.productName }}" class="product-image">
-      <div class="item-details">
-        <p>{{ item.productName }}</p>
-        <h6>{{ item.price }} <sup>EGP</sup></h6>
+    <div class="productDisplay">
+      <div class="cart-item" *ngFor="let item of cartItems">
+        <img [src]="item.imageUrls.at(0)" alt="{{ item.productName }}" class="product-image">
+        <div class="item-details">
+          <p class="ellipsis">{{ item.productName }}</p>
+          <span *ngIf="item.dimensionsOrSize" class="item-size">{{ item.dimensionsOrSize }}</span>
+
+          <h6>{{ item.price }} <sup>EGP</sup></h6>
+        </div>
+
       </div>
-      <span *ngIf="item.dimensionsOrSize" class="item-size">{{ item.dimensionsOrSize }}</span>
+
+
     </div>
     <div class="promo-section">
-      <input type="text" placeholder="Add Promo code / gift card" class="input-field promo-input">
-      <button class="apply-btn">Apply</button>
+      <input type="text" placeholder="Add Promo code / gift card" class="input-field promo-input"
+        [(ngModel)]="couponCode">
+      <button class="apply-btn" (click)="applyCouponCode()">Apply</button>
     </div>
     <div class="summary-line">
       <p>Subtotal</p>
       <p>{{ orderCheckoutPreview.subTotalPrice }} <sup>EGP</sup></p>
     </div>
+    @if (discountValue>0) {
+    <div class="summary-line">
+      <p>Discount</p>
+      <p style="color: green; font-size: bolder;">
+        {{ orderCheckoutPreview.discountValue }} <sup>EGP</sup>
+      </p>
+    </div>
+    }
     <div class="summary-line">
       <p>Tax 14%</p>
       <p>{{ tax }}</p>
@@ -164,7 +196,8 @@
       </div>
     </div>
     <div class="summary-line delivery-estimate">
-      <p><span class="delivery-estimate-text"> Estimated delivery: </span>{{ orderCheckoutPreview.estimatedDeliveryDate | date: 'EEEE, MMM d, y' }}</p>
+      <p><span class="delivery-estimate-text"> Estimated delivery: </span>{{ orderCheckoutPreview.estimatedDeliveryDate
+        | date: 'EEEE, MMM d, y' }}</p>
     </div>
     <div class="summary-line">
       <p class="total-line">Total</p>
@@ -172,4 +205,10 @@
     </div>
     <button class="confirm-btn" (click)="confirmOrder()">Confirm your order</button>
   </div>
+
+
+  <!-- Address Popup Component -->
+  <app-address-popup [isVisible]="showPopup()" [editData]="editingAddress()" (addressAdded)="onAddressAdded($event)"
+    (addressUpdated)="onAddressUpdated($event)" (popupClosed)="onPopupClosed()">
+  </app-address-popup>
 </div>

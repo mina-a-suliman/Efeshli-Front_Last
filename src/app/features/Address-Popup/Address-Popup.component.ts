@@ -528,32 +528,53 @@ export class AddressPopupComponent implements OnChanges {
     this.closeAllDropdowns();
   }
 
-  onSubmit(): void {
-    if (this.addressForm.valid) {
-      const formData = {
-        location: this.addressForm.value.location,
-        area: this.addressForm.value.area,
-        address: this.addressForm.value.address,
-        floorNumber: this.addressForm.value.floorNumber,
-        phoneNumber: this.addressForm.value.phoneNumber,
-        countryCode: this.selectedCountryCode()
-      };
+  // onSubmit(): void {
+  //   if (this.addressForm.valid) {
+  //     const formData = {
+  //       location: this.addressForm.value.location,
+  //       area: this.addressForm.value.area,
+  //       address: this.addressForm.value.address,
+  //       floorNumber: this.addressForm.value.floorNumber,
+  //       phoneNumber: this.addressForm.value.phoneNumber,
+  //       countryCode: this.selectedCountryCode()
+  //     };
       
-      console.log('Address submitted:', formData);
+  //     console.log('Address submitted:', formData);
       
-      // Emit the appropriate event based on whether we're editing or adding
-      if (this.editData) {
-        this.addressUpdated.emit(formData);
-      } else {
-        this.addressAdded.emit(formData);
-      }
+  //     // Emit the appropriate event based on whether we're editing or adding
+  //     if (this.editData) {
+  //       this.addressUpdated.emit(formData);
+  //     } else {
+  //       this.addressAdded.emit(formData);
+  //     }
       
-      // Close popup and reset form
-      this.closePopup();
-      this.resetForm();
-    }
-  }
+  //     // Close popup and reset form
+  //     this.closePopup();
+  //     this.resetForm();
+  //   }
+  // }
+onSubmit(): void {
+  if (this.addressForm.valid) {
+    const formData = {
+      location: this.addressForm.value.location,
+      area: this.addressForm.value.area,
+      address: this.addressForm.value.address,
+      floorNumber: this.addressForm.value.floorNumber,
+      phoneNumber: this.addressForm.value.phoneNumber,
+      countryCode: this.selectedCountryCode()
+    };
 
+    // ✅ Only emit to parent, don't call API here
+    if (this.editData) {
+      this.addressUpdated.emit(formData);
+    } else {
+      this.addressAdded.emit(formData);
+    }
+
+    this.closePopup();
+    this.resetForm();
+  }
+}
   resetForm(): void {
     this.addressForm.reset({
       location: 'Cairo',

@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderCheckoutPreview } from '../../core/models/order.model';
-import { AccountService } from '../../core/services/Account.service';
+import { AccountService, Address } from '../../core/services/Account.service';
 import { CartItemDto, CartService } from '../../core/services/cart.service';
 import { OrderService } from '../../core/services/order.service';
 import { StripeService } from '../../core/services/Stripe.service';
 import { ToastService } from '../../core/services/toast.service';
+import { AddressPopupComponent } from "../Address-Popup/Address-Popup.component";
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../core/services/auth.service';
 
 // Define governorates first
 const governorates = [
@@ -22,12 +25,17 @@ const governorates = [
 
 type Governorate = typeof governorates[number];
 
+
+
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.css'],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, AddressPopupComponent]
 })
+
+
 export class CheckoutComponent implements OnInit {
   deliveryForm: FormGroup;
   paymentMethod = 'credit-card';
@@ -38,13 +46,16 @@ export class CheckoutComponent implements OnInit {
   showAddAddress = false;
   selectedGovernorate: Governorate = 'Giza';
   selectedArea = 'Dokki';
-  floorNumber = '2';
+  floorNumber = 2;
   streetAddress = 'qena';
   phoneNumber = '+20 11 12880371';
   selectedInstallmentPlan = '';
   showInstallmentDropdown = false;
 
   savedAddresses = ['Giza, Dokki, qena'];
+
+// PaymentRequest
+ couponCode: string="";
 
   // cartItems = [
   //   { name: 'TORNADO Turkish Coffee Maker', price: 3079, image: 'https://dkq2tfmdsh9ss.cloudfront.net/products/68b991a771920.jpeg' },
@@ -82,14 +93,22 @@ export class CheckoutComponent implements OnInit {
     'Bank Misr | installment plan'
   ];
 
+email!:string;
 
-// Order variables & models (start)
-coupon:string='';
 orderCheckoutPreview!:OrderCheckoutPreview;
 cartItems:CartItemDto[]=[];
 // Order variables & models (end)
 
-  constructor(private fb: FormBuilder, private stripeService: StripeService, private toastService: ToastService, private orderService: OrderService, private accountService: AccountService,private cartService:CartService) {
+  // Local popup state
+  showPopup = signal(false);
+  editingAddress = signal<Address | null>(null);
+// Subscription
+ private subscriptions: Subscription[] = [];
+
+
+ // order 
+
+  constructor(private fb: FormBuilder, private stripeService: StripeService,private authService:AuthService,private toastService: ToastService, private orderService: OrderService, private accountService: AccountService,private cartService:CartService) {
     this.deliveryForm = this.fb.group({
       street: [''],
       governorate: ['Giza'],
@@ -100,6 +119,11 @@ cartItems:CartItemDto[]=[];
   }
 
   ngOnInit() {
+   //user email
+   this.authService.currentUser$.subscribe({
+next:user=>{this.email=user?.email??''}
+   }); 
+
     // Load checkout preview
     this.orderService.getCheckoutPreview().subscribe({
       next: (res: any) => {
@@ -129,6 +153,8 @@ cartItems:CartItemDto[]=[];
         console.warn('Failed to load cart items');
       }
     });
+  this.loadAddresses();
+    
   }
 
   toggleEditAddress() {
@@ -162,7 +188,7 @@ cartItems:CartItemDto[]=[];
     this.selectedGovernorate = 'Cairo';
     this.selectedArea = this.areas['Cairo'][0];
     this.streetAddress = '';
-    this.floorNumber = '1';
+    this.floorNumber = 1;
     this.phoneNumber = '';
   }
 
@@ -184,7 +210,7 @@ cartItems:CartItemDto[]=[];
       this.selectedGovernorate = 'Giza';
       this.selectedArea = 'Dokki';
       this.streetAddress = 'qena';
-      this.floorNumber = '2';
+      this.floorNumber = 2;
       this.phoneNumber = '+20 11 12880371';
     }
     this.showEditAddress = false;
@@ -214,7 +240,7 @@ cartItems:CartItemDto[]=[];
     //   return;
     // }
     // this.stripeService.checkout(selectedAddressId /*, optional coupon here*/).subscribe({
-    this.stripeService.checkout(207 /*, optional coupon here*/).subscribe({
+    this.stripeService.checkout(selectedAddressId??0,this.couponCode).subscribe({
 
       next: () => {
         this.toastService.showInfo('Processing your order...', 'Order Processing');
@@ -225,4 +251,99 @@ cartItems:CartItemDto[]=[];
       }
     });
   }
+
+  // address popup
+
+  
+  openAddressPopup() {
+  this.editingAddress.set(null); // لا يوجد عنوان للتعديل
+  this.showPopup.set(true);
+}
+editCurrentAddress(address: Address) {
+
+
+  this.editingAddress.set(address);
+  this.showPopup.set(true);
+}
+  // Getters for service state
+  get addresses() { return this.accountService.userAddresses; }
+  get isLoading() { return this.accountService.isLoading; }
+  get errorMessage() { return this.accountService.errorMessage; }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  loadAddresses(): void {
+    const sub = this.accountService.getAddresses().subscribe({
+      next: (response) => {
+        if (!response.succeeded) {
+          console.error('Failed to load addresses:', response.message);
+        }
+      },
+      error: (error) => {
+        console.error('Error loading addresses:', error);
+      }
+    });
+    this.subscriptions.push(sub);
+  }
+
+onAddressAdded(address: any): void {
+  this.accountService.addAddress({
+    location: address.location,
+    area: address.area,
+    fullAddress: address.address,
+    floorNumber: parseInt(address.floorNumber, 10),
+    phoneNumber: address.phoneNumber
+  }).subscribe();
+}
+onAddressUpdated(address: any) :void{
+  this.accountService.updateAddress({
+     addressId: address.id,
+    location: address.location,
+    area: address.area,
+    fullAddress: address.address,
+    floorNumber: parseInt(address.floorNumber, 10),
+    phoneNumber: address.phoneNumber,
+   
+  }).subscribe();
+
+
+  this.toastService.showSuccess('Address updated successfully', 'Address Updated');
+}
+
+onPopupClosed() {
+  this.showPopup.set(false);
+}
+  
+// 
+selectAddress(addressId:number): void {
+  this.accountService.setSelectedAddress(addressId);
+}
+
+applyCouponCode(): void {
+  if (this.couponCode && this.couponCode.trim() !== '') {
+    
+   this.orderService.getCheckoutPreview(this.couponCode).subscribe({
+      next: (res: any) => {
+        
+        if (res?.succeeded && res.data) {
+          this.orderCheckoutPreview = res.data;
+          this.toastService.showSuccess('Coupon applied successfully', 'Coupon Applied');
+        }
+      else{
+        this.toastService.showInfo(res.message);
+      }},
+      error: () => {this.toastService.showError('Failed to apply coupon. Please try again.', 'Coupon Error');}
+      
+      })
+        
+  }
+
+}
+
+get discountValue(): number  {
+  return this.orderCheckoutPreview?.discountValue ?? 0;
+}
+
 }
