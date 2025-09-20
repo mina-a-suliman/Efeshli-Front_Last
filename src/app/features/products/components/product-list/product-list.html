@@ -1,1 +1,191 @@
-<p>product-list works!</p>
+<div class="container py-4">
+  <div class="row">
+    <div class="head col-12">
+      <h6>Shop</h6>
+      <div>
+        <a href="#">Home</a>
+        <span> > </span>
+        <a href="#">Shop</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="filter-section">
+        <div class="filter-header" (click)="toggleFilterSection('delivery')">
+          <h5 class="filter-title">Delivery</h5>
+          <i class="bi" [class.bi-chevron-down]="!filters.deliveryOpen" [class.bi-chevron-up]="filters.deliveryOpen"></i>
+        </div>
+        <div *ngIf="filters.deliveryOpen">
+          <div class="filter-option">
+            <input type="checkbox" id="fast-delivery" [(ngModel)]="filters.fastDelivery" (ngModelChange)="applyFilters()">
+            <label for="fast-delivery">Fast delivery <span class="filter-count">(42)</span></label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-divider"></div>
+      
+      <div class="filter-section">
+        <div class="filter-header" (click)="toggleFilterSection('room')">
+          <h5 class="filter-title">Shop By Room</h5>
+          <i class="bi" [class.bi-chevron-down]="!filters.roomOpen" [class.bi-chevron-up]="filters.roomOpen"></i>
+        </div>
+        <div *ngIf="filters.roomOpen">
+          <div *ngFor="let category of roomCategories">
+            <div class="category-header" (click)="toggleRoomCategory(category)">
+              <span>{{category.name}} <span *ngIf="category.count" class="filter-count">({{category.count}})</span></span>
+              <i class="bi" [class.bi-plus]="!category.expanded" [class.bi-dash]="category.expanded"></i>
+            </div>
+            
+            <div *ngIf="category.expanded && category.subcategories" class="subcategory">
+              <div class="filter-option" *ngFor="let subcategory of category.subcategories">
+                <input type="checkbox" [id]="subcategory.id" [(ngModel)]="subcategory.selected" (ngModelChange)="applyFilters()">
+                <label [for]="subcategory.id">{{subcategory.name}} <span class="filter-count">({{subcategory.count}})</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-divider"></div>
+      
+      <div class="filter-section">
+        <div class="filter-header" (click)="toggleFilterSection('decor')">
+          <h5 class="filter-title">Decor</h5>
+          <i class="bi" [class.bi-chevron-down]="!filters.decorOpen" [class.bi-chevron-up]="filters.decorOpen"></i>
+        </div>
+        <div *ngIf="filters.decorOpen">
+          <div class="filter-option" *ngFor="let decor of decorFilters">
+            <input type="checkbox" [id]="decor.id" [(ngModel)]="decor.selected" (ngModelChange)="applyFilters()">
+            <label [for]="decor.id">{{decor.name}}</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-divider"></div>
+      
+      <div class="filter-section">
+        <div class="filter-header" (click)="toggleFilterSection('brand')">
+          <h5 class="filter-title">Brands</h5>
+          <i class="bi" [class.bi-chevron-down]="!filters.brandOpen" [class.bi-chevron-up]="filters.brandOpen"></i>
+        </div>
+        <div *ngIf="filters.brandOpen">
+          <div class="filter-option" *ngFor="let brand of brandFilters">
+            <input type="checkbox" [id]="brand.id" [(ngModel)]="brand.selected" (ngModelChange)="applyFilters()">
+            <label [for]="brand.id">{{brand.name}} <span *ngIf="brand.count" class="filter-count">({{brand.count}})</span></label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-divider"></div>
+      
+      <div class="filter-section">
+        <div class="filter-header" (click)="toggleFilterSection('price')">
+          <h5 class="filter-title">Price</h5>
+          <i class="bi" [class.bi-chevron-down]="!filters.priceOpen" [class.bi-chevron-up]="filters.priceOpen"></i>
+        </div>
+        <div *ngIf="filters.priceOpen">
+          <div class="price-inputs">
+            <input type="number" class="price-input" placeholder="0 EGP" min="0" max="100000" [(ngModel)]="filters.minPrice" (ngModelChange)="applyFilters()">
+            <input type="number" class="price-input" placeholder="100,000 EGP" min="0" max="100000" [(ngModel)]="filters.maxPrice" (ngModelChange)="applyFilters()">
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-divider"></div>
+      
+      <div class="filter-section">
+        <div class="filter-header" (click)="toggleFilterSection('color')">
+          <h5 class="filter-title">Wood Color</h5>
+          <i class="bi" [class.bi-chevron-down]="!filters.colorOpen" [class.bi-chevron-up]="filters.colorOpen"></i>
+        </div>
+        <div *ngIf="filters.colorOpen">
+          <div class="filter-option" *ngFor="let color of colorFilters">
+            <input type="checkbox" [id]="color.id" [(ngModel)]="color.selected" (ngModelChange)="applyFilters()">
+            <label [for]="color.id">
+              <div class="color-option">
+                <div class="color-box" [style.background-color]="color.hex"></div>
+                <span>{{color.name}} <span *ngIf="color.count" class="filter-count">({{color.count}})</span></span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-9">
+      <div class="sort-by">
+        <span>Sort By:</span>
+        <select [(ngModel)]="sortOption" (change)="applyFilters()">
+          <option value="recommended">Recommended</option>
+          <option value="priceLow">Price: Low to High</option>
+          <option value="priceHigh">Price: High to Low</option>
+          <option value="newest">Newest First</option>
+        </select>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4" *ngFor="let product of filteredProducts">
+          <div class="product-card">
+            <div class="product-image">
+              <img [src]="product.imageUrl" [alt]="product.name">
+              <div class="discount-badge" *ngIf="product.discount">{{product.discount}}% OFF</div>
+              <a href="/product-details/{{product.id}}" class="quick-view-btn" target="_blank">Quick View</a>
+              <i class="bi-heart wishlist-icon" [class.filled]="product.isInWishlist" (click)="toggleWishlist(product)"></i>
+              <div class="wishlist-dropdown" *ngIf="showWishlistDropdown && selectedProduct?.id === product.id">
+                <div *ngFor="let list of wishlistLists" (click)="addToWishlist(list.name)" class="wishlist-option">
+                  {{list.name}}
+                </div>
+                <input type="text" #newListName placeholder="New List Name" (keyup.enter)="createNewWishlist(newListName.value); newListName.value = ''" class="new-list-input">
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-size">{{product.size}}</div>
+              <div class="colors"></div>
+              <div class="discount-name" *ngIf="product.originalPrice; else noDiscount">
+                <div class="product-category">{{product.category}}</div>
+                <span class="original-price">{{product.originalPrice | number}} EGP</span>
+              </div>
+              <ng-template #noDiscount>
+                <div class="product-category">{{product.category}}</div>
+              </ng-template>
+              <div class="product-pricing">
+                <h3 class="product-name">{{product.name}}</h3>
+                <span class="current-price">{{product.price | number}} EGP</span>
+              </div>
+              <button class="add-to-cart-btn" (click)="addToCart(product)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination-container">
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link prev-next" href="#" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link selected" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+            <li class="page-item"><a class="page-link" href="#">38</a></li>
+            <li class="page-item">
+              <a class="page-link prev-next" href="#" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
