@@ -29,20 +29,45 @@ export class OrderService {
   }
 
   // Get all orders for current user with optional status filter
-  getMyOrders(status?: OrderStatus): Observable<ApiResponse<OrderSummary[]>> {
-    let params = new HttpParams();
-    if (status !== undefined) {
-      params = params.set('status', status.toString());
-    }
+  // getMyOrders(status?: OrderStatus): Observable<ApiResponse<OrderSummary[]>> {
+  //   let params = new HttpParams();
+  //   if (status !== undefined) {
+  //     params = params.set('status', status.toString());
+  //   }
     
-    return this.http.get<ApiResponse<OrderSummary[]>>(
-      `${this.baseUrl}/my-orders`, 
-      { params }
-    ).pipe(
-      catchError(this.handleError)
-    );
+  //   return this.http.get<ApiResponse<OrderSummary[]>>(
+  //     `${this.baseUrl}/my-orders`, 
+  //     { params }
+  //   ).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
+getMyOrders(status?: OrderStatus): Observable<ApiResponse<OrderSummary[]>> {
+  let params = new HttpParams();
+  if (status !== undefined) {
+    params = params.set('status', status.toString()); // backend expects number
   }
 
+  return this.http.get<ApiResponse<OrderSummary[]>>(
+    `${this.baseUrl}/my-orders`,
+    { params }
+  ).pipe(
+    map((response) => {
+      // If data exists, normalize each order's status to a number
+      if (response.succeeded && response.data) {
+        response = {
+          ...response,
+          data: response.data.map(order => ({
+            ...order,
+            status: +order.status   // ensure numeric type
+          }))
+        };
+      }
+      return response;
+    }),
+    catchError(this.handleError)
+  );
+}
   // Get all orders (admin functionality)
   getAllOrders(): Observable<ApiResponse<OrderSummary[]>> {
     return this.http.get<ApiResponse<OrderSummary[]>>(
