@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router'; 
+import { Router,RouterLink, ActivatedRoute } from '@angular/router'; 
 import { AuthService } from '../../core/services/auth.service';
 import { ProductHeartButtonComponent } from '../product-heart-button/product-heart-button'; // ✅ Fixed import path
 
@@ -19,7 +19,7 @@ import { WishlistService } from '../../core/services/Wishlist.service';
   selector: 'app-wishlist',
   templateUrl: './wishlist.component.html', // ✅ Use external template
   styleUrls: ['./wishlist.component.css'], // ✅ Fixed styleUrls (plural)
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProductHeartButtonComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProductHeartButtonComponent, RouterLink],
   standalone: true
 })
 export class WishlistComponent implements OnInit, OnDestroy {
@@ -384,6 +384,47 @@ private closeEditPopup() {
     console.error('Error:', message);
     alert(message); // Temporary - replace with proper notification
   }
+  onWishlistToggled(event: { productId: number; added: boolean }): void {
+  console.log('Wishlist toggled:', event);
+  
+  if (!event.added && this.selectedList) {
+    // Product was removed from wishlist
+    const { productId } = event;
+    
+    // Update the local state immediately
+    this.selectedList.wishlistItemsDto = this.selectedList.wishlistItemsDto
+      ?.filter(item => item.productId !== productId) || [];
+    
+    // Update item count
+    this.selectedList.itemsCount = Math.max(0, this.selectedList.itemsCount - 1);
+    
+    // Update summary
+    const summaryIndex = this.wishlistsSummary
+      .findIndex(s => s.wishlistId === this.selectedList!.wishlistId);
+    if (summaryIndex >= 0) {
+      this.wishlistsSummary[summaryIndex].itemsCount = this.selectedList.itemsCount;
+      
+      // Update main images if needed
+      this.updateMainImages(summaryIndex);
+    }
+    this.itemRemoved.emit({ wishlistId: this.selectedList.wishlistId, productId });
+    console.log(`Product ${productId} removed from ${this.selectedList.wishlistName}`);
+  } else if (event.added) {
+    console.log(`Product ${event.productId} added to wishlist`);
+    // Handle addition if needed
+  }
 
+  }
+  private updateMainImages(summaryIndex: number): void {
+  if (summaryIndex < 0 || !this.selectedList) return;
+
+  // Update main images from remaining items
+  const remainingImages = this.selectedList.wishlistItemsDto
+    ?.slice(0, 4)
+    .map(item => item.imageUrl)
+    .filter((url): url is string => url != null && url !== '') || [];
+
+  this.wishlistsSummary[summaryIndex].mainImages = remainingImages;
+  }
 }
 
