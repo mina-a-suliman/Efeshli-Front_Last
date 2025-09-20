@@ -9,7 +9,8 @@
   display: grid;
   grid-template-columns: 6fr 2fr 2fr 2fr;
   width: 100%;
-  padding: 0 15px;
+  padding: 15px 15px;
+  border-top: 1px solid #e9ecef;
   /* gap: 90px; */
 }
 

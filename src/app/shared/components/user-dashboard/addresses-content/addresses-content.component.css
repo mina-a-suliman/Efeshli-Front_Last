@@ -1,13 +1,14 @@
 
     .content-area {
       max-width: 800px;
+      padding-left: 70px;
     }
 
     .page-title {
-      font-size: 28px;
+      font-size: 16px;
       font-weight: 600;
       color: #111827;
-      margin: 0 0 32px 0;
+      margin: 0 0 16px 0;
     }
 
     .loading-state {
@@ -60,12 +61,13 @@
 
     .addresses-list {
       margin-bottom: 24px;
+      width: 900px;
     }
 
     .address-card {
       background: white;
       border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      border-radius: 3px;
       padding: 20px;
       margin-bottom: 16px;
       display: flex;
@@ -91,10 +93,16 @@
     }
 
     .address-text {
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 15px;
+      /* font-weight: 600; */
       color: #111827;
       margin-bottom: 4px;
+    }
+
+    .address-area {
+      margin-left: 12px;
+      font-size: 13px;
+      color: #111827;
     }
 
     .address-details {
@@ -123,21 +131,28 @@
       color: #3b82f6;
       background: none;
       border: none;
-      font-size: 14px;
+      
+      font-size: 15px;
       cursor: pointer;
-      text-decoration: underline;
+      /* text-decoration: underline; */
     }
 
     .remove-btn {
-      color: #111827;
+      color: gray;
       background: none;
       border: none;
-      font-size: 14px;
+      font-size: 11px;
       cursor: pointer;
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 4px;
+    }
+
+    .remove-btn svg {
+      stroke: rgb(177, 175, 175);
+      width: 12px;
+      height: 12px;
     }
 
     .add-address-link {
@@ -146,9 +161,9 @@
 
     .add-address-btn {
       color: #3b82f6;
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
-      text-decoration: underline;
+      /* text-decoration: underline; */
       background: none;
       border: none;
       padding: 0;
