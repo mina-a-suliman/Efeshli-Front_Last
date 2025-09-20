@@ -23,6 +23,9 @@
   justify-content: center;
   box-shadow: 0 0 2px rgba(0,0,0,0.5);
 }
+.header-container{
+  border-bottom: 1px solid #e5e7eb;
+}
 .header-container .top-bar {
   display: flex;
   justify-content: space-between;
