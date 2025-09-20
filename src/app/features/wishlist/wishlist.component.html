@@ -28,7 +28,7 @@
 <div class="wishlist-container" *ngIf="state === 'list' && !loading">
   
   <div class="start-sec">
-    <h1>Wishlists</h1>
+    <p>Wishlists</p>
     <button class="list-btn" (click)="openCreatePopup()">Create a list</button>
 </div>
 <hr>
@@ -69,7 +69,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="18.25" height="15.969" viewBox="0 0 18.25 15.969">
             <path data-name="Icon open-share" d="M11.406 0v4.562C2.281 4.562 0 9.239 0 15.968c1.186-4.517 4.562-6.844 9.125-6.844h2.281v4.562l6.844-7.209z" style="fill: rgb(30, 136, 229);"></path>
           </svg>
-          Share
+          Share to
         </button>
       </div>
       
@@ -78,7 +78,7 @@
         <!-- Empty Wishlist State -->
         <div class="empty-preview" *ngIf="list.itemsCount === 0">
           <div class="empty-preview-icon">
-            <i class="far fa-heart"></i>
+            <img src="https://efreshli.com/images/wishlists/empty-wishlist-card.png" alt="">
           </div>
           <p class="empty-text">Your wishlist is empty</p>
         </div>
@@ -123,7 +123,7 @@
 
 <!-- Wishlist Detail View -->
 <div class="wishlist-detail" *ngIf="state === 'detail' && selectedList && !loading">
-  <a class="back-link" (click)="backToLists()">&lt; Back to My Lists</a>
+  <span class="arrow">&lt;</span> <a class="back-link" (click)="backToLists()">Back to My Lists</a>
   
   <div class="head">
     <h1>{{ selectedList.wishlistName }}</h1>
@@ -275,10 +275,10 @@
 <!-- Delete Confirmation Popup -->
 <div class="popup-overlay" *ngIf="showDeleteConfirm">
   <div class="create-popup delete-popup-content" (click)="$event.stopPropagation()">
-    <h3>Delete Wishlist</h3>
+    <!-- <h3>Delete Wishlist</h3> -->
     <div class="delete-message">
-      <p>Are you sure you want to delete <strong>"{{ selectedList?.wishlistName }}"</strong>?</p>
-      <p class="warning-text">This action cannot be undone and will remove all items from this list.</p>
+      <p>Are you sure you want to delete "{{ selectedList?.wishlistName }}"?</p>
+      <p class="warning-text">Deleting this list is final and cannot be undone.</p>
     </div>
     <div class="popup-actions delete-actions">
       <button class="cancel-popup-btn" 
@@ -290,7 +290,7 @@
               (click)="deleteWishlist()"
               [disabled]="deletingWishlist">
         <i class="fas fa-spinner fa-spin" *ngIf="deletingWishlist"></i>
-        <span *ngIf="!deletingWishlist">Delete Wishlist</span>
+        <span *ngIf="!deletingWishlist">Yes, Sure</span>
         <span *ngIf="deletingWishlist">Deleting...</span>
       </button>
     </div>

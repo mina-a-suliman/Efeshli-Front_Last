@@ -1,6 +1,6 @@
 .wishlist-container {
-  padding: 20px 100px;
-  /* margin-bottom: 50px; */
+  padding-bottom: 20px;
+  
   border-bottom: 1px solid #ddd;
 }
 
@@ -11,7 +11,7 @@ h1 {
   margin-bottom: 40px;
 }
 
-hr {
+hr {  
   border: none;
   border-top: 1px solid #333;
   margin-bottom: 40px;
@@ -59,17 +59,19 @@ p {
     margin-bottom: 30px;
 }
 
-.start-sec h1{
+.start-sec p{
     margin: 0;
+    font-size: 18px;
+    font-weight: semi-bold;
 }
 
 .start-sec .list-btn{
   padding: 8px 10px;
   font-size: 14px;
-  border: 1px solid #C40101;
+  border: 1px solid #E60000;
   border-radius: 3px;
   background-color: #fff;
-  color: #C40101;
+  color: #E60000;
 }
 
 .start-sec .list-btn:hover{
@@ -149,13 +151,18 @@ p {
   /* margin-bottom: 20px; */
 }
 
-.back-link {
+.back-link,
+.arrow {
     font-size: 15px;
-    font-weight: 600;
     color: #E60000;
     cursor: pointer;
-  /* margin-bottom: 30px; */
+}
 
+.arrow{
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 18px;
+    vertical-align: middle;
 }
 
 .head{
@@ -176,8 +183,8 @@ p {
 
 .desc{
     margin-top: 10px;
-    color: #707070;
-    font-size: 14px;
+    color: #333333bc;
+    font-size: 13px;
 }
 
 .desc img{
@@ -317,7 +324,7 @@ p {
 .wishlist-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  /* padding: 1.5rem 1rem; */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -359,7 +366,7 @@ p {
 /* Wishlists Grid - More Compact */
 .wishlists-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -373,7 +380,8 @@ p {
   cursor: pointer;
   transition: all 0.25s ease;
   border: 1px solid #f0f0f0;
-  max-width: 320px;
+  min-width: 360px;
+  height: 280px;
 }
 
 .wishlist-card:hover {
@@ -388,7 +396,7 @@ p {
   align-items: flex-start;
   padding: 0.875rem 1rem;
   border-bottom: 1px solid #f8f9fa;
-  background: #fafbfc;
+  background: #FFF;
 }
 
 .header-left {
@@ -403,9 +411,9 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: #f0f4f8;
+  width: 35px;
+  height: 35px;
+  /* background: #f0f4f8; */
   border-radius: 5px;
   flex-shrink: 0;
 }
@@ -443,8 +451,8 @@ p {
   background: none;
   border: none;
   color: rgb(30, 136, 229);
-  font-size: 0.75rem;
-  font-weight: bold;
+  font-size: 0.9rem;
+  /* font-weight: bold; */
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -460,7 +468,7 @@ p {
 /* Disabled state for share button - Secondary color theme */
 .share-btn:disabled,
 .share-btn.disabled {
-  color: #6c757d; /* Secondary gray color */
+  color: #6c757dac; /* Secondary gray color */
   cursor: not-allowed;
   opacity: 0.7; /* Slightly less transparent to maintain visibility */
   background: #f8f9fa; /* Light gray background */
@@ -468,7 +476,7 @@ p {
 
 .share-btn:disabled svg path,
 .share-btn.disabled svg path {
-  fill: #6c757d !important; /* Secondary gray for SVG */
+  fill: #6c757dac !important; /* Secondary gray for SVG */
 }
 
 .share-btn:disabled:hover,
@@ -481,6 +489,7 @@ p {
 /* Card Content - More Compact */
 .card-content {
   padding: 0.875rem;
+  background-color: #F7F7F7;
 }
 
 /* Preview Content */
@@ -568,22 +577,15 @@ p {
   padding: 1.25rem 0.75rem;
 }
 
-.empty-preview-icon {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto 0.75rem;
-  background: #f8f9fa;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ccc;
-  font-size: 1.125rem;
+.empty-preview-icon img{
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
 }
 
 .empty-text {
-  color: #6c757d;
-  font-size: 0.8rem;
+  color: rgb(194, 193, 193);
+  font-size: 1.1rem;
   margin: 0;
 }
 
@@ -905,47 +907,50 @@ p {
 
 /* Delete Popup Specific Styles */
 .delete-popup-content {
-  border-top: 4px solid #dc3545;
+  /* border-top: 4px solid #dc3545; */
 }
 
 .delete-message {
-  text-align: center;
+  /* text-align: center; */
   margin: 20px 0;
 }
 
 .delete-message p {
   margin: 8px 0;
-  color: #333;
+  color: #000;
+  font-weight: bold;
+  padding-bottom: 10px;
 }
 
-.delete-message strong {
+/* .delete-message strong {
   color: #dc3545;
   font-weight: 600;
-}
+} */
 
 .warning-text {
   font-size: 14px !important;
-  color: #666 !important;
-  font-style: italic;
+  color: #8b8888 !important;
+  font-weight: normal !important;
+  letter-spacing: 1.025px;
+  /* font-style: italic; */
 }
 
 /* Delete Actions */
 .delete-actions {
   display: flex;
   gap: 12px;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .cancel-popup-btn {
-  flex: 1;
-  padding: 10px 16px;
-  border: 1px solid #ddd;
+  /* flex: 1; */
+  padding: 10px 30px;
   background: white;
-  color: #333;
+  border: none;
+  color: #888585;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 15px;
   transition: all 0.2s ease;
 }
 
@@ -955,27 +960,17 @@ p {
 }
 
 .delete-confirm-btn {
-  flex: 1;
-  padding: 10px 16px;
-  border: 1px solid #dc3545;
-  background: #dc3545;
+  /* flex: 1; */
+  padding: 0 35px;
+  border: none;
+  background: #000;
   color: white;
-  border-radius: 6px;
+  /* border-radius: 6px; */
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.delete-confirm-btn:hover:not(:disabled) {
-  background: #c82333;
-  border-color: #c82333;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+  
 }
 
 .delete-confirm-btn:disabled,
