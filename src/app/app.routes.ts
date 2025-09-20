@@ -125,6 +125,20 @@ export const routes: Routes = [
             './shared/components/user-dashboard/addresses-content/addresses-content.component'
           ).then((m) => m.AddressesContentComponent),
       },
+       {
+        path: 'orders',
+        loadComponent: () =>
+          import(
+            './shared/components/user-dashboard/orders-content/orders-content.component'
+          ).then((m) => m.OrdersContentComponent),
+      },
+      {
+        path: 'orders/:id',
+        loadComponent: () =>
+          import(
+            './shared/components/user-dashboard/order-details/order-details.component'
+          ).then((m) => m.OrderDetailsComponent),
+      },
       {
         path: '',
         redirectTo: 'profile',
