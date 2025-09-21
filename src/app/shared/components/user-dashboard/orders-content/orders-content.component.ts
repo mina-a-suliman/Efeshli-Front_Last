@@ -105,13 +105,14 @@ import { ToastService } from '../../../../core/services/toast.service';
   styles: [`
     .orders-content {
       max-width: 800px;
+      padding-left: 80px
     }
 
     .page-title {
-      font-size: 28px;
+      font-size: 18px;
       font-weight: 600;
       color: #111827;
-      margin: 0 0 32px 0;
+      margin: 0 0 16px 0;
     }
 
     .empty-state {

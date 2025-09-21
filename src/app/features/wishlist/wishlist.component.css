@@ -211,21 +211,30 @@ p {
 }
 
 .items-grid {
-  display: flex;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
   gap: 20px;
 }
 
 .item-card {
-  width: 280px;
-  /* height: 400px; */
+  height: auto;
   position: relative;
   margin-right: 25px;
 }
 
 .item-card img {
-  width: 100%;
+  width: 80%;
   height: 250px;
   object-fit: cover;
+  margin-left: 30px;
+}
+
+.item-category{
+  border: 1px solid #bbb;
+  white-space: nowrap;      
+  overflow: hidden;          
+  text-overflow: ellipsis;
 }
 
 .heart {
@@ -268,14 +277,45 @@ p {
     font-size: 14px;
 }
 
-.item-card .item-desc{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.price-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: bold;
+  color:#88858590;
+  margin-top: 50px;
+}
+
+.original-price{
+  font-size: 12px;
+  text-decoration: line-through;
+}
+
+a{
+  text-decoration: none;
+}
+.item-main{
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
+.final-price{
+  color: #000;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.item-title{
+  font-size: 14px;
+  color: rgb(34, 34, 34)  ;
 }
 
 .item-card .item-desc p{
-    max-width: 200px;        
+  max-width: 200px;        
   white-space: nowrap;   
   overflow: hidden;     
   text-overflow: ellipsis;
@@ -784,7 +824,7 @@ p {
       background: #007bff;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 2px;
       cursor: pointer;
       font-size: 14px;
       font-weight: 500;

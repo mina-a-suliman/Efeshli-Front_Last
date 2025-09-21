@@ -39,20 +39,18 @@ import { filter } from 'rxjs/operators';
             [routerLink]="['/dashboard/orders']" 
             class="nav-item"
             [class.active]="isActiveRoute('/dashboard/orders')">         
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="nav-icon">
-              <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
-              <path d="M9 8V17H11V8H9ZM13 8V17H15V8H13Z"/>
-            </svg>
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.2998 5H22L20 12H8.37675M21 16H9L7 3H4M4 8H2M5 11H2M6 14H2M10 20C10 20.5523 9.55228 21 9 21C8.44772 21 8 20.5523 8 20C8 19.4477 8.44772 19 9 19C9.55228 19 10 19.4477 10 20ZM21 20C21 20.5523 20.5523 21 20 21C19.4477 21 19 20.5523 19 20C19 19.4477 19.4477 19 20 19C20.5523 19 21 19.4477 21 20Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
             <span>Orders</span>       
           </a>       
           <a 
             [routerLink]="['/dashboard/address']" 
             class="nav-item"
             [class.active]="isActiveRoute('/dashboard/address')">         
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="nav-icon">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              <path d="M12 6c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0 4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
-            </svg>
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 13V7M15 10.0008L9 10M19 10.2C19 14.1764 15.5 17.4 12 21C8.5 17.4 5 14.1764 5 10.2C5 6.22355 8.13401 3 12 3C15.866 3 19 6.22355 19 10.2Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
             <span>Addresses</span>       
           </a>       
           <a class="nav-item">         
@@ -62,13 +60,7 @@ import { filter } from 'rxjs/operators';
               <path d="M10 8h4v2h-4V8z"/>
             </svg>
             <span>Projects transactions</span>       
-          </a>       
-          <a class="nav-item">         
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="nav-icon">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
-            <span>Refer a friend</span>       
-          </a>     
+          </a>           
         </nav> 
       </div>
 
@@ -82,29 +74,29 @@ import { filter } from 'rxjs/operators';
     .profile-container {
       display: flex;
       min-height: 100vh;
-      background-color: #f8f9fa;
+      // background-color: #f8f9fa;
+      padding: 0 80px;
     }
 
     .sidebar {
-      width: 280px;
+      width: 250px;
       background: white;
       border-right: 1px solid #e5e7eb;
       padding: 24px 0;
     }
 
     .user-info {
-      padding: 0 24px 24px 24px;
-      border-bottom: 1px solid #e5e7eb;
-      margin-bottom: 24px;
+      padding: 0 0px 24px 0px;
+      padding-left: 25px;
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
     .avatar {
-      width: 48px;
-      height: 48px;
-      background: #dc2626;
+      width: 40px;
+      height: 40px;
+      background: #000;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -119,16 +111,16 @@ import { filter } from 'rxjs/operators';
 
     .user-details h3 {
       margin: 0 0 8px 0;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 14px;
+      // font-weight: 600;
       color: #111827;
     }
 
     .sign-out-btn {
       background: none;
       border: none;
-      color: #6b7280;
-      font-size: 14px;
+      color: #111827;
+      font-size: 12px;
       cursor: pointer;
       padding: 0;
     }
@@ -141,8 +133,9 @@ import { filter } from 'rxjs/operators';
       display: flex;
       align-items: center;
       gap: 12px;
+      font-size: 14px;
       padding: 12px 16px;
-      color: #6b7280;
+      color: #000;
       text-decoration: none;
       border-radius: 8px;
       margin-bottom: 4px;
@@ -159,12 +152,12 @@ import { filter } from 'rxjs/operators';
     }
 
     .nav-item.active {
-      background-color: #fee2e2;
-      color: #dc2626;
+      // background-color: #fee2e2;
+      color: #F06369;
     }
 
     .nav-item.active .nav-icon {
-      color: #dc2626;
+      color: #F06369;
     }
 
     .nav-icon {
