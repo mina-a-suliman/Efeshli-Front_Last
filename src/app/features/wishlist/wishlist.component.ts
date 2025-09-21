@@ -427,4 +427,3 @@ private closeEditPopup() {
   this.wishlistsSummary[summaryIndex].mainImages = remainingImages;
   }
 }
-

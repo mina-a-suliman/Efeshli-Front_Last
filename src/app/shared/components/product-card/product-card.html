@@ -1,1 +1,47 @@
-<p>product-card works!</p>
+<div class="product-card">
+  <div class="product-image">
+    <img [src]="product.imageUrl" [alt]="product.name">
+    <div class="discount-badge" *ngIf="product.discount">{{product.discount}}% OFF</div>
+    <a [routerLink]="['/product-details', product.productId]" class="quick-view-btn">Quick View</a>
+    
+    <div class="wishlist-dropdown" *ngIf="showWishlistDropdown">
+      <div *ngFor="let list of wishlistLists" 
+           (click)="onAddToWishlist(list.name)" 
+           class="wishlist-option">
+        {{list.name}}
+      </div>
+      <input type="text" 
+             #newListName 
+             placeholder="New List Name" 
+             (keyup.enter)="onCreateNewWishlist(newListName.value); newListName.value = ''" 
+             class="new-list-input">
+    </div>
+  </div>
+  
+  <div class="product-info">
+    <div class="product-size">{{product.size}}</div>
+    <div class="colors" >
+      <span *ngFor="let color of product.productItemColorsUrls" 
+            class="color-circle" 
+            [style.background-color]="color" 
+            [title]="color">
+      </span>
+    </div>
+    <div class="discount-name" *ngIf="product.finalPrice; else noDiscount">
+      <div class="product-category">{{product.category}}</div>
+      <span class="original-price">{{product.finalPrice| number}} EGP</span>
+    </div>
+    <ng-template #noDiscount>
+      <div class="product-category">{{product.category}}</div>
+    </ng-template>
+    
+    <div class="product-pricing">
+      <h3 class="product-name">{{product.name}}</h3>
+      <span class="current-price">{{product.price | number}} EGP</span>
+    </div>
+    
+    <button class="add-to-cart-btn" (click)="onAddToCart()">
+      {{addToCartText}}
+    </button>
+  </div>
+</div>
