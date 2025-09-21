@@ -40,13 +40,13 @@ import { ToastService } from '../../../../core/services/toast.service';
             class="tab-btn" 
             [class.active]="activeTab === 'pending'"
             (click)="setActiveTab('pending')">
-            Pending ({{ getOrdersByStatus(OrderStatus.Pending).length }})
+           
           </button>
           <button 
             class="tab-btn" 
             [class.active]="activeTab === 'delivered'"
             (click)="setActiveTab('delivered')">
-            Delivered ({{ getOrdersByStatus(OrderStatus.Delivered).length }})
+            
           </button>
         </div>
 
