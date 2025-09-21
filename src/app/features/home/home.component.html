@@ -101,7 +101,7 @@
   <div class="git-list-inspo">
     <div class="section-header">
       <p class="section-title">Gift List Inspo</p>
-      <a href="#" class="view-all-link">View all products</a>
+      <a href="#" class="view-all-link">View all products</a>       
     </div>
     <div class="product-grid">
       <div class="product-card">
@@ -162,7 +162,7 @@
 <div class="outdoor-edit">
   <div class="section-header">
     <p class="section-title">Outdoor Edit</p>
-    <a href="#" class="view-all-link">View all products</a>
+    <a class="view-all-link" style="cursor: pointer;" (click)="navigateToOutdoorProducts()">View all products</a>
   </div>
   
   <div *ngIf="isOutdoorLoading" class="loading-indicator">
@@ -171,10 +171,10 @@
   
   <div class="product-grid" *ngIf="!isOutdoorLoading">
     <div class="product-card outdoor" *ngFor="let product of outdoorProducts | slice:0:3">
-      <a [routerLink]="['/product', product.productId]">
+      <a [routerLink]="['/product-details', product.productId]">
         <img [src]="product.imageUrl" [alt]="product.name">
       </a>
-      <a [routerLink]="['/product', product.productId]" class="product-title">{{ product.name }}</a>
+      <a [routerLink]="['/product-details', product.productId]" class="product-title">{{ product.name }}</a>
       <h6 class="product-price">{{ product.finalPrice | number }} <sup>EGP</sup></h6>
     </div>
   </div>
@@ -184,7 +184,7 @@
 <div class="best-outdoor-rugs">
   <div class="section-header">
     <p class="section-title">Best Outdoor Rugs</p>
-    <a href="#" class="view-all-link">View all products</a>
+    <a class="view-all-link" style="cursor: pointer;" (click)="navigateToRugsProducts()">View all products</a>
   </div>
   
   <div *ngIf="isRugsLoading" class="loading-indicator">
@@ -318,7 +318,8 @@
     <div class="brand-card" *ngFor="let brand of brands | slice:0:6">
       <img [src]="brand.imageUrl ? brand.imageUrl : './../../assets/10.jpg'"
            [alt]="brand.name">
-      <a class="brand-title">{{ brand.name }}</a>
+      <a class="brand-title" [routerLink]="['/products']" 
+   [queryParams]="{ brandIds: brand.brandId }">{{ brand.name }}</a>
     </div>
   </div>
 </div>

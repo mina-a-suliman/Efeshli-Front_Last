@@ -111,66 +111,158 @@
        <!-- Categories Section -->
 
         <!-- Brands Section -->
-        <div class="filter-section">
-          <div class="filter-header" (click)="toggleFilterSection('brand')">
-            <h5 class="filter-title">Brands</h5>
-            <i class="bi" 
-               [class.bi-chevron-down]="!filterSections.brandOpen" 
-               [class.bi-chevron-up]="filterSections.brandOpen"></i>
-          </div>
-          <div class="filter-content" *ngIf="filterSections.brandOpen">
-            <div class="filter-option" *ngFor="let brand of brands">
-              <input 
-                type="checkbox" 
-                [id]="'brand-' + brand.id" 
-                [checked]="isBrandSelected(brand.id)"
-                (change)="toggleBrand(brand.id)">
-              <label [for]="'brand-' + brand.id">
-                {{brand.name}} <span class="filter-count">({{brand.count}})</span>
-              </label>
-            </div>
-          </div>
-        </div>
+        <!-- في product-list.html - تحديث قسم البراندات -->
 
+<!-- Brands Section -->
+<div class="filter-section">
+  <div class="filter-header" (click)="toggleFilterSection('brand')">
+    <h5 class="filter-title">Brands</h5>
+    <i class="bi" 
+       [class.bi-plus]="!filterSections?.brandOpen" 
+       [class.bi-dash]="filterSections?.brandOpen"></i>
+  </div>
+  
+  <div class="filter-content" *ngIf="filterSections?.brandOpen">
+    <!-- Loading State -->
+    <div *ngIf="loadingBrands" class="text-center py-2">
+      <div class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading brands...</span>
+      </div>
+      <div class="small text-muted mt-1">Loading brands...</div>
+    </div>
+
+    <!-- Brands List -->
+    <div *ngIf="!loadingBrands">
+      <!-- Show category info if filtered -->
+      <div *ngIf="currentCategoryForBrands" class="small text-muted mb-2">
+        Brands for selected category
+      </div>
+      
+      <!-- No brands message -->
+      <div *ngIf="brands.length === 0" class="text-muted small py-2">
+        No brands available for this category
+      </div>
+      
+      <!-- Brands checkboxes -->
+      <div class="filter-option" 
+           *ngFor="let brand of brands;"
+           [class.selected]="isBrandSelected(brand.id)">
+        <input 
+          type="checkbox" 
+          [id]="'brand-' + brand.id"
+          [checked]="isBrandSelected(brand.id)"
+          (change)="toggleBrand(brand.id)">
+        <label [for]="'brand-' + brand.id" class="brand-label">
+          <span class="brand-name">{{brand.name}}</span>
+          <span class="brand-count">({{brand.count}})</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
         <!-- Fabric Colors Section -->
-        <div class="filter-section">
-          <div class="filter-header" (click)="toggleFilterSection('fabricColor')">
-            <h5 class="filter-title">Fabric Colors</h5>
-            <i class="bi" 
-               [class.bi-chevron-down]="!filterSections.fabricColorOpen" 
-               [class.bi-chevron-up]="filterSections.fabricColorOpen"></i>
+<!-- في product-list.html - تحديث قسم الألوان -->
+
+<!-- Fabric Colors Section -->
+<div class="filter-section">
+  <div class="filter-header" (click)="toggleFilterSection('fabricColor')">
+    <h5 class="filter-title">Fabric Colors</h5>
+    <i class="bi" 
+       [class.bi-plus]="!filterSections?.fabricColorOpen" 
+       [class.bi-dash]="filterSections?.fabricColorOpen"></i>
+  </div>
+  
+  <div class="filter-content" *ngIf="filterSections?.fabricColorOpen">
+    <!-- Loading State -->
+    <div *ngIf="loadingFabricColors" class="text-center py-2">
+      <div class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading colors...</span>
+      </div>
+      <div class="small text-muted mt-1">Loading fabric colors...</div>
+    </div>
+
+    <!-- Fabric Colors List -->
+    <div *ngIf="!loadingFabricColors">
+      <!-- Show category info if filtered -->
+      <div *ngIf="currentCategoryForFabricColors" class="small text-muted mb-2">
+        Colors for selected category
+      </div>
+      
+      <!-- No colors message -->
+      <div *ngIf="fabricColors.length === 0" class="text-muted small py-2">
+        No fabric colors available for this category
+      </div>
+      
+      <!-- Colors grid -->
+      <div class="color-grid" *ngIf="fabricColors.length > 0">
+        <div class="color-option" 
+             *ngFor="let color of fabricColors; ngForTrackBy: trackByColorId"
+             [class.selected]="isFabricColorSelected(color.id || color.colorId)"
+             (click)="selectFabricColor(color.id || color.colorId)">
+          <div class="color-swatch">
+            <img [src]="color.imageUrl" 
+                 [alt]="color.name || 'Color ' + (color.id || color.colorId)"
+                 class="color-image"
+                 onerror="this.style.display='none';">
           </div>
-          <div class="filter-content" *ngIf="filterSections.fabricColorOpen">
-            <div class="color-option" *ngFor="let color of fabricColors">
-              <div class="color-box" 
-                   [style.background-color]="color.hexCode"
-                   [class.selected]="isFabricColorSelected(color.id)"
-                   (click)="selectFabricColor(color.id)">
-              </div>
-              <span>{{color.name}}</span>
-            </div>
-          </div>
+          <span class="color-name" *ngIf="color.name">{{color.name}}</span>
         </div>
+      </div>
+    </div>
+  </div>
+</div>        
 
         <!-- Wood Colors Section -->
-        <div class="filter-section">
-          <div class="filter-header" (click)="toggleFilterSection('woodColor')">
-            <h5 class="filter-title">Wood Colors</h5>
-            <i class="bi" 
-               [class.bi-chevron-down]="!filterSections.woodColorOpen" 
-               [class.bi-chevron-up]="filterSections.woodColorOpen"></i>
+        <!-- في product-list.html - تحديث قسم Wood Colors -->
+
+<!-- Wood Colors Section -->
+<div class="filter-section">
+  <div class="filter-header" (click)="toggleFilterSection('woodColor')">
+    <h5 class="filter-title">Wood Colors</h5>
+    <i class="bi" 
+       [class.bi-plus]="!filterSections?.woodColorOpen" 
+       [class.bi-dash]="filterSections?.woodColorOpen"></i>
+  </div>
+  
+  <div class="filter-content" *ngIf="filterSections?.woodColorOpen">
+    <!-- Loading State -->
+    <div *ngIf="loadingWoodColors" class="text-center py-2">
+      <div class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading wood colors...</span>
+      </div>
+      <div class="small text-muted mt-1">Loading wood colors...</div>
+    </div>
+
+    <!-- Wood Colors List -->
+    <div *ngIf="!loadingWoodColors">
+      <!-- Show category info if filtered -->
+      <div *ngIf="currentCategoryForWoodColors" class="small text-muted mb-2">
+        Wood colors for selected category
+      </div>
+      
+      <!-- No colors message -->
+      <div *ngIf="woodColors.length === 0" class="text-muted small py-2">
+        No wood colors available for this category
+      </div>
+      
+      <!-- Wood Colors grid -->
+      <div class="color-grid" *ngIf="woodColors.length > 0">
+        <div class="color-option" 
+             *ngFor="let color of woodColors; trackBy: trackByWoodColor"
+             [class.selected]="isWoodColorSelected(color.id || color.colorId)"
+             (click)="selectWoodColor(color.id || color.colorId)">
+          <div class="color-swatch">
+            <img [src]="color.imageUrl" 
+                 [alt]="color.name || 'Wood Color ' + (color.id || color.colorId)"
+                 class="color-image"
+                 onerror="this.style.display='none';">
           </div>
-          <div class="filter-content" *ngIf="filterSections.woodColorOpen">
-            <div class="color-option" *ngFor="let color of woodColors">
-              <div class="color-box" 
-                   [style.background-color]="color.hexCode"
-                   [class.selected]="isWoodColorSelected(color.id)"
-                   (click)="selectWoodColor(color.id)">
-              </div>
-              <span>{{color.name}}</span>
-            </div>
-          </div>
+          <span class="color-name" *ngIf="color.name">{{color.name}}</span>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
         <!-- Price Range Section -->
         <!-- Price Range Section -->
