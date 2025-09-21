@@ -625,28 +625,31 @@
       (mouseleave)="hideMegaMenu()"
     >
       <!-- قائمة Furniture -->
-      @if (activeMenu === 'furniture') {
-      <div class="mega-menu-content">
-        @for (room of getFurnitureRooms(); track room) { @if
-        (furnitureData[room] && furnitureData[room].length > 0) {
-        <div class="mega-menu-column">
-          <h6>
-            <a (click)="navigateToCategory(room)">{{ room }}</a>
-          </h6>
-          <ul class="mega-menu-list">
-            @for (item of furnitureData[room]; track item.categoryId) {
-            <li>
-              <a (click)="navigateToCategory(item.name)">{{ item.name }}</a>
-            </li>
-            }
-          </ul>
-          <a (click)="navigateToCategory(room)" class="explore-more"
-            >Explore more</a
-          >
-        </div>
-        } }
-      </div>
-      }
+     <!-- في header.html في قسم الـ Mega Menu -->
+@if (activeMenu === 'furniture') {
+<div class="mega-menu-content">
+  @for (room of getFurnitureRooms(); track room) { 
+    @if (furnitureData[room] && furnitureData[room].length > 0) {
+    <div class="mega-menu-column">
+      <h6>
+        <!-- الـ room category - يروح لصفحة الكاتيجوري -->
+        <a (click)="navigateToCategory(room, false)">{{ room }}</a>
+      </h6>
+      <ul class="mega-menu-list">
+        @for (item of furnitureData[room]; track item.categoryId) {
+        <li>
+          <!-- العناصر النهائية - تروح لصفحة المنتجات -->
+          <a (click)="navigateToCategory(item.name, true)">{{ item.name }}</a>
+        </li>
+        }
+      </ul>
+      <a (click)="navigateToCategory(room, false)" class="explore-more">Explore more</a>
+    </div>
+    } 
+  }
+</div>
+}
+      
       <!-- قوائم أخرى -->
       @if (activeMenu && activeMenu !== 'furniture' &&
       subCategories[activeMenu]) {

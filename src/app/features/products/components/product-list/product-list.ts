@@ -7,6 +7,8 @@ import { FilterService, Product, ProductsData ,Category} from '../../../../core/
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card';
 import { ProductHeartButtonComponent } from '../../../../features/product-heart-button/product-heart-button';
 import { WishlistDropdownComponent } from "../../../wishlist/wishlist-dropdown.component";
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -16,6 +18,8 @@ import { WishlistDropdownComponent } from "../../../wishlist/wishlist-dropdown.c
   styleUrls: ['./product-list.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
+    private routeParamsSubscription?: Subscription;
+
   private destroy$ = new Subject<void>();
   selectedProductForWishlist: Product | null = null;
   showWishlistDropdown = false;
@@ -98,36 +102,99 @@ export class ProductListComponent implements OnInit, OnDestroy {
   wishlistLists: any[] = [];
   selectedProduct: Product | null = null;
 
-  constructor(private filterService: FilterService) {}
+  constructor(private filterService: FilterService,private route: ActivatedRoute ) {}
 
-  ngOnInit(): void {
-    this.loadCategories();
-    this.loadProducts();
+ // في ngOnInit - استبدل الكود الحالي بده
+ngOnInit(): void {
+  this.loadCategories();
+  
+  this.route.queryParams.subscribe(params => {
+    console.log('📋 Query params received:', params);
     
-  }
+    // تحقق من categoryId أو category
+    let categoryId: number | null = null;
+    
+    if (params['categoryId']) {
+      categoryId = parseInt(params['categoryId'], 10);
+      console.log('🎯 Found categoryId:', categoryId);
+    } else if (params['category']) {
+      categoryId = parseInt(params['category'], 10);
+      console.log('🎯 Found category (converted to categoryId):', categoryId);
+    }
+    
+    if (categoryId) {
+      console.log('🎯 Setting categoryId filter:', categoryId);
+      
+      // تطبيق فلتر الفئة
+      this.filters.selectedCategoryId = categoryId;
+      this.filters.selectedSubcategoryId = null;
+      
+      // تحميل المنتجات فوراً مع الفلتر
+      this.loadProducts(1);
+    } else {
+      console.log('📄 No categoryId/category in params, loading all products');
+      // تحميل كل المنتجات إذا مفيش فلتر
+      this.loadProducts(1);
+    }
+  });
+}
 
   ngOnDestroy(): void {
+    if (this.routeParamsSubscription) {
+      this.routeParamsSubscription.unsubscribe();
+    }
     this.destroy$.next();
     this.destroy$.complete();
   }
 
   loadProducts(page: number = 1): void {
+      console.log('🎛️ Current filters state:', this.filters);
+
     this.loading = true;
     this.error = null;
+  const categoryId = this.filters.selectedSubcategoryId || this.filters.selectedCategoryId;
 
     // Create filter request with minimal parameters
-    const filterRequest = {
-      pageNumber: page,
-      pageSize: this.pageSize,
-      sortBy: this.selectedSort,
-      categoryId: this.filters.selectedSubcategoryId || this.filters.selectedCategoryId,
-      brandIds: this.filters.selectedBrandIds.length > 0 ? this.filters.selectedBrandIds : undefined,
-      fabricColorId: this.filters.selectedFabricColorId,
-      woodColorId: this.filters.selectedWoodColorId,
-      minPrice: this.filters.minPrice,
-      maxPrice: this.filters.maxPrice,
-      keyword: this.filters.keyword || undefined
-    };
+    const filterRequest: any = {
+    pageNumber: page,
+    pageSize: this.pageSize,
+    sortBy: this.selectedSort
+  };
+  if (categoryId) {
+    filterRequest.categoryId = categoryId;
+  }
+ if (this.filters.selectedBrandIds && this.filters.selectedBrandIds.length > 0) {
+    filterRequest.brandIds = this.filters.selectedBrandIds;
+  }
+
+  if (this.filters.selectedFabricColorId) {
+    filterRequest.fabricColorId = this.filters.selectedFabricColorId;
+  }
+
+  if (this.filters.selectedWoodColorId) {
+    filterRequest.woodColorId = this.filters.selectedWoodColorId;
+  }
+
+  if (this.filters.minPrice !== null && this.filters.minPrice !== undefined) {
+    filterRequest.minPrice = this.filters.minPrice;
+  }
+
+  if (this.filters.maxPrice !== null && this.filters.maxPrice !== undefined) {
+    filterRequest.maxPrice = this.filters.maxPrice;
+  }
+
+  if (this.filters.keyword) {
+    filterRequest.keyword = this.filters.keyword;
+  }
+  // إضافة باقي الفلاتر إذا كانت موجودة
+  if (this.filters.selectedBrandIds && this.filters.selectedBrandIds.length > 0) {
+    filterRequest.brandIds = this.filters.selectedBrandIds;
+  }
+
+  if (this.filters.selectedFabricColorId) {
+    filterRequest.fabricColorId = this.filters.selectedFabricColorId;
+  }
+// Cast filterRequest to any to allow string indexing
 
     this.filterService.getFilteredProducts(filterRequest)
       .pipe(

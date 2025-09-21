@@ -269,6 +269,17 @@ getSubCategories(pid: number): Observable<Category[]> {
   // In your filter.service.ts
 getFilteredProducts(filterRequest: any = {}): Observable<ProductsData> {
   let params = new HttpParams();
+  Object.keys(filterRequest).forEach(key => {
+    if (filterRequest[key] !== null && filterRequest[key] !== undefined) {
+      if (Array.isArray(filterRequest[key])) {
+        filterRequest[key].forEach((value: any) => {
+          params = params.append(key, value.toString());
+        });
+      } else {
+        params = params.append(key, filterRequest[key].toString());
+      }
+    }
+  });
 
   // Add basic parameters
   params = params.set('pageNumber', (filterRequest.pageNumber || 1).toString());
