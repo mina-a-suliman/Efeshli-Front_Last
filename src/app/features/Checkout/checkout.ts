@@ -342,6 +342,25 @@ selectAddress(addressId:number): void {
 //   }
 
 // }
+// applyCouponCode(): void {
+//   if (this.couponCode && this.couponCode.trim() !== '') {
+//     this.orderService.getCheckoutPreview(this.couponCode).subscribe({
+//       next: (res: any) => {
+//         if (res?.succeeded && res.data) {
+//           this.orderCheckoutPreview = res.data;
+//           this.toastService.showSuccess('Coupon applied successfully', 'Coupon Applied');
+//         } else {
+//           this.toastService.showInfo(res.message);
+//         }
+//       },
+//       error: () => {
+//         this.toastService.showError('Failed to apply coupon. Please try again.', 'Coupon Error');
+//       }
+//     });
+//   }
+// }
+
+
 applyCouponCode(): void {
   if (this.couponCode && this.couponCode.trim() !== '') {
     this.orderService.getCheckoutPreview(this.couponCode).subscribe({
@@ -359,6 +378,8 @@ applyCouponCode(): void {
     });
   }
 }
+
+  
 get discountValue(): number  {
  return this.orderCheckoutPreview?.discountValue ?? 0;
 }
