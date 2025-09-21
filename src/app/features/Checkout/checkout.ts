@@ -3,7 +3,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderCheckoutPreview } from '../../core/models/order.model';
 import { AccountService, Address } from '../../core/services/Account.service';
-import { CartItemDto, CartService } from '../../core/services/cart.service';
+import { ApiResponse, CartItemDto, CartService } from '../../core/services/cart.service';
 import { OrderService } from '../../core/services/order.service';
 import { StripeService } from '../../core/services/Stripe.service';
 import { ToastService } from '../../core/services/toast.service';
@@ -73,6 +73,8 @@ export class CheckoutComponent implements OnInit {
   estimatedDelivery = 'Thursday, Sep 25, 2025';
 
   governorates = governorates;
+
+responsePreview:ApiResponse<OrderCheckoutPreview> | null = null;
 
   areas: { [K in Governorate]: string[] } = {
     'Cairo': ['15 May', 'Al Azbakeyah', 'Al Basatin', 'Tebin', 'El-Khalifa', 'El darrasa', 'Aldarb Alahmar', 'Zawya al-Hamra', 'El-Zaytoun'],
@@ -321,29 +323,44 @@ selectAddress(addressId:number): void {
   this.accountService.setSelectedAddress(addressId);
 }
 
+// applyCouponCode(): void {
+//   if (this.couponCode && this.couponCode.trim() !== '') {
+//    this.orderService.getCheckoutPreview(this.couponCode).subscribe({
+//       next: (res:any) => {
+        
+//         if (res?.succeeded && res.data) {
+//           this.orderCheckoutPreview = res.data;
+//           this.toastService.showSuccess('Coupon applied successfully', 'Coupon Applied');
+//         }
+//       else{
+//         this.toastService.showInfo(res.message);
+//       }},
+//       error: () => {this.toastService.showError('Failed to apply coupon. Please try again.', 'Coupon Error');}
+      
+//       })
+        
+//   }
+
+// }
 applyCouponCode(): void {
   if (this.couponCode && this.couponCode.trim() !== '') {
-    
-   this.orderService.getCheckoutPreview(this.couponCode).subscribe({
+    this.orderService.getCheckoutPreview(this.couponCode).subscribe({
       next: (res: any) => {
-        
         if (res?.succeeded && res.data) {
           this.orderCheckoutPreview = res.data;
           this.toastService.showSuccess('Coupon applied successfully', 'Coupon Applied');
+        } else {
+          this.toastService.showInfo(res.message);
         }
-      else{
-        this.toastService.showInfo(res.message);
-      }},
-      error: () => {this.toastService.showError('Failed to apply coupon. Please try again.', 'Coupon Error');}
-      
-      })
-        
+      },
+      error: () => {
+        this.toastService.showError('Failed to apply coupon. Please try again.', 'Coupon Error');
+      }
+    });
   }
-
 }
-
 get discountValue(): number  {
-  return this.orderCheckoutPreview?.discountValue ?? 0;
+ return this.orderCheckoutPreview?.discountValue ?? 0;
 }
 
 }

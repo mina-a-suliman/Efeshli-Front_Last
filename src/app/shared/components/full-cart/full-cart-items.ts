@@ -131,7 +131,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
 
   /** Navigation */
   startShopping() {
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/products?categoryId=514&categoryName=End%20%26%20Side%20Tables');
   }
 
   proceedToCheckout(): void {

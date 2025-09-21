@@ -308,7 +308,7 @@ export class ProductDetailPageComponent implements OnInit {
     this.isAddingToCart.set(true);
     
     const request: AddToCartRequestDto = {
-      productItemId: product.productId,
+      productItemId: product.productItemId,
       quantity: this.quantity()
     };
     
@@ -316,9 +316,9 @@ export class ProductDetailPageComponent implements OnInit {
       next: (response) => {
         this.isAddingToCart.set(false);
         if (response.succeeded) {
-          swal("Good job!", "This is a success alert!", "success");
+          
           this.cartService.refreshCartCount();
-          this.router.navigate(['/checkout']);
+          this.router.navigateByUrl('/checkout');
         } else {
           this.toastService.showError(response.message || 'Failed to add product to cart', 'Cart Error');
         }
