@@ -14,6 +14,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { reverseAuthGuard } from './core/guards/reverse-auth-guard';
 import { CheckoutComponent } from './features/Checkout/checkout';
 import { ProductListComponent } from './features/products/components/product-list/product-list';
+import { ContactUs } from './features/contact-us/contact-us';
 
 export const routes: Routes = [
   // 🔹 Auth
@@ -87,6 +88,9 @@ export const routes: Routes = [
   { path: 'product-details', redirectTo: 'home', pathMatch: 'full' },
   { path: 'products', component: ProductListComponent },
   { path: 'category/:category', component: CategoryComponent },
+
+   // 🔹 Contact us
+   {path: 'contact-us', component: ContactUs},
 
   // 🔹 Wishlist
   {
@@ -163,6 +167,9 @@ export const routes: Routes = [
   // 🔹 Fallbacks
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },
+
+ 
+
 ];
 
 export const appRouterProviders = provideRouter(routes);
