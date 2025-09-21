@@ -30,9 +30,9 @@
 }
 
 .summarize-btn {
-  background-color: #28a745;
-  color: white;
-  border: none;
+  background-color: #fff;
+  color: #C40101;
+  border: 1px solid #C40101;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
@@ -40,14 +40,14 @@
   transition: background-color 0.2s;
 }
 
-.summarize-btn:hover:not(:disabled) {
+/* .summarize-btn:hover:not(:disabled) {
   background-color: #218838;
-}
+} */
 
-.summarize-btn:disabled {
+/* .summarize-btn:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
-}
+} */
 
 .summary-content {
   min-height: 60px;
@@ -91,29 +91,6 @@
     align-self: stretch;
   }
 }
-
-/* ... rest of existing styles ... */
-/* .summary-section {
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-} */
-
-/* .summary-section h3 {
-  margin-top: 0;
-  color: #333;
-} */
-
-/* .summary-section ul {
-  padding-left: 20px;
-  margin-bottom: 0;
-} */
-
-/* .summary-section li {
-  margin-bottom: 8px;
-  line-height: 1.4;
-} */
 
 .add-review-section {
   background-color: #fff;
@@ -191,9 +168,9 @@
 }
 
 button[type="submit"] {
-  background-color: #007bff;
-  color: white;
-  border: none;
+  background-color: #fff;
+  color: #C40101;
+  border: 1px solid #f5c6cb;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;

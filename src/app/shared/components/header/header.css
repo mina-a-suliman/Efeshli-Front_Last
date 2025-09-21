@@ -524,7 +524,7 @@
     }
 
     .mobile-sidebar {
-        width: 100%; /* يغطي الشاشة كلها */
+        width: 100%; 
         right: -100%;
     }
 

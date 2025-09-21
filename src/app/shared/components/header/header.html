@@ -1,9 +1,9 @@
-<div class="header-container">
-  <div class="mobile-top-row">
-    <button class="mobile-menu-toggle" (click)="showMobileSidebar()">
-      <span></span> <span></span> <span></span>
-    </button>
-    <a href="/home" class="logo">
+<!-- Mobile Top Row -->
+<div class="mobile-top-row">
+  <button class="mobile-menu-toggle" (click)="showMobileSidebar()">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="/home" class="logo">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="115.112"
@@ -140,7 +140,30 @@
         ></path>
       </svg>
     </button>
+  <!-- <div class="logo">
+    <a routerLink="/">Logo</a>
   </div>
+  <button class="mobile-cart-button">
+    <i class="cart-icon"></i>
+  </button> -->
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="overlay" (click)="hideMobileSidebar()"></div>
+
+<!-- Mobile Sidebar -->
+<div id="sidebar" class="mobile-sidebar">
+  <div class="sidebar-header">
+    <h3>Menu</h3>
+    <button class="close-sidebar" (click)="hideMobileSidebar()">×</button>
+  </div>
+  <a class="mobile-nav-item" *ngFor="let category of mainCategories"
+     (click)="navigateToCategory(category.name, hasDirectItems(category.name))">
+    {{ category.name }}
+  </a>
+</div>
+
+<div class="header-container">
   <!-- Mobile Search Row -->
   <!-- Mobile Search Row -->
 <div class="mobile-search-row">

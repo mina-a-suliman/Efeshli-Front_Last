@@ -31,6 +31,8 @@ export interface ProductSpecification {
 
 export interface Iproduct {
   productId: number;
+  productItemId:number;
+  qtyInCart:number;
   name: string;
   description: string;
   brand: string;

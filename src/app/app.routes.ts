@@ -1,7 +1,7 @@
 import { provideRouter, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { EmailConfirmationComponent } from './features/auth/components/EmailConfirmation/EmailConfirmation.component';
-import { ProductDetailPageComponent } from './features/products/components/product-details/product-details';
+// import { ProductDetailPageComponent } from './features/products/components/product-details/product-details';
 import { CartItemsComponent } from './features/cart/components/cart-items/cart-items';
 import { FullCartItemsComponent } from './shared/components/full-cart/full-cart-items';
 import { UserDashboardComponent } from './shared/components/user-dashboard/user-dashboard.component';
@@ -15,6 +15,8 @@ import { reverseAuthGuard } from './core/guards/reverse-auth-guard';
 import { CheckoutComponent } from './features/Checkout/checkout';
 import { ProductListComponent } from './features/products/components/product-list/product-list';
 import { ContactUs } from './features/contact-us/contact-us';
+import { ProductDetailPageComponent } from './features/products/components/product-details/product-details';
+// import { ProductDetailsComponent } from './features/products/components/product-details/product-details';
 
 export const routes: Routes = [
   // 🔹 Auth
@@ -84,7 +86,8 @@ export const routes: Routes = [
   },
 
   // 🔹 Products
-  { path: 'product-details/:id', component: ProductDetailPageComponent },
+ { path: 'product-details/:id', component: ProductDetailPageComponent },
+
   { path: 'product-details', redirectTo: 'home', pathMatch: 'full' },
   { path: 'products', component: ProductListComponent },
   { path: 'category/:category', component: CategoryComponent },

@@ -223,6 +223,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     const confirmSignOut = window.confirm('Are you sure you want to sign out?');
     if (confirmSignOut) {
       this.authService.logout();
+      this.router.navigateByUrl("home");
     }
   }
 }

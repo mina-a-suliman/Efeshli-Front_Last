@@ -30,9 +30,10 @@
 
 /* Main Container */
 .product-details-container {
-  max-width: 1000px;
+  /* max-width: 1000px; */
   margin: 0 auto;
-  padding: 0.5rem 1rem;
+  padding: 1rem 9rem;
+  /* padding: 0.5rem 1rem; */
 }
 
 /* Breadcrumb */
@@ -423,7 +424,7 @@
 .btn-primary, .btn-secondary {
   padding: 0.9rem 0.5rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 2px;
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
@@ -431,27 +432,22 @@
   text-align: center;
   text-decoration: none;
   display: block;
-  max-width: 55%;
+  max-width: 65%;
 }
 
 .btn-primary {
-  background: #333;
+  background: #000;
   color: white;
-}
-
-.btn-primary:hover {
-  background: #555;
 }
 
 .btn-secondary {
   background: white;
-  color: #e74c3c;
-  border: 2px solid #e74c3c;
+  color: #C40101;
+  border: 1px solid #c40101;
 }
 
 .btn-secondary:hover {
-  background: #e74c3c;
-  color: white;
+  background: #f6ddda84;
 }
 
 /* Product Options Section */

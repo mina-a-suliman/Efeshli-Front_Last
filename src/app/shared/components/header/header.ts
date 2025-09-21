@@ -95,6 +95,7 @@ export class HeaderComponent implements OnInit {
         }
     }, 0);
 }
+
 ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -107,17 +108,40 @@ ngOnDestroy(): void {
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
+
+
+//   showMobileSidebar() {
+//     const sidebar = document.getElementById('sidebar');
+//     const overlay = document.getElementById('overlay');
+//     if (sidebar && overlay) {
+//         sidebar.classList.add('active');
+//         overlay.classList.add('active');
+//         document.body.style.overflow = 'hidden';
+//     }
+// }
+
+
 }
 
-hideMobileSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    if (sidebar && overlay) {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-}
+// hideMobileSidebar() {
+//     const sidebar = document.getElementById('sidebar');
+//     const overlay = document.getElementById('overlay');
+//     if (sidebar && overlay) {
+//         sidebar.classList.remove('active');
+//         overlay.classList.remove('active');
+//         document.body.style.overflow = 'auto';
+//     }
+// }
+
+//hideMobileSidebar() {
+ // const sidebar = document.getElementById('sidebar');
+  //const overlay = document.getElementById('overlay');
+  //if (sidebar && overlay) {
+   // sidebar.classList.remove('active');
+    //overlay.classList.remove('active');
+    //document.body.style.overflow = 'auto';
+  //}
+//}
 
 toggleMobileSearch() {
     const mobileSearch = document.querySelector('.mobile-search-container');
