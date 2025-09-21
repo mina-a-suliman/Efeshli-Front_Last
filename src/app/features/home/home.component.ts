@@ -14,6 +14,7 @@ import { RoomService } from '../../core/services/room.service'; // خدمة جد
 import { RoomProduct } from '../../core/models/room.model'; // نموذج جديد للغرف
 import { AdService } from '../../core/services/ad.service';
 import { AdProduct } from '../../core/models/ad.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -55,6 +56,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
 isAdLoading: boolean = true;
 
   constructor(
+    private router: Router,
     private renderer: Renderer2,
     private brandService: BrandService,
     private collectionService: CollectionService,
@@ -159,7 +161,31 @@ isAdLoading: boolean = true;
       }
     });
   }
+navigateToOutdoorProducts(): void {
+  // للمنتجات الخارجية - استخدام API المحدد
+  this.router.navigate(['/products'], {
+    queryParams: {
+      collection: 'outdoor',
+      pageNumber: 1,
+      pageSize: 24
+    }
+  });
+}
 
+navigateToRugsProducts(): void {
+  // للسجاد
+  this.router.navigate(['/products'], {
+    queryParams: {
+      categoryId: 548, // Rugs category ID
+      pageNumber: 1,
+      pageSize: 24
+    }
+  });
+}
+navigateToAllBrands(): void {
+  // لصفحة البراندات
+  this.router.navigate(['/brands']);
+}
   loadRoomProducts(): void {
     // تحميل منتجات غرفة المعيشة
     this.roomService.getRoomProducts('livingroom', 1, 1).subscribe({
