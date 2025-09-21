@@ -286,6 +286,7 @@ export class ProductDetailPageComponent implements OnInit {
       next: (response) => {
         this.isAddingToCart.set(false);
         if (response.succeeded) {
+          swal("Success!", "Add to cart!", "success");
           this.cartService.refreshCartCount();
           this.toastService.showSuccess(response.message || 'Product added to cart', 'Cart Updated');
         } else {
