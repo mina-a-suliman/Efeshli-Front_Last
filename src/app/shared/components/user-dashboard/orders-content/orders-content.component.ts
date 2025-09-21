@@ -96,9 +96,11 @@ import { ToastService } from '../../../../core/services/toast.service';
         </div>
 
         <!-- Start Shopping Button -->
+        <a href = '/products'>
         <button class="start-shopping-btn" (click)="startShopping()">
           Start Shopping Now
         </button>
+        </a>
       </div>
     </div>
   `,
