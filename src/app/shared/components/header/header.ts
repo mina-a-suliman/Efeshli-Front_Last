@@ -254,6 +254,28 @@ navigateToCategoryPage(categoryId: number) {
   this.hideMobileSidebar();
 }
 
+
+howMobileSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  if (sidebar && overlay) {
+    sidebar.classList.add('active');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // يمنع سكرول تحت السايدبار
+  }
+}
+
+
+hideMobileSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  if (sidebar && overlay) {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+}
+
 // تحديث الخريطة لتشمل معلومات عن نوع كل فئة
 private categoryConfig: { [key: string]: { id: number, hasItems: boolean } } = {
   // الفئات الرئيسية (لها صفحات كاتيجوري)
