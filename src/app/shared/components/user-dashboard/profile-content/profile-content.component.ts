@@ -166,17 +166,18 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
   styles: [`
     .profile-form {
       max-width: 800px;
+      padding-left: 80px;
     }
 
     .page-title {
-      font-size: 28px;
+      font-size: 18px;
       font-weight: 600;
       color: #111827;
-      margin: 0 0 32px 0;
+      margin: 0 0 15px 0;
     }
 
     .loading-indicator {
-      display: flex;
+      display: flex;  
       align-items: center;
       gap: 12px;
       padding: 20px;
@@ -200,8 +201,8 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
     .form-content {
       background: white;
       border-radius: 12px;
-      padding: 32px;
-      border: 1px solid #e5e7eb;
+      // padding: 32px;
+      // border: 1px solid #e5e7eb;
     }
 
     .form-row {
@@ -214,6 +215,7 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
     .form-group {
       display: flex;
       flex-direction: column;
+      width: 450px;
     }
 
     .form-group label {
@@ -224,9 +226,9 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
     }
 
     .form-input {
-      padding: 12px 16px;
+      padding: 7px 16px;
       border: 1px solid #d1d5db;
-      border-radius: 8px;
+      border-radius: 2px;
       font-size: 16px;
       transition: border-color 0.2s ease;
       background: white;
@@ -234,8 +236,7 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
 
     .form-input:focus {
       outline: none;
-      border-color: #dc2626;
-      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      border-color: #000;
     }
 
     .form-input:disabled {
@@ -247,7 +248,7 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
       display: flex;
       align-items: center;
       border: 1px solid #d1d5db;
-      border-radius: 8px;
+      border-radius: 2px;
       overflow: hidden;
       background: white;
     }
@@ -272,14 +273,15 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
 
     .phone-input {
       flex: 1;
-      padding: 12px 16px;
+      padding: 7px 16px;
       border: none;
       font-size: 16px;
-      background: white;
+      // background: white;
     }
 
     .phone-input:focus {
       outline: none;
+      border-color: #000;
     }
 
     .password-group {
@@ -293,14 +295,15 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
     .change-password-link {
       position: absolute;
       right: 12px;
-      top: 50%;
+      top: 70%;
       transform: translateY(-50%);
       background: none;
       border: none;
       color: #3b82f6;
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
-      text-decoration: underline;
+      // text-decoration: underline;
     }
 
     .change-password-link:disabled {
@@ -315,13 +318,13 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
     }
 
     .save-btn {
-      background-color: #dc2626;
+      background-color: #C40101;
       color: white;
       border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 500;
+      padding: 10px 12px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 600;
       cursor: pointer;
       transition: background-color 0.2s ease;
     }
@@ -330,10 +333,10 @@ import { AccountService, ProfileData, UpdateProfileDto } from '../../../../core/
       background-color: #b91c1c;
     }
 
-    .save-btn:disabled {
-      background-color: #d1d5db;
-      cursor: not-allowed;
-    }
+    // .save-btn:disabled {
+    //   background-color: #d1d5db;
+    //   cursor: not-allowed;
+    // }
 
     /* Modal Styles */
     .modal-overlay {

@@ -202,21 +202,24 @@
       
       <!-- Item Info -->
       <div class="item-info">
-        <p class="item-category">{{ item.category || 'Product' }}</p>
+        <p class="item-category">{{ item.dimensionsOrSize || 'Product' }}</p>
         <div class="item-desc">
-        <a [routerLink]="['/product-details', item.productId]" class="item-title-link">
-          <p class="item-title">{{ item.name || 'Product Name' }}</p>
-        </a>          <div class="price-info">
-            <span class="final-price">
-              {{ item.finalPrice || item.price }} EGP
+          <div class="price-info">
+            <span class="category" >
+              {{ item.category }}
             </span>
             <span class="original-price" *ngIf="item.discount && item.discount > 0">
               {{ item.price }} EGP
             </span>
-            <span class="discount" *ngIf="item.discount && item.discount > 0">
-              {{ item.discount }}% off
+          </div>
+        <a [routerLink]="['/product-details', item.productId]" class="item-title-link">
+          <div class="item-main">
+            <p class="item-title">{{ item.name || 'Product Name' }}</p>
+            <span class="final-price">
+              {{ item.finalPrice || item.price }} EGP
             </span>
           </div>
+        </a>         
         </div>
         <button class="add-to-cart-btn" (click)="addToCart(item)">
           Add to Cart
