@@ -12,6 +12,7 @@ import { WishlistDropdownComponent } from '../../../wishlist/wishlist-dropdown.c
 import { ProductReviewsComponent } from '../../product-review/product-review.component';
 import { AddToCartRequestDto, CartService } from '../../../../core/services/cart.service';
 import { ToastService } from '../../../../core/services/toast.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-product-detail-page',
@@ -314,6 +315,7 @@ export class ProductDetailPageComponent implements OnInit {
       next: (response) => {
         this.isAddingToCart.set(false);
         if (response.succeeded) {
+          swal("Good job!", "This is a success alert!", "success");
           this.cartService.refreshCartCount();
           this.router.navigate(['/checkout']);
         } else {
