@@ -159,15 +159,31 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="action-buttons">
+      <!-- <div class="action-buttons">
         <button (click)="addToCart(product()?.productId??0,1)" class="btn-primary btn-add-cart">
           Add to Cart
         </button>
         <a href="/checkout"  class="btn-secondary btn-buy-now">
           Buy now
         </a>
-      </div>
-
+      </div> -->
+<!-- Action Buttons -->
+<div class="action-buttons">
+  <button 
+    (click)="addToCart()" 
+    class="btn-primary btn-add-cart"
+    [disabled]="isAddingToCart()">
+    <span *ngIf="!isAddingToCart()">Add to Cart</span>
+    <span *ngIf="isAddingToCart()">Adding...</span>
+  </button>
+  <button 
+    (click)="buyNow()" 
+    class="btn-secondary btn-buy-now"
+    [disabled]="isAddingToCart()">
+    <span *ngIf="!isAddingToCart()">Buy now</span>
+    <span *ngIf="isAddingToCart()">Processing...</span>
+  </button>
+</div>
       <!-- Product Options Section - COMPLETELY UPDATED -->
       <div class="product-options">
         <!-- Small Product Preview -->
