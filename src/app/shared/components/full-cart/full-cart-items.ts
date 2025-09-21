@@ -1,14 +1,12 @@
-
-
 // shared/full-cart/full-cart.component.ts
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { StripeService } from '../../../core/services/Stripe.service';
 import { CartService, CartDto, CartItemDto } from '../../../core/services/cart.service';
-import { Address } from '../../../core/services/Account.service';
+import { ToastService } from '../../../core/services/toast.service';  // 👈 import
 
 @Component({
   selector: 'app-full-cart',
@@ -18,7 +16,6 @@ import { Address } from '../../../core/services/Account.service';
   styleUrls: ['./full-cart-items.css']
 })
 export class FullCartItemsComponent implements OnInit, OnDestroy {
-
   serverCart: CartDto | null = null;
   isLoading = false;
   errorMessage: string | null = null;
@@ -33,18 +30,16 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
     return Number.isFinite(parsed as number) ? (parsed as number) : undefined;
   })();
 
-
-
   constructor(
     private stripeService: StripeService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private toast: ToastService   // 👈 inject toast service
   ) {}
 
   ngOnInit(): void {
     this.loadCart();
 
-    // Refresh if cart count changes
     this.cartService.cartCount$.subscribe(() => {
       this.loadCart();
     });
@@ -61,6 +56,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
     if (!token) {
       this.isLoading = false;
       this.errorMessage = 'Please log in to view your cart';
+      this.toast.showError(this.errorMessage, 'Cart'); // 👈 toast
       return;
     }
 
@@ -72,6 +68,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
         } else {
           this.errorMessage = resp.message ?? 'Failed to load cart';
           this.serverCart = null;
+          this.toast.showError(this.errorMessage, 'Cart'); // 👈 toast
         }
       },
       error: (err) => {
@@ -86,6 +83,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
         } else {
           this.errorMessage = err?.message || 'Failed to load cart';
         }
+        this.toast.showError(this.errorMessage??'', 'Cart'); // 👈 toast
       }
     });
   }
@@ -100,7 +98,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
   }
 
   get total(): number {
-    return this.subtotal; // API already returns grandTotal including discounts
+    return this.subtotal;
   }
 
   /** Cart actions */
@@ -108,24 +106,42 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
     if (quantity <= 0) return;
     this.cartService.updateQuantity({ cartItemId: item.cartItemId, quantity }).subscribe({
       next: (resp) => {
-        if (resp.succeeded) this.loadCart();
-      }
+        if (resp.succeeded) {
+          this.loadCart();
+          this.toast.showSuccess('Quantity updated', 'Cart'); // 👈 toast
+        } else {
+          this.toast.showError(resp.message || 'Failed to update quantity', 'Cart');
+        }
+      },
+      error: () => this.toast.showError('Failed to update quantity', 'Cart')
     });
   }
 
   removeItem(item: CartItemDto): void {
     this.cartService.removeItem(item.cartItemId).subscribe({
       next: (resp) => {
-        if (resp.succeeded) this.loadCart();
-      }
+        if (resp.succeeded) {
+          this.loadCart();
+          this.toast.showSuccess('Item removed from cart', 'Cart'); // 👈 toast
+        } else {
+          this.toast.showError(resp.message || 'Failed to remove item', 'Cart');
+        }
+      },
+      error: () => this.toast.showError('Failed to remove item', 'Cart')
     });
   }
 
   clearCart(): void {
     this.cartService.clearCart().subscribe({
       next: (resp) => {
-        if (resp.succeeded) this.loadCart();
-      }
+        if (resp.succeeded) {
+          this.loadCart();
+          this.toast.showSuccess('Cart cleared', 'Cart'); // 👈 toast
+        } else {
+          this.toast.showError(resp.message || 'Failed to clear cart', 'Cart');
+        }
+      },
+      error: () => this.toast.showError('Failed to clear cart', 'Cart')
     });
   }
 
@@ -145,7 +161,4 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
       window.location.href = 'mailto:hello@efreshii.com';
     }
   }
-
-
-
 }
