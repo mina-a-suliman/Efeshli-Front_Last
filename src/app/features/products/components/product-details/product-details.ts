@@ -1,7 +1,7 @@
 // Updated product-detail-page.component.ts
 
 import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgIf, NgFor, TitleCasePipe, KeyValuePipe, CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, signal, computed, DestroyRef, inject, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal, computed, DestroyRef, inject, HostListener, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { switchMap, map, of, Observable } from 'rxjs';
@@ -11,13 +11,18 @@ import { ProductHeartButtonComponent } from "../../../product-heart-button/produ
 import { WishlistService } from '../../../../core/services/Wishlist.service';
 import { WishlistDropdownComponent } from '../../../wishlist/wishlist-dropdown.component';
 
+import { ProductReviewsComponent } from '../../product-review/product-review.component';
+import { AddToCartRequestDto, CartService } from '../../../../core/services/cart.service';
+import { ToastService } from '../../../../core/services/toast.service';
 @Component({
   selector: 'app-product-detail-page',
   standalone: true,
   templateUrl: './product-details.html',
   styleUrls: ['./product-details.css'],
-  imports: [RouterLink, CurrencyPipe, DatePipe, KeyValuePipe,WishlistDropdownComponent, CommonModule, NgIf, NgFor, ProductHeartButtonComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [ProductReviewsComponent,RouterLink, CurrencyPipe, DatePipe, KeyValuePipe,WishlistDropdownComponent, CommonModule, NgIf, NgFor, ProductHeartButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+ schemas: [CUSTOM_ELEMENTS_SCHEMA]  // ✅ Apply here instead
+
 })
 export class ProductDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -25,6 +30,8 @@ export class ProductDetailPageComponent implements OnInit {
   private productService = inject(ProductService);
   private destroyRef = inject(DestroyRef);
   private wishlistService = inject(WishlistService);
+  private cartService=inject(CartService);
+  private toastService:ToastService=inject(ToastService);
 onWishlistChanged(event: {productId: number, inWishlist: boolean}): void {  // ✅ اسم صحيح
     console.log('Wishlist status changed:', event);
     
@@ -43,7 +50,7 @@ onWishlistChanged(event: {productId: number, inWishlist: boolean}): void {  // �
   error = signal<string | null>(null);
   selectedImageIndex = signal(0);
   quantity = signal(1);
-isInWishlistSignal = signal<boolean>(false);
+  isInWishlistSignal = signal<boolean>(false);
   wishlistStatusLoaded = signal<boolean>(false);
   showWishlistDropdown = signal<boolean>(false);
 
@@ -244,6 +251,13 @@ onWishlistToggled(event: {productId: number, added: boolean}): void {
 
   decreaseQuantity() {
     this.quantity.update(qty => Math.max(1, qty - 1));
+    // this.addToCartRequest.quantity-1;
+    this.cartService.addToCart(this.addToCartRequest).subscribe({
+      next: (response) => {
+        if (response.succeeded) {
+          this.cartService.refreshCartCount(); // تحديث عداد السلة
+          this.toastService.showSuccess(response.message || 'Product added to cart', 'Cart Updated')
+        }}});
   }
 
   setQuantity(value: number) {
@@ -274,25 +288,53 @@ onWishlistToggled(event: {productId: number, added: boolean}): void {
     this.selectFabric(index);
   }
 
+
+
+addToCartRequest: AddToCartRequestDto = {
+  productItemId: 0,
+  quantity: 0
+};
   // Actions
-  addToCart() {
-    const prod = this.product();
-    const qty = this.quantity();
-    const fabric = this.selectedFabric();
-    const wood = this.selectedWood();
-    
-    if (prod) {
-      console.log('Adding to cart:', {
-        productId: prod.productId,
-        name: prod.name,
-        quantity: qty,
-        price: prod.mainFinalPrice,
-        selectedFabric: fabric,
-        selectedWood: wood
-      });
-      // TODO: Implement cart service call
+  addToCart(productId:number, quantity:number) {
+    // const prod = this.product();
+    // const qty = this.quantity();
+    // const fabric = this.selectedFabric();
+    // const wood = this.selectedWood();
+    this.addToCartRequest={
+       productItemId: productId,
+        quantity: quantity
     }
-  }
+   this.cartService.addToCart(this.addToCartRequest).subscribe({
+      next: (response) => {
+        if (response.succeeded) {
+          this.cartService.refreshCartCount(); // تحديث عداد السلة
+          this.toastService.showSuccess(response.message || 'Product added to cart', 'Cart Updated')
+        }}});
+      
+      
+      }
+
+
+
+  // Actions
+  // addToCart() {
+  //   const prod = this.product();
+  //   const qty = this.quantity();
+  //   const fabric = this.selectedFabric();
+  //   const wood = this.selectedWood();
+    
+  //   if (prod) {
+  //     console.log('Adding to cart:', {
+  //       productId: prod.productId,
+  //       name: prod.name,
+  //       quantity: qty,
+  //       price: prod.mainFinalPrice,
+  //       selectedFabric: fabric,
+  //       selectedWood: wood
+  //     });
+  //     // TODO: Implement cart service call
+  //   }
+  // }
 
   buyNow() {
     const prod = this.product();
@@ -394,4 +436,10 @@ onDocumentClick(event: Event): void {
     }
   }
 }
+
+
+
+
+
+
 }

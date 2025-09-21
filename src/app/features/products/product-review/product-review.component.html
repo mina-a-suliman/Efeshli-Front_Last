@@ -1,0 +1,135 @@
+<!-- product-review.component.html -->
+<div class="reviews-container">
+  <h2>Customer Reviews</h2>
+  
+  <!-- Review Summary Section -->
+  <div class="summary-section">
+    <div class="summary-header">
+      <h3>AI Review Summary</h3>
+      <button 
+        type="button" 
+        (click)="loadSummary()" 
+        [disabled]="loadingSummary || reviews.length === 0"
+        class="summarize-btn"
+      >
+        <span *ngIf="!loadingSummary">
+          <i class="fas fa-robot"></i> Summarize Reviews
+        </span>
+        <span *ngIf="loadingSummary">
+          <i class="fas fa-spinner fa-spin"></i> Generating Summary...
+        </span>
+      </button>
+    </div>
+    
+    <div class="summary-content">
+      <!-- Loading State -->
+      <div *ngIf="loadingSummary" class="loading-summary">
+        <i class="fas fa-spinner fa-spin"></i> AI is analyzing reviews...
+      </div>
+      
+      <!-- Summary Results -->
+      <div *ngIf="!loadingSummary && summary.length > 0" class="summary-results">
+        <div class="summary-title">AI Summary:</div>
+        <ul>
+          <li *ngFor="let point of summary" class="summary-point">
+            {{ point }}
+          </li>
+        </ul>
+      </div>
+      
+      <!-- No Summary Generated Yet -->
+      <div *ngIf="!loadingSummary && summary.length === 0 && reviews.length > 0" class="no-summary">
+        <i class="fas fa-lightbulb"></i>
+        <p>Click "Summarize Reviews" to generate an AI-powered summary of all customer reviews.</p>
+      </div>
+      
+      <!-- No Reviews Available -->
+      <div *ngIf="!loadingSummary && reviews.length === 0" class="no-reviews-for-summary">
+        <i class="fas fa-comment-slash"></i>
+        <p>No reviews available to summarize yet.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Review Form -->
+  <div class="add-review-section">
+    <h3>Write a Review</h3>
+    <form (ngSubmit)="onSubmit()" #reviewForm="ngForm">
+      <div class="form-group">
+        <label>Rating</label>
+        <app-star-rating [(ngModel)]="newReview.rate" name="rate" required></app-star-rating>
+      </div>
+      
+      <div class="form-group">
+        <label for="reviewText">Your Review</label>
+        <textarea 
+          id="reviewText" 
+          name="reviewText" 
+          [(ngModel)]="newReview.reviewText" 
+          rows="5" 
+          placeholder="Share your experience with this product..."
+          required
+        ></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="images">Upload Images (Optional)</label>
+        <input 
+          type="file" 
+          id="images" 
+          name="images" 
+          (change)="onFileSelected($event)" 
+          multiple 
+          accept="image/*"
+        >
+        
+        <div class="image-previews" *ngIf="imagePreviews.length">
+          <div class="image-preview" *ngFor="let preview of imagePreviews; let i = index">
+            <img [src]="preview" alt="Preview">
+            <button type="button" (click)="removeImage(i)" class="remove-btn">×</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="error-message" *ngIf="error">{{ error }}</div>
+      
+      <button type="submit" [disabled]="submitting" class="submit-btn">
+        <span *ngIf="!submitting">Submit Review</span>
+        <span *ngIf="submitting">Submitting...</span>
+      </button>
+    </form>
+  </div>
+
+  <!-- Reviews List -->
+  <div class="reviews-list">
+    <h3>Customer Reviews ({{ reviews.length }})</h3>
+    
+    <div class="loading" *ngIf="loading">
+      <i class="fas fa-spinner fa-spin"></i> Loading reviews...
+    </div>
+    
+    <div class="no-reviews" *ngIf="!loading && reviews.length === 0">
+      <i class="fas fa-comments"></i>
+      <p>No reviews yet. Be the first to review this product!</p>
+    </div>
+    
+    <div class="review" *ngFor="let review of reviews; trackBy: trackById">
+      <div class="review-header">
+        <div class="rating">
+          <app-star-rating [value]="review.rate" [disabled]="true"></app-star-rating>
+        </div>
+      </div>
+      
+      <p class="review-text">{{ review.reviewText }}</p>
+      
+      <div class="review-images" *ngIf="review.images && review.images.length">
+        <img 
+          *ngFor="let image of review.images" 
+          [src]="image.url" 
+          alt="Review image" 
+          class="review-image"
+        >
+      </div>
+    </div>
+  </div>
+</div>
