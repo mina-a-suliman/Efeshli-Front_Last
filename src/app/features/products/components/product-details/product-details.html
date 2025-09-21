@@ -30,67 +30,63 @@
     <!-- Product Images Section -->
     <div class="product-images-wrapper">
       <div class="product-images">
-      <!-- Stock Badge -->
-      <div class="stock-badge">In Stock</div>
-      
-      <!-- Main Image -->
-      <div class="main-image-container">
-        <img 
-          [src]="selectedImage()" 
-          [alt]="product()?.name"
-          class="main-image"
-          (error)="selectImage(0)"
-          (keydown)="onImageKeydown($event)"
-          tabindex="0"
-          autofocus
-        />
-      </div>
+        <!-- Stock Badge -->
+        <div class="stock-badge">In Stock</div>
 
-      <!-- Thumbnail Images -->
-       <div *ngIf="product() as prod">
-        <div *ngIf="prod.images && prod.images.length > 1" class="thumbnail-container">
-        <button
-          *ngFor="let image of prod.images; let i = index"
-          (click)="selectImage(i)"
-          class="thumbnail-btn"
-          [class.active]="selectedImageIndex() === i"
-        >
-          <img [src]="image" [alt]="'Product view ' + (i + 1)" class="thumbnail-image" />
-        </button>
-      </div>
-      </div>
-      
-      <!-- Fast Delivery Badge -->
-      <div class="fast-delivery-badge">
-        <div class="delivery-arrows">
-          <span class="arrow"></span>
-          <span class="arrow"></span>
-          <span class="arrow"></span>
+  @if(product()?.model_3D){
+   <div class="main-image-container">
+          <model-viewer [src]="product()?.model_3D" alt="3D model" ar
+            ar-modes="scene-viewer quick-look webxr" camera-controls auto-rotate style="width: 100%; height: 300px;"
+            class="main-image"></model-viewer>
         </div>
-        
-      </div>
+  }
+     
+
+
+        <div class="main-image-container">
+          <img [src]="selectedImage()" [alt]="product()?.name" class="main-image" (error)="selectImage(0)"
+            (keydown)="onImageKeydown($event)" tabindex="0" autofocus />
+        </div>
+
+        <!-- Thumbnail Images -->
+        <div *ngIf="product() as prod">
+          <div *ngIf="prod.images && prod.images.length > 1" class="thumbnail-container">
+            <button *ngFor="let image of prod.images; let i = index" (click)="selectImage(i)" class="thumbnail-btn"
+              [class.active]="selectedImageIndex() === i">
+              <img [src]="image" [alt]="'Product view ' + (i + 1)" class="thumbnail-image" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Fast Delivery Badge -->
+        <div class="fast-delivery-badge">
+          <div class="delivery-arrows">
+            <span class="arrow"></span>
+            <span class="arrow"></span>
+            <span class="arrow"></span>
+          </div>
+
+        </div>
       </div>
     </div>
 
     <!-- Product Information Section -->
     <div class="product-info">
       <h1 class="product-title">{{ product()?.name }}</h1>
-      
+
       <!-- Price Section - UPDATED -->
       <div class="price-section">
         <div class="price-container">
           <!-- Final Price -->
           <span class="price">{{ product()?.mainFinalPrice | currency:'EGP':'symbol':'1.0-0' }}</span>
-          
+
           <!-- Original Price (if there's a discount) -->
-          <span *ngIf="product()?.mainDiscount && product()!.mainDiscount > 0" 
-                class="original-price">
+          <span *ngIf="product()?.mainDiscount && product()!.mainDiscount > 0" class="original-price">
             {{ product()?.mainPrice | currency:'EGP':'symbol':'1.0-0' }}
           </span>
-          
+
           <!-- Discount Badge -->
-          <span *ngIf="product()?.mainDiscount && product()!.mainDiscount > 0" 
-                class="discount-badge">
+          <span *ngIf="product()?.mainDiscount && product()!.mainDiscount > 0" class="discount-badge">
             -{{ product()?.mainDiscount }}%
           </span>
         </div>
@@ -99,7 +95,7 @@
 
       <!-- Category and Brand - UPDATED -->
       <div class="product-meta">
-        
+
         <div class="meta-item">
           <span class="meta-label">Category</span>
           <a [routerLink]="['/category', product()?.categoryId]" class="meta-link">
@@ -112,7 +108,7 @@
             {{ product()?.brand }}
           </a>
         </div>
-   
+
       </div>
 
       <!-- Made to Order Info -->
@@ -130,47 +126,46 @@
       <div class="quantity-section">
         <label class="quantity-label">Quantity</label>
         <div class="quantity-controls">
-          <button 
-            (click)="decreaseQuantity()" 
-            class="quantity-btn"
-            [disabled]="quantity() <= 1"
-          >
-<svg xmlns="http://www.w3.org/2000/svg" width="13.951" height="1" viewBox="0 0 13.951 1" class="injected-svg" data-src="/icons/minus.svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="translate(0.5 0.5)"><path d="M12.951,0H0" transform="translate(0)" fill="none" stroke="#343434" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"></path></g></svg>          </button>
+          <button (click)="decreaseQuantity()" class="quantity-btn" [disabled]="quantity() <= 1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13.951" height="1" viewBox="0 0 13.951 1"
+              class="injected-svg" data-src="/icons/minus.svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g transform="translate(0.5 0.5)">
+                <path d="M12.951,0H0" transform="translate(0)" fill="none" stroke="#343434" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"></path>
+              </g>
+            </svg> </button>
 
-          <input 
-            type="number" 
-            [value]="quantity()" 
-            (input)="setQuantity(+$any($event.target).value)"
-            min="1"
-            class="quantity-input"
-          />
+          <input type="number" [value]="quantity()" (input)="setQuantity(+$any($event.target).value)" min="1"
+            class="quantity-input" />
 
           <button (click)="increaseQuantity()" class="quantity-btn">
-<svg xmlns="http://www.w3.org/2000/svg" width="13.951" height="13.951" viewBox="0 0 13.951 13.951" class="injected-svg" data-src="/icons/plus.svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="translate(0.5 0.5)"><path d="M0,0V12.951" transform="translate(6.475)" fill="none" stroke="#343434" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"></path><path d="M12.951,0H0" transform="translate(0 6.475)" fill="none" stroke="#343434" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"></path></g></svg>          </button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="13.951" height="13.951" viewBox="0 0 13.951 13.951"
+              class="injected-svg" data-src="/icons/plus.svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g transform="translate(0.5 0.5)">
+                <path d="M0,0V12.951" transform="translate(6.475)" fill="none" stroke="#343434" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"></path>
+                <path d="M12.951,0H0" transform="translate(0 6.475)" fill="none" stroke="#343434" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"></path>
+              </g>
+            </svg> </button>
 
           <!-- Wishlist Button - UPDATED -->
-          <app-product-heart-button
-              *ngIf="product()?.productId "
-              [productId]="product()!.productId"
-              [size]="'center'"
-              [position]="'center'"
-              [initialWishlistStatus]="isInWishlist()" 
-              [class.active]="isInWishlist()"
-              (wishlistChanged)="onWishlistChanged($any($event))"
-              (click)="onHeartButtonClick($event)"
-              class="wishlist-heart-btn">
+          <app-product-heart-button *ngIf="product()?.productId " [productId]="product()!.productId" [size]="'center'"
+            [position]="'center'" [initialWishlistStatus]="isInWishlist()" [class.active]="isInWishlist()"
+            (wishlistChanged)="onWishlistChanged($any($event))" (click)="onHeartButtonClick($event)"
+            class="wishlist-heart-btn">
           </app-product-heart-button>
         </div>
       </div>
 
       <!-- Action Buttons -->
       <div class="action-buttons">
-        <button (click)="addToCart()" class="btn-primary btn-add-cart">
+        <button (click)="addToCart(product()?.productId??0,1)" class="btn-primary btn-add-cart">
           Add to Cart
         </button>
-        <button (click)="buyNow()" class="btn-secondary btn-buy-now">
+        <a href="/checkout"  class="btn-secondary btn-buy-now">
           Buy now
-        </button>
+        </a>
       </div>
 
       <!-- Product Options Section - COMPLETELY UPDATED -->
@@ -182,17 +177,14 @@
             <div class="check-badge">
               <span class="check-icon">✓</span>
             </div>
-            
+
             <img [src]="selectedImage()" [alt]="product()?.name" class="small-preview-image" />
-            
+
             <!-- Color indicators based on available fabrics -->
             <div class="color-indicator-stack" *ngIf="product()?.fabrics && product()!.fabrics.length > 1">
-              <div 
-                *ngFor="let fabric of product()?.fabrics?.slice(0, 3); let i = index" 
-                class="color-dot" 
-                [class.active]="selectedFabricIndex() === i"
-                [style.background-image]="'url(' + fabric.imageUrl + ')'"
-              ></div>
+              <div *ngFor="let fabric of product()?.fabrics?.slice(0, 3); let i = index" class="color-dot"
+                [class.active]="selectedFabricIndex() === i" [style.background-image]="'url(' + fabric.imageUrl + ')'">
+              </div>
             </div>
           </div>
         </div>
@@ -202,21 +194,15 @@
           <div class="option-header">
             <span class="option-title">Fabric</span>
             <span class="option-selected">{{ selectedFabric()?.name || 'Select Fabric' }}</span>
-            <div *ngIf="selectedFabric()" 
-                 class="selected-color-dot" 
-                 [style.background-image]="'url(' + selectedFabric()!.imageUrl + ')'">
+            <div *ngIf="selectedFabric()" class="selected-color-dot"
+              [style.background-image]="'url(' + selectedFabric()!.imageUrl + ')'">
             </div>
           </div>
           <div class="swatch-scroll-container">
             <div class="swatch-container">
-              <div 
-                *ngFor="let fabric of product()?.fabrics; let i = index"
-                class="fabric-swatch" 
-                [class.active]="selectedFabricIndex() === i"
-                [style.background-image]="'url(' + fabric.imageUrl + ')'"
-                [title]="fabric.name" 
-                (click)="selectFabric(i)"
-              >
+              <div *ngFor="let fabric of product()?.fabrics; let i = index" class="fabric-swatch"
+                [class.active]="selectedFabricIndex() === i" [style.background-image]="'url(' + fabric.imageUrl + ')'"
+                [title]="fabric.name" (click)="selectFabric(i)">
                 <span class="swatch-label">{{ fabric.name }}</span>
               </div>
             </div>
@@ -228,21 +214,15 @@
           <div class="option-header">
             <span class="option-title">Wood Finish</span>
             <span class="option-selected">{{ selectedWood()?.name || 'Select Wood' }}</span>
-            <div *ngIf="selectedWood()" 
-                 class="selected-color-dot" 
-                 [style.background-image]="'url(' + selectedWood()!.imageUrl + ')'">
+            <div *ngIf="selectedWood()" class="selected-color-dot"
+              [style.background-image]="'url(' + selectedWood()!.imageUrl + ')'">
             </div>
           </div>
           <div class="swatch-scroll-container">
             <div class="swatch-container">
-              <div 
-                *ngFor="let wood of product()?.woods; let i = index"
-                class="wood-swatch" 
-                [class.active]="selectedWoodIndex() === i"
-                [style.background-image]="'url(' + wood.imageUrl + ')'"
-                [title]="wood.name" 
-                (click)="selectWood(i)"
-              >
+              <div *ngFor="let wood of product()?.woods; let i = index" class="wood-swatch"
+                [class.active]="selectedWoodIndex() === i" [style.background-image]="'url(' + wood.imageUrl + ')'"
+                [title]="wood.name" (click)="selectWood(i)">
                 <span class="swatch-label">{{ wood.name }}</span>
               </div>
             </div>
@@ -275,7 +255,7 @@
         </details>
 
         <!-- Product Specifications - UPDATED -->
-      <details class="product-section" *ngIf="product()!.productSpecification.length > 0">
+        <details class="product-section" *ngIf="product()!.productSpecification.length > 0">
           <summary class="section-header">Product Specifications</summary>
           <div class="section-content">
             <div class="specs-grid">
@@ -284,8 +264,8 @@
                 <span class="spec-label">{{ spec.name }}:</span>
                 <span class="spec-value">{{ spec.value }}</span>
               </div>
-              
-              
+
+
             </div>
           </div>
         </details>
@@ -294,31 +274,31 @@
         <details *ngIf="product()?.additionalInfo" class="product-section">
           <summary class="section-header">Additional information</summary>
           <div class="section-content">
-      <div class="product-meta">
-        
-        <div class="meta-item">
-          <span class="meta-label">Category</span>
-          <a [routerLink]="['/category', product()?.categoryId]" class="meta-link">
-            {{ product()?.category }}
-          </a>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Brand</span>
-          <a [routerLink]="['/brand', product()?.brandId]" class="meta-link">
-            {{ product()?.brand }}
-          </a>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">SKU</span>
-          <span class="meta-value">{{ product()?.sku }}</span>
-        </div>   
-        
-        </div>  
+            <div class="product-meta">
+
+              <div class="meta-item">
+                <span class="meta-label">Category</span>
+                <a [routerLink]="['/category', product()?.categoryId]" class="meta-link">
+                  {{ product()?.category }}
+                </a>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Brand</span>
+                <a [routerLink]="['/brand', product()?.brandId]" class="meta-link">
+                  {{ product()?.brand }}
+                </a>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">SKU</span>
+                <span class="meta-value">{{ product()?.sku }}</span>
+              </div>
+
+            </div>
             <div *ngIf="product()?.dimensionsOrSize" class="meta-item">
-            <span class="meta-label">Dimensions</span>
-            <span class="meta-value">{{ product()?.dimensionsOrSize }}</span>
+              <span class="meta-label">Dimensions</span>
+              <span class="meta-value">{{ product()?.dimensionsOrSize }}</span>
+            </div>
           </div>
-        </div>
         </details>
 
         <!-- Shipping & Return Policy -->
@@ -331,4 +311,29 @@
       </div>
     </div>
   </div>
+
+<!-- Reviews block (place where appropriate, e.g. after product-sections) -->
+<section class="product-reviews">
+  <h2>Reviews</h2>
+
+ 
+
+  <!-- Writable form (only when user allowed to post) -->
+ <div>
+<!-- 
+   <review-widget-20
+    
+     [rating]="0"
+     [reviewText]="''"
+     [images]="[]"
+     [editable]="true"
+     
+     >
+   </review-widget-20> -->
+
+<app-product-reviews [productId]="1"></app-product-reviews>
+   
+<!-- <review-display style="height: 500px;" ></review-display> -->
+ </div>
+</section>
 </div>
