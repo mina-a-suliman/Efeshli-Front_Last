@@ -6,20 +6,27 @@ import { CategoryService, Category } from '../../../core/services/category.servi
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FormsModule } from '@angular/forms';
+import { FilterService } from '../../../core/services/filter.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.html',
   styleUrls: ['./header.css'],
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, FormsModule]
 })
 export class HeaderComponent implements OnInit {
   activeMenu: string = '';
   private hideTimeout: any;
   currentUser: User | null = null;
   isAuthenticated: boolean = false;
-  isLoaded = false;
 
+  searchTerm : string = ''
+  isLoaded = false;
+  private searchSubject = new Subject<string>();
+  private destroy$ = new Subject<void>();
   // البيانات الديناميكية
   mainCategories: Category[] = [];
   subCategories: { [key: string]: Category[] } = {};
@@ -52,9 +59,18 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService, 
     private cdr: ChangeDetectorRef,
     private categoryService: CategoryService,
-    public cartService: CartService
+    public cartService: CartService,
+    private filterSerive : FilterService
   ) {
     this.currentUser = this.authService.getCurrentUser();
+    this.searchSubject.pipe(
+      debounceTime(300), // انتظار 300ms بعد آخر كتابة
+      distinctUntilChanged(), // تجاهل القيم المتكررة
+    ).subscribe(searchTerm => {
+      if (searchTerm.trim().length > 0) {
+        this.performSearch(searchTerm.trim());
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -79,7 +95,10 @@ export class HeaderComponent implements OnInit {
         }
     }, 0);
 }
-
+ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
   showMobileSidebar() {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
@@ -268,11 +287,34 @@ hasDirectItems(categoryName: string): boolean {
     return name.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
   }
 
-  onSearch(event: Event) {
-    const target = event.target as HTMLInputElement;
-    console.log('Search query:', target.value);
-  }
+ 
+// في header.ts - أضف دالة للتنقل للمجموعات
+navigateToCollection(collectionName: string): void {
+  console.log('🎯 Navigating to collection:', collectionName);
+  
+  this.router.navigate(['/products'], {
+    queryParams: {
+      collection: collectionName,
+      pageNumber: 1,
+      pageSize: 24
+    }
+  }).then(() => {
+    console.log('✅ Navigated to collection:', collectionName);
+  });
+  
+  this.hideMegaMenu();
+  this.hideMobileSidebar();
+}
 
+// دالة للحصول على المجموعات المتاحة (يمكن استخدامها في القائمة)
+getAvailableCollections(): string[] {
+  return [
+    '3-Piece Folding Outdoor Bistro Set',
+    'Modern Living Room Set',
+    'Classic Dining Collection',
+    // أضف المجموعات المتاحة هنا
+  ];
+}
   onActionClick(action: string) {
     if (action === 'logout') {
       this.authService.logout();
@@ -312,6 +354,54 @@ hasDirectItems(categoryName: string): boolean {
       this.hideTimeout = null;
     }
   }
+
+// أضف هذه الدوال في header component
+onSearch(event: Event): void {
+  const target = event.target as HTMLInputElement;
+  const searchTerm = target.value.trim();
+  
+  if (searchTerm.length >= 2) { // بحث بعد كتابة حرفين على الأقل
+    this.performSearch(searchTerm);
+  } else if (searchTerm.length === 0) {
+    // مسح البحث
+    this.clearSearch();
+  }
+}
+
+onSearchEnter(event: KeyboardEvent): void {
+  if (event.key === 'Enter') {
+    const target = event.target as HTMLInputElement;
+    const searchTerm = target.value.trim();
+    
+    if (searchTerm.length > 0) {
+      this.performSearch(searchTerm);
+    }
+  }
+}
+
+private performSearch(searchTerm: string): void {
+  console.log('🔍 Performing search for:', searchTerm);
+  
+  // الانتقال لصفحة المنتجات مع البحث
+  this.router.navigate(['/products'], {
+    queryParams: { keyword: searchTerm }
+  });
+}
+
+private clearSearch(): void {
+  this.router.navigate(['/products'], {
+    queryParams: {}
+  });
+}
+
+onSearchType() {
+  if (!this.searchTerm || this.searchTerm.trim().length < 2) return;
+
+  this.router.navigate(['/products'], {
+    queryParams: { keyword: this.searchTerm }
+  });
+}
+
 
 
 }
