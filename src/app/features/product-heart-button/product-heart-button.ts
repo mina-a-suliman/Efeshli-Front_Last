@@ -127,8 +127,8 @@ import { WishlistService } from '../../core/services/Wishlist.service';
 
     .heart-button-container.top-right {
       position: absolute;
-      top: 8px;
-      right: 8px;
+      top: -2px;
+      right: -2px;
       z-index: 10;
     }
 

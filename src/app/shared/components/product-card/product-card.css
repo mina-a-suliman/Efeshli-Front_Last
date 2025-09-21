@@ -1,0 +1,199 @@
+.product-card {
+  border: none;
+  border-radius: 0;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  width: 85%;
+
+}
+
+.product-image {
+  position: relative;
+  height: 250px;
+  width: 100%;
+  object-fit: contain;
+  display: flex;
+  margin-bottom: -2%;
+
+}
+
+.product-image img {
+  max-height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.discount-badge {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: #C40101;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 0 12px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.quick-view-btn {
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  color: #C40101;
+  padding: 6px;
+  border: 1px solid #C40101;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  text-align: center;
+  width: 100px;
+  transition: background-color 0.3s, border 0.3s;
+}
+
+.product-card:hover .quick-view-btn {
+  opacity: 1;
+}
+
+.product-card .quick-view-btn:hover {
+  background-color: rgb(249, 237, 240);
+  border: 2px solid #C40101;
+}
+
+.wishlist-icon.filled {
+  color: #ff0000;
+}
+
+.wishlist-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 30;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.wishlist-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.wishlist-option:hover {
+  background-color: #f5f5f5;
+}
+
+.new-list-input {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.product-info {
+  padding: 15px 0;
+}
+
+.product-size {
+  border: 1px solid #00000064;
+  text-align: center;
+  color: #202020;
+  width: 100%;
+  overflow:hidden;
+  max-height: 26px;
+
+
+}
+
+.colors {
+  padding: 15px 0;
+}
+
+.product-category {
+  font-size: 16px;
+  font-weight: 500;
+  color: #999999;
+  margin: 8px 0;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+  height: 40px;
+  overflow: hidden;
+}
+
+.discount-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-pricing {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 22px;
+}
+
+.current-price {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999999;
+  font-weight: 500;
+  font-size: 11px;
+}
+
+.add-to-cart-btn {
+  background-color: white;
+  border: 1px solid #000;
+  color: #000;
+  padding: 10px 15px;
+  width: 100%;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #f8f8f8;
+  border-color: #333;
+}
+/* Heart Button Wrapper */
+.heart-button-wrapper {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 20;
+}
+
+/* Style the heart button specifically for product cards */
+.product-card-heart-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .product-card-heart-btn {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+}

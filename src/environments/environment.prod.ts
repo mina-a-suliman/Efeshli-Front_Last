@@ -3,6 +3,7 @@
 export const environment = {
   production: true,
 
+
  apiUrl: 'https://efreshli.runasp.net/api',  // Mina Host
 
   // apiUrl: 'http://localhost:5104/api',      // Localhost
