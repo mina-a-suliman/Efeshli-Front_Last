@@ -378,44 +378,69 @@ getFilteredProducts(filterRequest: any = {}): Observable<ProductsData> {
         })
       );
   }
-  // إضافة دالة جديدة للـ collections
-getCollectionProducts(collection: string, pageNumber: number = 1, pageSize: number = 24): Observable<ProductsData> {
-  console.log('🔍 FilterService - Loading collection:', { collection, pageNumber, pageSize });
-  
-  const params = new HttpParams()
+
+
+
+  getAllProducts(
+  keyword: string = 'all',   
+  pageNumber: number = 1,
+  pageSize: number = 24,
+  sortBy: string = ''
+): Observable<ProductsData> {
+    const encodedKeyword = encodeURIComponent(keyword);
+
+  let params = new HttpParams()
     .set('pageNumber', pageNumber.toString())
     .set('pageSize', pageSize.toString());
-  
-  const url = `${this.baseUrl}/Collections/${collection}`;
-  console.log('🔗 Collection API URL:', `${url}?${params.toString()}`);
-  
+
+  if (sortBy) {
+    params = params.set('sortBy', sortBy);
+  }
+
+  const url = `${this.baseUrl}/Collections/${encodedKeyword}`;
+return this.http.get<ApiResponse<ProductsData>>(url, { params }).pipe(
+    map(response => {
+      if (response.succeeded && response.data) {
+        return response.data;
+      }
+      throw new Error(response.message || 'Failed to fetch collection products');
+    })
+  );
+}
+
+getCollectionProducts(
+  keyword: string,
+  pageNumber: number = 1,
+  pageSize: number = 24,
+  sortBy: string = ''
+): Observable<ProductsData> {
+  const encodedKeyword = encodeURIComponent(keyword);
+
+  let params = new HttpParams()
+    .set('pageNumber', pageNumber.toString())
+    .set('pageSize', pageSize.toString());
+
+  if (sortBy) {
+    params = params.set('sortBy', sortBy);
+  }
+
+  const url = `${this.baseUrl}/Collections/${encodedKeyword}`;
   return this.http.get<ApiResponse<ProductsData>>(url, { params })
     .pipe(
       map(response => {
-        console.log('📦 Collection API response:', response);
-        
         if (response.succeeded && response.data) {
-          console.log('✅ Collection response processed successfully');
-          
-          // تحويل البيانات لتتماشى مع الشكل المطلوب
-          const transformedItems = response.data.items.map(item => ({
-            ...item,
-            id: item.productId,
-            size: item.dimensionsOrSize,
-            originalPrice: item.price,
-            colors: item.productItemColorsUrls,
-            isInWishlist: item.isWishlisted
-          }));
-
-          return {
-            ...response.data,
-            items: transformedItems
-          };
+          return response.data;
         }
         throw new Error(response.message || 'Failed to fetch collection products');
       })
     );
 }
+
+
+
+
+
+
 // في filter.service.ts
 getBrands(categoryId?: number): Observable<any[]> {
   console.log('🔍 FilterService - Loading brands for categoryId:', categoryId);
@@ -466,6 +491,7 @@ getFabricColors(categoryId?: number): Observable<any[]> {
       })
     );
 }
+
 // في filter.service.ts - أضف هذه الدالة
 getWoodColors(categoryId?: number): Observable<any[]> {
   console.log('🔍 FilterService - Loading wood colors for categoryId:', categoryId);
@@ -491,4 +517,5 @@ getWoodColors(categoryId?: number): Observable<any[]> {
       })
     );
 }
+
 }

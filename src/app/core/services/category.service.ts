@@ -23,7 +23,7 @@ export interface ApiResponse<T> {
   providedIn: 'root' // هذا يجعله متاحًا على مستوى التطبيق
 })
 export class CategoryService {
-  private baseUrl = 'https://efreshliapi.runasp.net/api/Category';
+  private baseUrl = 'https://efreshli.runasp.net/api/Category';
 
   constructor(private http: HttpClient) { }
 

@@ -165,28 +165,34 @@
 
 <div class="header-container">
   <!-- Mobile Search Row -->
-  <div class="mobile-search-row">
-    <div class="search-box">
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        class="search-icon"
-      >
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.35-4.35" />
-      </svg>
-      <input
-        type="text"
-        placeholder="Search for awesome furniture"
-        class="search-input"
-        (input)="onSearch($event)"
-      />
-    </div>
+  <!-- Mobile Search Row -->
+<div class="mobile-search-row">
+  <div class="search-box">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      class="search-icon"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.35-4.35" />
+    </svg>
+ <input
+  type="text"
+  placeholder="Search for awesome furniture"
+  class="search-input"
+  (keyup.enter)="onSearchType()"   
+  [(ngModel)]="searchTerm"
+/>
+
   </div>
+</div>
+
+<!-- Desktop Search (في الـ main header) -->
+
   <!-- Mobile Tabs Row -->
   <div class="mobile-tabs-row">
     <button class="mobile-tab-button active">Shop</button>
@@ -379,28 +385,32 @@
         </div>
       </a>
       <!-- Search Bar -->
-      <div class="search-container">
-        <div class="search-box">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            class="search-icon"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.35-4.35" />
-          </svg>
-          <input
-            type="text"
-            placeholder="Search for awesome furniture"
-            class="search-input"
-            (input)="onSearch($event)"
-          />
-        </div>
-      </div>
+      <!-- في header.html - إصلاح Desktop Search Bar -->
+
+<!-- Search Bar -->
+<div class="search-container">
+  <div class="search-box">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      class="search-icon"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.35-4.35" />
+    </svg>
+    <input
+      type="text"
+      placeholder="Search for awesome furniture"
+      class="search-input"
+      (input)="onSearch($event)"
+      (keydown)="onSearchEnter($event)"
+    />
+  </div>
+</div>
       <!-- Right Actions -->
       <div class="header-actions">
         @if (isLoaded) { @if (isAuthenticated) {

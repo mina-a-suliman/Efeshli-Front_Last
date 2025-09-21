@@ -9,7 +9,7 @@ import { CollectionResponse, ApiResponse } from '../models/collection.model';
   providedIn: 'root'
 })
 export class CollectionService {
-  private baseUrl = 'https://efreshliapi.runasp.net/api';
+  private baseUrl = 'https://efreshli.runasp.net/api';
 
   constructor(private http: HttpClient) { }
 

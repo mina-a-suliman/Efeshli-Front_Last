@@ -90,58 +90,133 @@ export class ProductListComponent implements OnInit, OnDestroy {
   constructor(private filterService: FilterService,private route: ActivatedRoute ) {}
 
  // في ngOnInit - استبدل الكود الحالي بده
+// في product-list.ts - تحديث ngOnInit
 ngOnInit(): void {
   this.loadCategories();
   
-  this.route.queryParams.subscribe(params => {
-    console.log('📋 Query params received:', params);
-    if (params['collection']) {
-      const collection = params['collection'];
-      console.log('🎯 Loading collection:', collection);
-      this.loadCollectionProducts(collection, params);
-      return;
-    }
-    // تحقق من categoryId أو category
-    let categoryId: number | null = null;
+  // this.route.queryParams.subscribe(params => {
+  //   console.log('📋 Query params received:', params);
     
-    if (params['categoryId']) {
-      categoryId = parseInt(params['categoryId'], 10);
-      console.log('🎯 Found categoryId:', categoryId);
-    } else if (params['category']) {
-      categoryId = parseInt(params['category'], 10);
-      console.log('🎯 Found category (converted to categoryId):', categoryId);
-    }
-    if (params['brandIds']) {
-      const brandIds = Array.isArray(params['brandIds']) 
-        ? params['brandIds'].map(id => parseInt(id, 10))
-        : [parseInt(params['brandIds'], 10)];
+  //   // إعادة تعيين الفلاتر
+  //   this.resetFilters();
+    
+  //   // ✅ تحقق من collection أولاً
+  //   if (params['collection']) {
+  //     const collection = params['collection'];
+  //     console.log('🎯 Loading collection:', collection);
+  //     this.loadCollectionProducts(collection, params);
+  //     return; // أوقف باقي المعالجة
+  //   }
+    
+  //   // ✅ تحقق من keyword ثانياً
+  //   if (params['keyword'] && params['keyword'].trim().length > 0) {
+  //     const keyword = params['keyword'].trim();
+  //     console.log('🔍 Search keyword found:', keyword);
       
-      this.filters.selectedBrandIds = brandIds;
-      console.log('🏷️ Selected brand IDs:', brandIds);
-    }
-    if (categoryId) {
-      console.log('🎯 Setting categoryId filter:', categoryId);
+  //     this.filters.keyword = keyword;
+  //     this.currentSearchTerm = keyword;
       
-      // تطبيق فلتر الفئة
-      this.filters.selectedCategoryId = categoryId;
-      this.filters.selectedSubcategoryId = null;
-      this.loadBrands(categoryId);
-      this.loadFabricColors(categoryId);
-      this.loadWoodColors(categoryId);  
+  //     this.loadProducts(1);
+  //     console.log('⚡ Search mode - skipping other filters');
+  //     return;
+  //   }
+    
+  //   // باقي الكود للفلاتر العادية...
+  //   let categoryId: number | null = null;
+    
+  //   if (params['categoryId']) {
+  //     categoryId = parseInt(params['categoryId'], 10);
+  //     console.log('🎯 Found categoryId:', categoryId);
+  //   } else if (params['category']) {
+  //     categoryId = parseInt(params['category'], 10);
+  //     console.log('🎯 Found category (converted to categoryId):', categoryId);
+  //   }
+    
+  //   if (params['brandIds']) {
+  //     const brandIds = Array.isArray(params['brandIds']) 
+  //       ? params['brandIds'].map(id => parseInt(id, 10))
+  //       : [parseInt(params['brandIds'], 10)];
+      
+  //     this.filters.selectedBrandIds = brandIds;
+  //     console.log('🏷️ Selected brand IDs:', brandIds);
+  //   }
+    
+  //   if (categoryId) {
+  //     console.log('🎯 Setting categoryId filter:', categoryId);
+      
+  //     this.filters.selectedCategoryId = categoryId;
+  //     this.filters.selectedSubcategoryId = null;
+      
+  //     this.loadBrands(categoryId);
+  //     this.loadFabricColors(categoryId);
+  //     this.loadWoodColors(categoryId);
+      
+  //     this.loadProducts(1);
+  //   } else {
+  //     console.log('📄 Loading all products');
+      
+  //     this.loadBrands();
+  //     this.loadFabricColors();
+  //     this.loadWoodColors();
+  //     this.loadProducts(1);
+  //   }
+  // });
 
+  this.route.queryParams.subscribe(params => {
+    const keyword = params['keyword'];
 
-      // تحميل المنتجات فوراً مع الفلتر
-      this.loadProducts(1);
+    if (keyword && keyword.trim() !== '') {
+      // ✅ في حالة فيه بحث
+      this.loadProductsSer(keyword);
     } else {
-      console.log('📄 No categoryId/category in params, loading all products');
-      // تحميل كل المنتجات إذا مفيش فلتر
-      this.loadBrands();
-      this.loadFabricColors();
-      this.loadWoodColors();
-      this.loadProducts(1);
+      // ✅ في حالة مفيش بحث
+      this.loadAllProducts();
     }
   });
+
 }
+
+
+
+loadProductsSer(keyword: string) {
+  this.filterService.getCollectionProducts(keyword).subscribe({
+    next: (data) => {
+      this.products = data.items || []; 
+    },
+    error: (err) => console.error('Error loading collection products:', err)
+  });
+}
+
+loadAllProducts() {
+  this.filterService.getAllProducts().subscribe({
+    next: (data) => {
+      this.products = data.items || []; 
+    },
+    error: (err) => console.error('Error loading all products:', err)
+  });
+}
+
+
+
+// تحديث resetFilters
+private resetFilters(): void {
+  this.filters = {
+    selectedCategoryId: null,
+    selectedSubcategoryId: null,
+    selectedBrandIds: [],
+    selectedFabricColorId: null,
+    selectedWoodColorId: null,
+    minPrice: null,
+    maxPrice: null,
+    keyword: ''
+  };
+  this.currentSearchTerm = '';
+  this.currentCollectionName = ''; // إضافة هذا السطر
+}
+// إضافة خاصية لحفظ مصطلح البحث الحالي
+currentSearchTerm: string = '';
+
+// دالة لإعادة تعيين الفلاتر
 
   ngOnDestroy(): void {
     if (this.routeParamsSubscription) {
@@ -150,113 +225,132 @@ ngOnInit(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
-loadCollectionProducts(collection: string, params: any): void {
+// في product-list.ts - أضف method للـ collections
+
+loadCollectionProducts(collectionName: string, params: any): void {
+  console.log('🎯 Loading collection products for:', collectionName);
+  
   this.loading = true;
   this.error = null;
+  this.currentCollectionName = collectionName; // لحفظ اسم المجموعة
   
-  const pageNumber = parseInt(params['pageNumber']) || 1;
-  const pageSize = parseInt(params['pageSize']) || 24;
+  const pageNumber = params['pageNumber'] ? parseInt(params['pageNumber'], 10) : 1;
+  const pageSize = params['pageSize'] ? parseInt(params['pageSize'], 10) : 24;
   
-  console.log('🔍 Loading collection products:', { collection, pageNumber, pageSize });
-  
-  // استدعاء الـ API الخاص بالـ collections
-  this.filterService.getCollectionProducts(collection, pageNumber, pageSize)
+  this.filterService.getCollectionProducts(collectionName, pageNumber, pageSize)
     .pipe(
       takeUntil(this.destroy$),
       finalize(() => this.loading = false)
     )
     .subscribe({
       next: (data: ProductsData) => {
-        console.log('✅ Collection products loaded:', data);
+        console.log('✅ Collection products loaded successfully:', data);
+        console.log('📊 Collection products count:', data.items?.length);
+        console.log('📋 Total count from API:', data.totalCount);
+        
         this.products = data.items;
         this.currentPage = data.pageNumber;
         this.totalPages = data.totalPages;
         this.totalCount = data.totalCount;
         this.hasNextPage = data.hasNextPage;
         this.hasPreviousPage = data.hasPreviousPage;
+        
+        console.log(`🎯 Collection "${collectionName}": ${data.totalCount} products found`);
       },
       error: (error) => {
         console.error('❌ Error loading collection products:', error);
-        this.error = 'Failed to load products. Please try again.';
+        this.error = `Failed to load collection "${collectionName}". Please try again.`;
+        this.products = [];
       }
     });
 }
+
+// إضافة خاصية لحفظ اسم المجموعة الحالية
+currentCollectionName: string = '';
   loadProducts(page: number = 1): void {
-      console.log('🎛️ Current filters state:', this.filters);
+  console.log('🔍 loadProducts called with page:', page);
+  console.log('🎛️ Current filters state:', this.filters);
 
-    this.loading = true;
-    this.error = null;
-  const categoryId = this.filters.selectedSubcategoryId || this.filters.selectedCategoryId;
+  this.loading = true;
+  this.error = null;
 
-    // Create filter request with minimal parameters
-    const filterRequest: any = {
+  const filterRequest: any = {
     pageNumber: page,
     pageSize: this.pageSize,
     sortBy: this.selectedSort
   };
-  if (categoryId) {
-    filterRequest.categoryId = categoryId;
-  }
- if (this.filters.selectedBrandIds && this.filters.selectedBrandIds.length > 0) {
-    filterRequest.brandIds = this.filters.selectedBrandIds;
-  }
 
-  if (this.filters.selectedFabricColorId) {
-    filterRequest.fabricColorId = this.filters.selectedFabricColorId;
-  }
-
-  if (this.filters.selectedWoodColorId) {
-    filterRequest.woodColorId = this.filters.selectedWoodColorId;
-  }
-
-  if (this.filters.minPrice !== null && this.filters.minPrice !== undefined) {
-    filterRequest.minPrice = this.filters.minPrice;
-  }
-
-  if (this.filters.maxPrice !== null && this.filters.maxPrice !== undefined) {
-    filterRequest.maxPrice = this.filters.maxPrice;
-  }
-
- if (this.filters.keyword && 
-      this.filters.keyword.trim().length > 0) {
+  // ✅ Condition للـ Keyword Search
+  if (this.filters.keyword && this.filters.keyword.trim().length > 0) {
     filterRequest.keyword = this.filters.keyword.trim();
     console.log('✅ Added keyword to request:', this.filters.keyword);
   }
-const queryParams = Object.keys(filterRequest)
-    .map(key => {
-      if (Array.isArray(filterRequest[key])) {
-        return filterRequest[key].map((val: any) => `${key}=${val}`).join('&');
-      }
-      return `${key}=${filterRequest[key]}`;
-    })
-    .join('&');
-  
-// Cast filterRequest to any to allow string indexing
 
-    this.filterService.getFilteredProducts(filterRequest)
-      .pipe(
-        takeUntil(this.destroy$),
-        finalize(() => this.loading = false)
-      )
-      .subscribe({
-        next: (data: ProductsData) => {
-          this.products = data.items;
-          
-          // Update pagination
-          this.currentPage = data.pageNumber;
-          this.totalPages = data.totalPages;
-          this.totalCount = data.totalCount;
-          this.hasNextPage = data.hasNextPage;
-          this.hasPreviousPage = data.hasPreviousPage;
-          
-          console.log('Products loaded:', data);
-        },
-        error: (error) => {
-          this.error = 'Failed to load products. Please try again.';
-          console.error('Error loading products:', error);
-        }
-      });
+  // ✅ Condition للـ Category ID
+  const categoryId = this.filters.selectedSubcategoryId || this.filters.selectedCategoryId;
+  if (categoryId && categoryId > 0) {
+    filterRequest.categoryId = categoryId;
+    console.log('✅ Added categoryId to request:', categoryId);
   }
+
+  // ✅ باقي الفلاتر...
+  if (this.filters.selectedBrandIds && this.filters.selectedBrandIds.length > 0) {
+    filterRequest.brandIds = this.filters.selectedBrandIds;
+    console.log('✅ Added brandIds to request:', this.filters.selectedBrandIds);
+  }
+
+  if (this.filters.selectedFabricColorId && this.filters.selectedFabricColorId > 0) {
+    filterRequest.fabricColorId = this.filters.selectedFabricColorId;
+    console.log('✅ Added fabricColorId to request:', this.filters.selectedFabricColorId);
+  }
+
+  if (this.filters.selectedWoodColorId && this.filters.selectedWoodColorId > 0) {
+    filterRequest.woodColorId = this.filters.selectedWoodColorId;
+    console.log('✅ Added woodColorId to request:', this.filters.selectedWoodColorId);
+  }
+
+  if (this.filters.minPrice !== null && this.filters.minPrice !== undefined && this.filters.minPrice > 0) {
+    filterRequest.minPrice = this.filters.minPrice;
+    console.log('✅ Added minPrice to request:', this.filters.minPrice);
+  }
+
+  if (this.filters.maxPrice !== null && this.filters.maxPrice !== undefined && this.filters.maxPrice > 0) {
+    filterRequest.maxPrice = this.filters.maxPrice;
+    console.log('✅ Added maxPrice to request:', this.filters.maxPrice);
+  }
+
+  console.log('🌐 Final filterRequest object:', filterRequest);
+
+  this.filterService.getFilteredProducts(filterRequest)
+    .pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.loading = false)
+    )
+    .subscribe({
+      next: (data: ProductsData) => {
+        console.log('✅ Products loaded successfully:', data);
+        console.log('📊 Products count:', data.items?.length);
+        console.log('📋 Total count from API:', data.totalCount);
+        
+        this.products = data.items;
+        this.currentPage = data.pageNumber;
+        this.totalPages = data.totalPages;
+        this.totalCount = data.totalCount;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPreviousPage = data.hasPreviousPage;
+        
+        // إظهار معلومات البحث
+        if (this.filters.keyword) {
+          console.log(`🔍 Search results for "${this.filters.keyword}": ${data.totalCount} products found`);
+        }
+      },
+      error: (error) => {
+        console.error('❌ Error loading products:', error);
+        this.error = 'Failed to load products. Please try again.';
+        this.products = [];
+      }
+    });
+}
   loadCategories(): void {
     this.loadingCategories = true;
     
@@ -283,6 +377,7 @@ const queryParams = Object.keys(filterRequest)
         }
       });
   }
+  
    loadSubcategories(categoryId: number): void {
         this.loadingSubcategories[categoryId] = true; // ✅ قبل ما تنادي API
         this.subcategories[categoryId] = [];
@@ -444,7 +539,10 @@ trackByFabricColor(index: number, color: any): number {
   }
 
   clearSearch(): void {
-    this.filters.keyword = '';
+    this.currentSearchTerm = '';
+  this.filters.keyword = '';
+  
+  // التنقل إلى صفحة المنتجات بدون بحث
     this.applyFilters();
   }
 
