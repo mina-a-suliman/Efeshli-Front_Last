@@ -4,22 +4,22 @@
 }
 
 .left-side {
-  flex: 1.1;
+  /* flex: 1.1; */
 }
 
 .left-side img {
-  width: 81.5%;
+  /* width: 81.5%; */
   height: 90%;
   object-fit: cover;
 }
 
 .right-side {
-  flex: 1;
-  padding: 2.5rem;
+  /* flex: 1; */
+  padding: 2.5rem 6rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 500px;
+  max-width: 800px;
   /* margin: 0 auto; */
 }
 
@@ -65,7 +65,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.9rem 0.55rem;
+  padding: 0.55rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   background: #f8f9fa;
@@ -93,7 +93,7 @@
 
 .divider::before {
   content: "";
-  width: 42%;
+  width: 50%;
   height: 1px;
   background: #ccc;
 }
@@ -112,8 +112,9 @@
 }
 
 .input-row input {
-  flex: 1;
+  /* flex: 1; */
   height: 45px;
+  width: 300px;
   padding: 0 0.8rem;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -122,9 +123,10 @@
 }
 
 .phone-input {
+  width: 300px;
   display: flex;
   align-items: center;
-  flex: 1;
+  /* flex: 1; */
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 0 0.5rem;
@@ -170,7 +172,7 @@
 }
 
 .signup-btn {
-  padding: 1rem 2rem;
+  padding: 0.8rem 2rem;
   margin: 1rem 0 0 0;
   border: none;
   background: black;
@@ -179,9 +181,10 @@
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: bold;
-  display: block;
+  /* display: block; */
   text-align: center;
-  width: 90.7%;
+  width: 40%;
+  
 }
 
 /* Responsive Design */
