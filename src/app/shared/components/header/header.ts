@@ -80,24 +80,44 @@ export class HeaderComponent implements OnInit {
     }, 0);
 }
 
-  showMobileSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    if (sidebar && overlay) {
-        sidebar.classList.add('active');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+//   showMobileSidebar() {
+//     const sidebar = document.getElementById('sidebar');
+//     const overlay = document.getElementById('overlay');
+//     if (sidebar && overlay) {
+//         sidebar.classList.add('active');
+//         overlay.classList.add('active');
+//         document.body.style.overflow = 'hidden';
+//     }
+// }
+
+showMobileSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  if (sidebar && overlay) {
+    sidebar.classList.add('active');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // يمنع سكرول تحت السايدبار
+  }
 }
 
+// hideMobileSidebar() {
+//     const sidebar = document.getElementById('sidebar');
+//     const overlay = document.getElementById('overlay');
+//     if (sidebar && overlay) {
+//         sidebar.classList.remove('active');
+//         overlay.classList.remove('active');
+//         document.body.style.overflow = 'auto';
+//     }
+// }
+
 hideMobileSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    if (sidebar && overlay) {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  if (sidebar && overlay) {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
 }
 
 toggleMobileSearch() {
