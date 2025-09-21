@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router'; // ✅ Added ActivatedRoute
 import { ApiResponse, AuthService, LoginRequest } from '../../../../core/services/auth.service';
+import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private tost:ToastService,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute, // ✅ Inject ActivatedRoute
@@ -60,6 +62,7 @@ export class LoginComponent implements OnInit {
       next: (response: ApiResponse<string>) => {
         this.isLoading.set(false);
         if (response.succeeded && response.data) {
+          this.tost.showSuccess('Login successful', 'Welcome Back!');
           this.redirectAfterLogin();
         } else {
           this.handleFailedResponse(response);
