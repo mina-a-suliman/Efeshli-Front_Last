@@ -20,7 +20,7 @@
     ]
   },
   "private": true,
-   "dependencies": {
+  "dependencies": {
     "@abacritt/angularx-social-login": "^2.5.0",
     "@angular/animations": "^20.1.6",
     "@angular/cdk": "^20.3.1",
@@ -29,7 +29,7 @@
     "@angular/core": "^20.3.1",
     "@angular/forms": "^20.3.1",
     "@angular/material": "^20.3.1",
-    "@angular/platform-browser": "^^20.3.1",
+    "@angular/platform-browser": "^20.3.1",
     "@angular/platform-browser-dynamic": "^20.1.6",
     "@angular/router": "^20.3.1",
     "@stripe/stripe-js": "^7.9.0",
