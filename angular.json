@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "eFreshli-clone": {
+    "e-freshli-clone": {
       "projectType": "application",
       "schematics": {},
       "root": "",
