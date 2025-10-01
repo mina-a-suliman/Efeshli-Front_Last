@@ -5,9 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "cross-env API_URL=$API_URL ng build --configuration production",
-    "postbuild": "cp src/assets/env.template.js dist/eFreshli-clone/browser/assets/env.js && sed -i 's|http://localhost:5000/api|'\"${API_URL}\"'|g' dist/eFreshli-clone/browser/assets/env.js",
+    "postbuild": "cp src/assets/env.template.js dist/e-freshli-clone/browser/assets/env.js && sed -i 's|http://localhost:5000/api|'\"${API_URL}\"'|g' dist/e-freshli-clone/browser/assets/env.js",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "vercel-build": "npm run build"
   },
   "prettier": {
     "overrides": [
@@ -22,26 +23,27 @@
   "private": true,
   "dependencies": {
     "@abacritt/angularx-social-login": "^2.5.0",
-    "@angular/animations": "^20.3.1",
-    "@angular/cdk": "^20.1.0",
-    "@angular/common": "^20.1.0",
-    "@angular/compiler": "^20.1.0",
-    "@angular/core": "^20.1.6",
-    "@angular/forms": "^20.1.0",
-    "@angular/material": "^20.1.0",
-    "@angular/platform-browser": "^20.1.6",
-    "@angular/router": "^20.1.6",
+    "@angular/animations": "^20.2.0",
+    "@angular/cdk": "^20.2.0",
+    "@angular/common": "^20.2.0",
+    "@angular/compiler": "^20.2.0",
+    "@angular/core": "^20.2.0",
+    "@angular/forms": "^20.2.0",
+    "@angular/material": "^20.2.0",
+    "@angular/platform-browser": "^20.2.0",
+    "@angular/platform-browser-dynamic": "^20.2.0",
+    "@angular/router": "^20.2.0",
     "@stripe/stripe-js": "^7.9.0",
     "ngx-toastr": "^19.1.0",
     "rxjs": "~7.8.0",
     "sweetalert": "^2.1.2",
     "tslib": "^2.3.0",
-    "zone.js": "^0.15.1"
+    "zone.js": "^0.14.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.1.5",
+    "@angular-devkit/build-angular": "^20.2.0",
     "@angular/cli": "^20.2.0",
-    "@angular/compiler-cli": "^20.1.0",
+    "@angular/compiler-cli": "^20.2.0",
     "@types/facebook-js-sdk": "^3.3.12",
     "@types/google.accounts": "^0.0.17",
     "@types/jasmine": "~5.1.0",
