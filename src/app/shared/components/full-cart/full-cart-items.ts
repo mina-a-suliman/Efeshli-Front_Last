@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 import { StripeService } from '../../../core/services/Stripe.service';
 import { CartService, CartDto, CartItemDto } from '../../../core/services/cart.service';
-import { ToastService } from '../../../core/services/toast.service';  // 👈 import
+import { ToastService } from '../../../core/services/toast.service';  
 
 @Component({
   selector: 'app-full-cart',
@@ -34,7 +34,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
     private stripeService: StripeService,
     private cartService: CartService,
     private router: Router,
-    private toast: ToastService   // 👈 inject toast service
+    private toast: ToastService  
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
     if (!token) {
       this.isLoading = false;
       this.errorMessage = 'Please log in to view your cart';
-      this.toast.showError(this.errorMessage, 'Cart'); // 👈 toast
+      this.toast.showError(this.errorMessage, 'Cart'); 
       return;
     }
 
@@ -68,7 +68,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
         } else {
           this.errorMessage = resp.message ?? 'Failed to load cart';
           this.serverCart = null;
-          this.toast.showError(this.errorMessage, 'Cart'); // 👈 toast
+          this.toast.showError(this.errorMessage, 'Cart'); 
         }
       },
       error: (err) => {
@@ -83,7 +83,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
         } else {
           this.errorMessage = err?.message || 'Failed to load cart';
         }
-        this.toast.showError(this.errorMessage??'', 'Cart'); // 👈 toast
+        this.toast.showError(this.errorMessage??'', 'Cart'); 
       }
     });
   }
@@ -108,7 +108,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
       next: (resp) => {
         if (resp.succeeded) {
           this.loadCart();
-          this.toast.showSuccess('Quantity updated', 'Cart'); // 👈 toast
+          this.toast.showSuccess('Quantity updated', 'Cart'); 
         } else {
           this.toast.showError(resp.message || 'Failed to update quantity', 'Cart');
         }
@@ -122,7 +122,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
       next: (resp) => {
         if (resp.succeeded) {
           this.loadCart();
-          this.toast.showSuccess('Item removed from cart', 'Cart'); // 👈 toast
+          this.toast.showSuccess('Item removed from cart', 'Cart'); 
         } else {
           this.toast.showError(resp.message || 'Failed to remove item', 'Cart');
         }
@@ -136,7 +136,7 @@ export class FullCartItemsComponent implements OnInit, OnDestroy {
       next: (resp) => {
         if (resp.succeeded) {
           this.loadCart();
-          this.toast.showSuccess('Cart cleared', 'Cart'); // 👈 toast
+          this.toast.showSuccess('Cart cleared', 'Cart'); 
         } else {
           this.toast.showError(resp.message || 'Failed to clear cart', 'Cart');
         }
