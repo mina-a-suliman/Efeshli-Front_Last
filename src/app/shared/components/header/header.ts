@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
   isLoaded = false;
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
-  // البيانات الديناميكية
   mainCategories: Category[] = [];
   subCategories: { [key: string]: Category[] } = {};
   furnitureData: { [key: string]: Category[] } = {};
@@ -64,8 +63,8 @@ export class HeaderComponent implements OnInit {
   ) {
     this.currentUser = this.authService.getCurrentUser();
     this.searchSubject.pipe(
-      debounceTime(300), // انتظار 300ms بعد آخر كتابة
-      distinctUntilChanged(), // تجاهل القيم المتكررة
+      debounceTime(300), 
+      distinctUntilChanged(),
     ).subscribe(searchTerm => {
       if (searchTerm.trim().length > 0) {
         this.performSearch(searchTerm.trim());
